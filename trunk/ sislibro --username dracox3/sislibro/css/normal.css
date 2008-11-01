@@ -1,0 +1,82 @@
+body	{ font-family: Arial; font-size: 11px; color: #000045; margin-top: 2px; text-align: center; }
+p	{ font-family: Arial; font-size: 11px;  margin:4px; }
+h1	{ font-family: Arial; font-size: 11px; color: #000033; margin:2px; }
+h2	{ font-family: Arial; font-size: 11px; color: #000033; margin:2px; }
+h3	{ font-family: Arial; font-size: 11px; font-style: italic; color: #000033; margin:2px; }
+h4	{ font-family: Arial; font-size: 11px; text-decoration:underline; color: #000033; margin:2px; }
+table { font-family: Arial; font-size: 11px; color: #000045; }
+form { margin: 0px; }
+a { font-family: Arial; font-size: 11px; font-style: normal; color: #000066; margin-top: 2px; margin-bottom: 2px; text-decoration: none; }
+.nota { font-family: Arial; font-size: 10px; color: #003300; margin-top: 2px; }
+.titular	{background-image:url('../img/gimnasios.jpg'); background-position:center; background-repeat:no-repeat; height:100px; background-color:#00053C; border: #00053C 1px solid; text-align:right;}
+.bienvenidos { margin-bottom:1px; border: #00053C 1px solid; font-family: Arial; font-size: 11px; color: #000066; text-align:center;}
+.cuadros1	{ margin-top:2px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; }
+.cuadros2	{ font-family:Arial; font-size:11px; }
+.cuad1_quemas	{ margin:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #663399; height:20px; border:1px solid #663399;}
+.cuad2_quemas	{ margin:1px; font-family:Arial; font-size:11px; border-bottom:1px solid #663399;}
+.cuad1_nuevos	{ margin:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #BB0000; height:20px; border:1px solid #BB0000;}
+.cuad2_nuevos	{ margin:1px; font-family:Arial; font-size:11px; border-bottom:1px solid #BB0000;}
+.cuad1_docentes	{ margin-top:1px; margin-left:1px; margin-right:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #CC9900; height:20px; border:1px solid #CC9900;}
+.cuad2_docentes	{ margin-bottom:1px; margin-left:1px; margin-right:1px; padding:2px; font-family:Arial; font-size:11px; text-align:center; background-color: #FFFFCC;}
+.cuad1_user	{ margin:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #CC6633; border:1px solid #CC6633; height:20px;}
+.cuad2_user	{ margin:1px; font-family:Arial; font-size:11px; text-align:center; border-bottom:1px solid #CC6633;}
+.cuad1_datos	{ margin:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #336600; height:20px; border:1px solid #336600;}
+.cuad2_datos	{ margin:1px; font-family:Arial; font-size:11px; border-bottom:1px solid #336600;}
+.cuad2_datos2	{ margin:1px; font-family:Arial; font-size:11px; text-align:center;}
+.cuad1_subcat	{ margin:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #003399; border:1px solid #003399; height:20px;}
+.cuad2_subcat	{ margin:1px; font-family:Arial; font-size:11px; }
+.cuad1_busca	{ margin:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #CC6633; border:1px solid #CC6633; height:20px;}
+.cuad2_busca	{ margin:1px; font-family:Arial; font-size:11px; text-align:center; border-bottom:1px solid #CC6633;}
+.cuad2_busca2	{ margin:1px; font-family:Arial; font-size:11px; text-align:center;}
+.cuad1_cat1	{ margin:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #666633; border:1px solid #666633; height:20px; }
+.cuad2_cat1	{ margin:1px; font-family:Arial; font-size:11px; border-bottom:1px solid #666633;}
+.cuad1_cat2	{ margin:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #666633; border:1px solid #666633; height:20px; }
+.cuad2_cat2	{ margin:1px; font-family:Arial; font-size:11px; border-bottom:1px solid #666633;}
+.cuad1_herr	{ margin:1px; margin:1px; color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #993300; border:1px solid #993300; height:20px; }
+.cuad2_herr	{ font-family:Arial; font-size:11px; border-bottom:1px solid #993300;}
+.cuad_pie	{ text-align:center; border:1px solid #3333CC; margin-top:4px;}
+.categoria	{ font-family:Arial; font-size:11px; font-weight: bold; text-decoration:none; color:#333333;}
+a.categoria	{ font-family:Arial; font-size:11px; font-weight: bold; text-decoration:none; color:#333333;}
+a.categoria:hover	{ font-family:Arial; font-size:11px; font-weight: bold; text-decoration:none; color: #006600;}
+.subcategoria	{ font-family:Arial; font-size:10px; font-weight:normal; text-decoration:none; color:#333333;}
+a.subcategoria	{ font-family:Arial; font-size:10px; font-weight:normal; text-decoration:none; color:#333333;}
+a.subcategoria:hover	{ font-family:Arial; font-size:10px; font-weight:normal; text-decoration: underline; color: #006600;}
+.boton { font-family: Arial; font-size: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #FF6600; background-color: #CC6633; height:20px; width:60px; margin-top:2px; margin-bottom:2px; }
+.boton2 { font-family: Arial; font-size: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #3366CC; background-color: #003399; height:20px; width:60px; }
+.boton3 { font-size: 10px; color: #FFFFFF; border: 1px solid #003399; background-color: #003399; width:20px; margin: 2px; }
+.boton4 { font-size: 10px; color: #003399; border: 1px solid #003399; background-color: #FFFFFF; width:20px; margin: 2px; }
+.botonuser { font-family: Arial; font-size: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #FF6600; background-color: #CC6633; height:20px; width:60px; margin-top:2px; margin-bottom:2px; }
+.botonrecom { font-family: Arial; font-size: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #000066; background-color: #0066CC; height:20px; width:150px; margin-top:2px; margin-bottom:2px; }
+.recomendar	{text-align:center; margin-bottom:15px; margin-top:15px;}
+.cajauser { font-family: Arial; color: #000033; font-size: 11px; border: 1px solid #CC6633; margin-top:2px; margin-bottom:2px; height:16px; }
+.caja { font-family: Arial; color: #000033; font-size: 11px; border: 1px solid #CC6633; margin-top:2px; margin-bottom:2px; height:16px; }
+.select { font-family: Arial; font-size:10px; color: #000033; border: 1px solid #CC6633; margin-top:2px; margin-bottom:2px; padding:0px; }
+.caja2 { font-family: Arial; color: #000033; font-size: 11px; border: 1px solid #3366CC; margin-top: 0px; margin-bottom:0px; height:20px; }
+.textarea2 { font-family: Arial; color: #000033; font-size: 11px; border: 1px solid #3366CC; margin-top: 0px; margin-bottom:0px; }
+.mail2 {padding: 2px; margin-top:25px; margin-bottom:25px;  border-bottom: solid #003399 1px; border-top: solid #003399 1px; text-align:center; width:368px; height:50px;}
+.recom2 {margin-bottom:2px; margin-top:2px;}
+.recom3 {font-family: Arial; font-size: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #CC0000; background-color: #993300;}
+.respuestas { font-family: Arial; font-size: 11px; color: #CC3300; margin-top: 2px; font-weight: bold; margin-bottom: 6px; padding-left: 50px; }
+a.respuestas { font-family: Arial; font-size: 11px; color: #CC3300; margin-top: 2px; font-weight: bold; margin-bottom: 6px; padding-left: 50px; }
+a:hover.respuestas { font-family: Arial; font-size: 11px; color: #FF3300; margin-top: 2px; font-weight: bold; margin-bottom: 6px; padding-left: 50px; }
+.h2link { font-family: Arial; font-size: 11px; font-style: normal; color: #000066; margin-top: 2px; margin-bottom: 2px; text-decoration: none; }
+a.h2link { font-family: Arial; font-size: 11px; font-style: normal; color: #000066; margin-top: 2px; margin-bottom: 2px; text-decoration: none; }
+a:hover.h2link { font-family: Arial; font-size: 11px; font-style: normal; color: #003399; margin-top: 2px; margin-bottom: 2px; text-decoration:underline; }
+.copy	{ font-family: Arial; font-size: 9px; color: #000033; }
+a.copy	{ font-family: Arial; font-size: 9px; color: #000033; }
+.sangria1 { font-family: Arial; font-size: 11px; margin-top: 2px; margin-bottom: 2px; text-align: left; margin-left: 20px; }
+.descripcion { font-family: Arial; font-size: 11px; color: #000033; margin: 2px; }
+.pie { font-family: Arial; font-size: 12px; font-style: normal; color: #000033; }
+.titulos { font-family: Arial; font-size: 11px; font-style: normal; font-weight: bold; color: #000033; margin: 2px; }
+.overline	{text-decoration: overline;}
+.underline	{text-decoration: underline;}
+.logo1 {border:#00053C 1px solid; width:100px; height:28px; background-image:url(../images/fisicanet2.jpg); background-repeat:no-repeat; background-color:#00053C;}
+.logo3 {font-family: Arial; font-weight: bold; color: #FF9900; font-size: 10px; margin-right:3px;}
+.izquierda	{ width:170px; text-align:left; vertical-align:top; border:1px solid #00053C;}
+.centro	{ width:600px; text-align:left; vertical-align:top;}
+.derecha	{ width:170px; text-align:left; vertical-align:top; border:1px solid #00053C;}
+.lista	{list-style-type:none; margin:2px; padding:0px;}
+.lupa	{padding-top:25px; padding-bottom:15px;}
+.ulrecomendar	{list-style-type:none; margin:2px; padding:0px;}
+.notapie_apunte1	{margin-left:2px; margin-top:10px; margin-bottom:10px;}
+.notapie_apunte2	{color:#CC6600; font-size:14px; font-weight:bold;}
