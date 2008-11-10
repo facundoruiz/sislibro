@@ -1,0 +1,81 @@
+body	{ background-repeat: no-repeat; font-family: Arial; font-size: 11px; color: #000066; margin-top: 2px;  position:fixed; background-image: img/fondo.gif; background-color: #FFFFFF }
+
+table { font-family: Arial; font-size: 11px; color: #000099; cellspacing=0; cellpadding=0 }
+form { margin: 0px; }
+a { font-family: Arial; font-size: 11px; font-style: normal; color: #000066; margin-top: 2px; margin-bottom: 2px; text-decoration: overline underline; }
+
+
+.banner	{
+background-image:url('');
+background-position:center;
+background-repeat:no-repeat; height:80px;  border: #00053C 1px solid; text-align:right;}
+.bienvenidos { margin-bottom:1px; border: #00053C 1px solid; font-family: Arial; font-size: 11px; color: #000066; text-align:left;  }
+
+
+.t_user	{  color:#000F88; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #CCFFCC; border:1px solid #CC6633; height:20px;}
+.c_user	{  font-family:Arial; font-size:11px; text-align:center; border:1px solid #CC6633;}
+
+.t_menu	{ color:#FFFFFF; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #356AA0; border:1px solid #356AA0; height:20px;}
+.c_menu	{  font-family:Arial; font-size:11px; text-align:left; border:1px solid #C3D9FF;}
+
+
+.link a {
+color: #000000;
+background-color:#FFFFFF;
+padding: 2px;
+padding-left: 3px;
+display: block;
+border-left: 10px solid #C0C0C0;
+font: Arial, sans-serif;
+font-weight: bold;
+text-decoration: none;
+text-align: left;
+margin-top: 1px;}
+
+.link a:hover {border-left: 10px solid #C3D9FF;
+text-decoration: overline underline;
+color: #0000CC;}
+
+.link2 a {
+color: #000000;
+background-color:#FFFFFF;
+padding: 2px;
+padding-left: 3px;
+display: block;
+border-left: 10px solid #C0C0C0;
+font: Arial, sans-serif;
+font-weight: bold;
+text-decoration: none;
+text-align: left;
+margin-top: 1px;}
+.link2 a:hover {border-left: 10px solid #99CCFF;
+text-decoration: overline underline;
+color: #0000FF;}
+
+.t_datos	{  color:#000F88; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #99CCFF; border:1px solid #99CCFF; height:20px;}
+.c_datos	{  font-family:Arial; font-size:11px; text-align:left; border:1px solid #99CCFF; background-color:#CCFFFF}
+
+.descripcion { font-family: Arial; font-size: 12px; color: #000033; margin: 1px; }
+.boton { font-family: Arial; font-size: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #FF6600; background-color: #CC6633; height:20px;  margin-top:2px; margin-bottom:2px; }
+
+.button { font-family: Arial; font-size: 10px; color: #000000; font-weight: bold; border: 1px solid #666666; background-color: #DDDBDB;    text-decoration:none;}
+.button_form { font-family: Arial; font-size: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #FF6600; background-color: #CC6633;    text-decoration:none;}
+
+
+
+.caja { font-family: Arial; color: #000033; font-size: 11px; border: 1px solid #CC6633;   }
+.titulos { font-family: Arial,garamond; font-size: 14px; font-style: normal; font-weight: bold; color: #000033; margin: 2px; text-align:center }
+
+.rotulo	{  color:#000F88; font-family:Arial; font-size:11px; font-weight:bold; line-height:20px; text-align:center; vertical-align:middle; background-color: #C3D9FF; border:1px solid #99CCFF; height:20px;}
+.datos	{ font-family:Arial; font-size:11px; text-align:left; border:1px solid #99CCFF; background-color:#CCFFFF;  }
+
+.centro	{ width:800px; text-align:center; }
+.izquierda	{ width:180px; text-align:left; border:1px solid #00053C; filter:alpha(opacity=90);  }
+.cuerpo	{ width:650px; text-align:left;  border:1px solid #00053C; top:200px; filter:alpha(opacity=90);}
+
+
+.pie { font-family: Arial; font-size: 10px; font-style: normal; color: #000033; text-align:center; }
+.notapie	{margin-left:2px; margin-top:10px; margin-bottom:10px;}
+.cuad_pie	{ text-align:center; border:1px solid #3333CC; margin-top:4px;}
+.copy	{ font-family: Arial; font-size: 9px; color: #C0C0C0; }
+a.copy	{ font-family: Arial; font-size: 9px; color: #000033; }
