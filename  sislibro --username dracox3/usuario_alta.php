@@ -1,19 +1,60 @@
-<?php include("cabecera.php"); ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>ALTA DE USUARIOS</title>
+<?php 
+include("cabecera.php");
 
-</head>
-<body >
+$user=$_SESSION['miuser'];
+?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="es"><head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<title>Sislibro</title>
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-language" CONTENT="es">
+
+<?php include("funcionesGrales.php");?>
+
+
+
+</head><body dir="ltr" lang="es">
+<div align="center">
+<div >
+<div class="banner"><span class="logo3">
+</span><br>
+</div>
+<div class="bienvenidos">
+<?php echo $r->inf();  ?>
+</div><table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Contenido">
+<tr>
+<td  class="izquierda"  valign="top">
+<div class="t_menu">SubMENU</div>
+ <div id="c_menu"> 
+<?php echo $r->Submenu(2); ?>
+      </div>
+<td  class="centro">
+
+<div class="t_datos">SISTEMAS</div>
+<div class="descripcion">
+
+
 <form name="form1" method="post" action="">
+<table >
+<tr> <td>
   INGRESE LOS DATOS DEL USUARIO A DAR DE ALTA
-  USUARIO<input name=" alta_user" type="text"  id="alta_user" value="<?php echo $_POST['alta_user'];?>" onBlur="submit();">
+  </td></tr>
+<tr> <td>  
+USUARIO<input name=" alta_user" type="text"  id="alta_user" value="<?php echo $_POST['alta_user'];?>" onBlur="submit();">
+</td></tr> 
+  <tr> <td>
   CONTRASE&Ntilde;A<input name="alta_pass" type="password"  id="alta_pass" value="<?php echo $_POST['alta_pass'];?>">
+  </td></tr>
+  <tr> <td>
   NOMBRE<input name="alta_nombre" type="text"  id="alta_nombre" value="<?php echo $_POST['alta_nombre'];?>">
+  </td></tr>
+  <tr> <td>
   APELLIDO<input name="alta_apellido" type="text"  id="alta_apellido" value="<?php echo $_POST['alta_apellido'];?>">
-  FUNCION
+  </td></tr>
+  <tr> <td>FUNCION
   <select name="alta_funcion" id="alta_funcion">
 			<?php
 				$q_fin="select item,descrip from diccionario where codigo = 7"; //combo estados finalizacion
@@ -24,10 +65,11 @@
 				</option>
 			<?php }?>
 			</select>
-		 <input type="submit" name="Submit" value="AGREGAR" onClick='document.form1.action="usuario_guardar.php"' >
+</td></tr>
+<tr><td>		 <input type="submit" name="Submit" value="AGREGAR" onClick='document.form1.action="usuario_guardar.php"' >
         
         <input name="reestablecer" type="reset" id="reestablecer" value="RESTABLECER">
-     
+     </td></tr>
 <?php
 $username=trim(strtr(strtoupper($_POST['alta_user']), 'áéíóúñ', 'AEIOUÑ'));
 $qvtemp="select usuario from t_usuarios where usuario='$username'";
@@ -52,5 +94,15 @@ else
 </form>
 
 	
-</body>
-</html>
+
+</div></td>
+</tr>
+</table>
+</div>
+<div class="pie">
+
+<p>Desarrollado por  </p>
+<p class="copy">Copyright &copy; 2008  &reg; Todos los derechos reservados</p>
+</div></div>
+</div>
+</body></html>

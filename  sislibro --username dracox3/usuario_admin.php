@@ -1,15 +1,43 @@
-<?php include("cabecera.php"); ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>ADMINISTRAR USUARIOS</title>
-</head>
-<body>
-<a href="menu.php"><IMG SRC="img/volver.gif" WIDTH="35" HEIGHT="35" BORDER="0" ALT=""><BR>
-Menu Principal</a>
+<?php 
+include("cabecera.php");
+
+$user=$_SESSION['miuser'];
+?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="es"><head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<title>Sislibro</title>
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-language" CONTENT="es">
+
+<?php include("funcionesGrales.php");?>
+
+
+
+</head><body dir="ltr" lang="es">
+<div align="center">
+<div >
+<div class="banner"><span class="logo3">
+</span><br>
+</div>
+<div class="bienvenidos">
+<?php echo $r->inf();  ?>
+</div><table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Contenido">
+<tr>
+<td  class="izquierda"  valign="top">
+<div class="t_menu">SubMENU</div>
+ <div id="c_menu"> 
+<?php echo $r->Submenu(2); ?>
+      </div>
+<td  class="centro">
+
+<div class="t_datos">ADMINISTRADOR DE USUARIOS</div>
+<div class="descripcion">
+
     
-	<form name="form1" method="post" action="">
+	<form name="form1" method="post" action=""  >
 	
     <strong>
     <input name="orden" type="radio" value="usuario" onClick="submit()" <?php echo (!$_POST['orden'] or $_POST['orden'])=='usuario'?'checked':''; ?>>
@@ -23,7 +51,8 @@ Menu Principal</a>
         <strong>
           <input name="orden" type="radio" value="habilitado" onClick="submit()" <?php echo ($_POST['orden']=='habilitado')?'checked':''; ?>>
           HABILITADO</strong>
-  
+  <table class="c_menu"> 
+ 
 	  <?php
 	  $orden_f=($_POST['orden'])?$_POST['orden']:'usuario';
 	  $quser =" select u.id_usuario,u.usuario,u.apellido||', '||u.nombre as nombres,d.descrip as funcion, habilitado from t_usuarios u ";
@@ -43,9 +72,17 @@ Menu Principal</a>
 		</td>
       </tr>
 	  <?php $i++;}?>
-    
+    </table>
 	</form>
 	
-	
-</body>
-</html>
+</div></td>
+</tr>
+</table>
+</div>
+<div class="pie">
+
+<p>Desarrollado por  </p>
+<p class="copy">Copyright &copy; 2008  &reg; Todos los derechos reservados</p>
+</div></div>
+</div>
+</body></html>

@@ -1,19 +1,41 @@
-<?php include("cabecera.php"); ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?php 
+include("cabecera.php");
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>sislibro</title>
-<link href="letras.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-<!--
-.Estilo3 {font-size: 18px}
--->
-</style>
-</head>
+$user=$_SESSION['miuser'];
+?>
 
-<body background="img/Fondo.jpg">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="es"><head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<title>Sislibro</title>
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-language" CONTENT="es">
+
+<?php include("funcionesGrales.php");?>
+
+
+
+</head><body dir="ltr" lang="es">
+<div align="center">
+<div >
+<div class="banner"><span class="logo3">
+</span><br>
+</div>
+<div class="bienvenidos">
+<?php echo $r->inf();  ?>
+</div><table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Contenido">
+<tr>
+<td  class="izquierda"  valign="top">
+<div class="t_menu">SubMENU</div>
+ <div id="c_menu"> 
+<?php echo $r->Submenu(2); ?>
+      </div>
+<td  class="centro">
+
+<div class="t_datos">SISTEMAS</div>
+<div class="descripcion">
+
 
 <?php
 $usuario=$r;		
@@ -40,14 +62,6 @@ if($_POST['Submit']){
 }
 ?>
 <form name="form1" method="post" action="">
-<table width="750">
-  <tr>
-    <td colspan="2"><div align="center"><img src="img/titulo.JPG" ></div></td>
-  </tr>
-  <tr>
-    <td width="175" align="center" valign="top">&nbsp;<a href="menu.php?SID"><IMG SRC="img/volver.gif" WIDTH="35" HEIGHT="35" BORDER="0" ALT=""><BR>
-Menu Principal</a> </td>
-    <td width="616" align="center" valign="middle">
 	<?php
 		$quser="select u.id_usuario,u.usuario,u.nombre,u.apellido,d.descrip as func from t_usuarios u left join diccionario d on (d.codigo=8 and u.funcion=d.item)";
 		$quser.=" where upper(usuario) = '".strtoupper($_SESSION['miuser'])."'";
@@ -55,55 +69,55 @@ Menu Principal</a> </td>
 		$auser=pg_fetch_array($ruser);
 	?>
 	
-	<table width="398" height="324" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#CCCCCC" class="letra">
-      <tr valign="middle" bgcolor="#009900" class="titulo">
-        <td height="33" colspan="3" align="center" class="letras"><strong>MODIFICAR CONTRASE&Ntilde;A </strong></td>
+	<table width="398" height="324" border="0" align="center" cellpadding="0" cellspacing="0" >
+      <tr valign="middle" >
+        <td height="33" colspan="3" align="center" ><strong>MODIFICAR CONTRASE&Ntilde;A </strong></td>
       </tr>
       <tr>
         <td width="23" align="center" valign="middle"></td>
         <td width="143" height="33" align="left" valign="middle"> USUARIO</td>
-        <td width="232" height="33"align="center" valign="middle"><input name="usuario_pass" type="text" class="inputbox" id="alta_user" value="<?php echo $auser['usuario'];?>" readonly>
+        <td width="232" height="33"align="center" valign="middle"><input name="usuario_pass" type="text"  id="alta_user" value="<?php echo $auser['usuario'];?>" readonly>
           <input name="id_us_pass" type="hidden" id="id_us_pass" value="<?php echo $auser['id_usuario'];?>"></td>
       </tr>
       <tr>
-        <td  align="center" valign="middle" class="titulo Estilo4"></td>
+        <td  align="center" valign="middle" ></td>
         <td height="33"  align="left" valign="middle" > NOMBRE</td>
-        <td height="33" align="center" valign="middle"><input name="alta_nombre" type="text" class="inputbox" id="alta_nombre" value="<?php echo $auser['nombre'];?>" readonly></td>
+        <td height="33" align="center" valign="middle"><input name="alta_nombre" type="text"  id="alta_nombre" value="<?php echo $auser['nombre'];?>" readonly></td>
       </tr>
       <tr>
-        <td  align="center" valign="middle" class="titulo Estilo4"></td>
+        <td  align="center" valign="middle"></td>
         <td height="33"  align="left" valign="middle" > APELLIDO</td>
-        <td height="33" align="center" valign="middle"><input name="alta_apellido" type="text" class="inputbox" id="alta_apellido" value="<?php echo $auser['apellido'];?>" readonly></td>
+        <td height="33" align="center" valign="middle"><input name="alta_apellido" type="text"  id="alta_apellido" value="<?php echo $auser['apellido'];?>" readonly></td>
       </tr>
       <tr>
-        <td  align="center" valign="middle" class="titulo Estilo4"></td>
+        <td  align="center" valign="middle"></td>
         <td height="33"  align="left" valign="middle" > FUNCION</td>
-        <td height="33" align="center" valign="middle"><input name="funcion" type="text" class="inputbox" id="funcion" value="<?php echo $auser['func'];?>" readonly></td>
+        <td height="33" align="center" valign="middle"><input name="funcion" type="text"  id="funcion" value="<?php echo $auser['func'];?>" readonly></td>
       </tr>
       <tr>
-        <td  align="center" valign="middle" class="titulo Estilo4"></td>
+        <td  align="center" valign="middle" ></td>
         <td height="33"  align="left" valign="middle" > CONTRASE&Ntilde;A </td>
-        <td height="33" align="center" valign="middle"><input name="pass_old" type="password" class="inputbox" id="pass_old" value="">
+        <td height="33" align="center" valign="middle"><input name="pass_old" type="password"  id="pass_old" value="">
         </td>
       </tr>
       <tr>
-        <td  align="center" valign="middle" class="titulo Estilo4"></td>
+        <td  align="center" valign="middle" ></td>
         <td height="33"  align="left" valign="middle" > CONTRASE&Ntilde;A NUEVA</td>
-        <td height="33" align="center" valign="middle"><input name="pass" type="password" class="inputbox" id="pass" value="">
+        <td height="33" align="center" valign="middle"><input name="pass" type="password" id="pass" value="">
         </td>
       </tr>
       <tr>
-        <td  align="center" valign="middle" class="titulo Estilo4"></td>
+        <td  align="center" valign="middle" ></td>
         <td height="33"  align="left" valign="middle" > REPETIR <br>
           CONTRASE&Ntilde;A NUEVA </td>
-        <td height="33" align="center" valign="middle"><input name="repass" type="password" class="inputbox" id="repass" value=""></td>
+        <td height="33" align="center" valign="middle"><input name="repass" type="password" id="repass" value=""></td>
       </tr>
-      <tr class="titulo">
+      <tr>
         <td align="center" valign="middle"></td>
         <td height="20" align="center" valign="middle"></td>
         <td height="20" align="center" valign="middle"></td>
       </tr>
-      <tr class="titulo">
+      <tr>
         <td align="center" valign="middle"></td>
         <td height="20" align="center" valign="middle"><input type="submit" name="Submit" value="MODIFICAR" class="button" ></td>
         <td height="20" align="center" valign="middle" bordercolor="#F8EAFD"><input type="reset" name="Submit" value="RESTABLECER" class="button"></td>
@@ -115,16 +129,17 @@ Menu Principal</a> </td>
       </tr>
     </table>
 	
-	</td>
-  </tr>
-  <tr>
-    <td colspan="2"><hr>
-   
-    <p>&nbsp;</p></td>
-  </tr>
-</table>
+	
 </form>
-<br>
-<br>
-</body>
-</html>
+
+</div></td>
+</tr>
+</table>
+</div>
+<div class="pie">
+
+<p>Desarrollado por  </p>
+<p class="copy">Copyright &copy; 2008  &reg; Todos los derechos reservados</p>
+</div></div>
+</div>
+</body></html>
