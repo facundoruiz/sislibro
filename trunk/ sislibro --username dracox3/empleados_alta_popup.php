@@ -87,13 +87,13 @@ $user=$_SESSION['miuser'];
    <th scope="row" >Provincia</th>
    <td  align="left"><select name="prov" onChange="document.form1.submit()">
     <option value="-1" >-- Provincia --</option>
- <?php 	$qprov="select item,descrip from t_provincias  order by descrip desc";
+ <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
 		$Prov=isset($_POST['prov'])?$_POST['prov']:$empleado->get_provincia();
 		while ($aprov=pg_fetch_array($rprov)){	
 			
 			?>
-<option value="<?php echo $aprov['item'];?>"<?php echo($Prov==$aprov['item'])?'selected':'';?>><?php echo $aprov['descrip'];?>   </option><?php }?>
+<option value="<?php echo $aprov['idprovincia'];?>"<?php echo($Prov==$aprov['idprovincia'])?'selected':'';?>><?php echo $aprov['descrip'];?>   </option><?php }?>
 </select></td>
     </tr>    
  
@@ -101,24 +101,24 @@ $user=$_SESSION['miuser'];
    <th scope="row" >Localidad</th>
    <td  align="left"><select name="Loc"   >
     <option value="-1" >-- Localidad --</option>
- <?php 	$qLoc="select item,descrip from t_localidades where codigo=".$Prov." order by descrip asc";
+ <?php 	$qLoc="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov." order by descrip asc";
 		$rLoc=pg_query($qLoc);
 		$loc=isset($_POST['Loc'])?$_POST['Loc']:$empleado->get_localidad(); 
 		while ($aLoc=pg_fetch_array($rLoc)){	
 			
 			?>
-<option value="<?php echo $aLoc['item'];?>"<?php echo($loc==$aLoc['item'])?'selected':'';?>><?php echo $aLoc['descrip'];?>   </option><?php }?>
-</select><A HREF="a_localidad.php" class="button">&nbsp;Cargar Localidades</A></td>
+<option value="<?php echo $aLoc['idlocalidad'];?>"<?php echo($loc==$aLoc['idlocalidad'])?'selected':'';?>><?php echo $aLoc['descrip'];?>   </option><?php }?>
+</select><A HREF="localidad_alta.php" class="button" target="_blank">&nbsp;Cargar Localidades</A></td>
     </tr>
 <tr>
     <th scope="row" >Barrio</th>
- <td ><input type="text"  name="barrio" class="ta"  title="Ingrese el Barrio" value="<?php echo isset($_POST['barrio'])?strtoupper($_POST['barrio']):$empleado->get_barrio();  ?>"></td>
+ <td ><input type="text"  name="barrio"  title="Ingrese el Barrio" value="<?php echo isset($_POST['barrio'])?strtoupper($_POST['barrio']):$empleado->get_barrio();  ?>"></td>
    </tr>
     <tr>
    <th scope="row" >Trabaja de:</th>
    <td  align="left"><select name="oficio"   onChange="document.form1.submit()">
     <option value="-1" >-- seleccionar --</option>
- <?php 	$qof="select item,descrip from diccionario where codigo=2 order by descrip asc";
+ <?php 	$qof="select item,descrip from diccionario where codigo=1 order by descrip asc";
 		$rof=pg_query($qof);
 		$of=isset($_POST['oficio'])?$_POST['oficio']:$empleado->get_id_oficio(); 
 		while ($aof=pg_fetch_array($rof)){	?>
@@ -130,9 +130,9 @@ $user=$_SESSION['miuser'];
    <th scope="row" >Se asigna Zona:</th>
    <td  align="left"><select name="zona" >
     <option value="-1" >-- seleccionar --</option>
- <?php 	$qzona="select item,descrip from diccionario where codigo=3 order by item asc";
+ <?php 	$qzona="select item,descrip from diccionario where codigo=2 order by item asc";
 		$rzona=pg_query($qzona);
-		$Zona=isset($_POST['zona'])?$_POST['zona']:$empleado->get_zona(); 
+		$Zona=isset($_POST['zona'])?$_POST['zona']:$empleado->get_id_zona(); 
 		while ($azona=pg_fetch_array($rzona)){	?>
 <option value="<?php echo $azona['item'];?>"<?php echo($Zona==$azona['item'])?'selected':'';?>><?php echo $azona['descrip'];?>   </option>
 		<?php }?>
@@ -141,9 +141,9 @@ $user=$_SESSION['miuser'];
 	<?php }?>
    <tr>
     <th scope="row">Observacion</th>
- <td width="281"><TEXTAREA name="obs" ROWS="5"   COLS="25"><?php echo isset($_POST['obs'])?strtoupper ($_POST['obs']):$empleado->get_obs();  ?></TEXTAREA></td>
+ <td ><TEXTAREA name="obs" ROWS="5"   COLS="25"><?php echo isset($_POST['obs'])?strtoupper ($_POST['obs']):$empleado->get_obs();  ?></TEXTAREA></td>
    </tr><tr>
-<td colspan="2" width="100%" >(*)se coloca el numero sin 0 y sin 15 ej: 0<B>381</B>15<B>4498244</B> </td>
+<td colspan="2"  >(*)se coloca el numero sin 0 y sin 15 ej: 0<B>381</B>15<B>4498244</B> </td>
 	</tr>
   </TABLE>
 			

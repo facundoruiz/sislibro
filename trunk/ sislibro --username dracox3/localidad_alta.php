@@ -1,56 +1,56 @@
 <?php 
-include('cabecera.php');
-include("funcionesGrales.php");
+include("cabecera.php");
+
+$user=$_SESSION['miuser'];
 ?>
-<html>
 
-<head>
-<title>::---Carga Localidad---::</title>
-<style>
-a:link, a:active, a:visited {
-color: #330099;
-font-size: 12; 
-text-decoration: none;
-font-family: Arial, Helvetica, sans-serif;}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="es"><head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<title>Sislibro</title>
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-language" CONTENT="es">
 
-a:hover {
-color: #999999;
-font-size: 11;
-text-decoration: none;
-font-family: Arial, Helvetica, sans-serif;}
-</style>
-</head>
+<?php include("funcionesGrales.php");?>
 
-<body>
 
-<table border="0" width="528" cellspacing="0" cellpadding="0" align="center">
 
-  <tr>
-    <td width="100%"><img border="0" src="images/hr_top.gif" width="528" height="58"></td>
-  </tr>
-  <tr>
-    <td width="100%" valign="top">
-     <A HREF="cargas.php">VOLVER</A>
- <blockquote>
-        <p align="center"><font color="#000000" face="Arial" size="3"><strong><img border="0" src="images/ballet_lg.gif" width="19" height="18">
-        Carga Localidades <img border="0" src="images/ballet_lg.gif" width="19" height="18"></strong></font></p>
-      </blockquote>
+</head><body dir="ltr" lang="es">
+<div align="center">
+<div >
+<div class="banner"><span class="logo3">
+</span><br>
+</div>
+<div class="bienvenidos">
+<?php echo $r->inf();  ?>
+</div><table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Contenido">
+<tr>
+<td  class="izquierda"  valign="top">
+<div class="t_menu">SubMENU</div>
+ <div id="c_menu"> 
+<?php echo $r->Submenu(6); ?>
+      </div>
+<td  class="centro">
+
+<div class="t_datos"><div class="titulos">Localidad Alta</div></div>
+<div class="descripcion">
+
+
 <form  method="post" action="" name="form">
  
-  <table width="434" border="1">          
-   
-
+  <table >          
 <tr>
-      <th scope="row" bgcolor=#66CCFF >Provincia</th>
-      <td width="319">  	   
+      <th scope="row" class="rotulo" >Provincia</th>
+      <td >  	   
 	  <select name="Tipo" onChange="document.form.submit()">
 	  		 <option value="-1">---Seleccione Provincia</option>
 			<?php 
-			$qtipo="select item,descrip from diccionario where codigo=4 order by(descrip)";
+			$qtipo="select idprovincia,descrip from t_provincias order by(descrip)";
 			$rtipo=pg_query($qtipo);
 			while ($atipo=pg_fetch_array($rtipo)){
 			?>
-            <option value="<?php echo $atipo['item'];?>" <?php echo ($_POST['Tipo']==$atipo['item'])?'selected':'';?>
+            <option value="<?php echo $atipo['idprovincia'];?>" <?php echo ($_POST['Tipo']==$atipo['idprovincia'])?'selected':'';?>
 			><?php echo $atipo['descrip'];?>
 			<?php }?>
           </select> 
@@ -58,8 +58,8 @@ font-family: Arial, Helvetica, sans-serif;}
 </tr>
 
     <tr>
-      <th scope="row" bgcolor=#66CCFF>Localidad</th>
-      <td width="319">	 
+      <th scope="row" class="rotulo" >Localidad</th>
+      <td >	 
  <?php $Loc=strtoupper ($_POST['Loc']); ?>
 	             <input type="text" name="Loc" title="Ingrese un Localidad" onBlur="document.form.submit()" value="<?php echo $Loc?>">	
        	
@@ -69,10 +69,12 @@ font-family: Arial, Helvetica, sans-serif;}
       
  <?php if(!empty($Loc)){?>
   <tr>
-      <th colspan="2"  bgcolor=#66CCFF>Localidades</th></tr><tr>
-  <td colspan="2" width="319">	
+  <td colspan="2" class="copy">Asegurarce que la localidad no figure en la lista</td>
+   </tr>
+   <tr>   <th colspan="2" class="rotulo" >Localidades</th></tr><tr>
+  <td colspan="2" class="caja" >	
  <?php 
-$q= pg_query(" Select * from tlocalidades where descrip ilike'%$Loc%' and codigo=".$_POST['Tipo']." order by descrip");
+$q= pg_query(" Select * from t_localidades where descrip ilike'%$Loc%' and idprovincia=".$_POST['Tipo']." order by descrip");
  while ($r=pg_fetch_array($q)){
  echo "<FONT SIZE=2>".$r['descrip']."</FONT><br>";
  }} ?>
@@ -82,21 +84,24 @@ $q= pg_query(" Select * from tlocalidades where descrip ilike'%$Loc%' and codigo
 
  </table>
 <?php if(!empty($_POST['Loc'])){ ?>
-<INPUT TYPE="image" SRC="images/guardar.gif" onclick="document.form.action='glocalidad.php'"  ALT="Guardar Formulario"> 
+<INPUT TYPE="submit" onclick="document.form.action='localidad_guardar.php'"  value="Guardar Formulario" class="button"> 
 
 <?php }?>
-  <A HREF="javascript:document.location.href='a_localidad.php'"><IMG SRC="images/limpiar.gif" WIDTH="100" HEIGHT="40" BORDER="0" ALT="Limpiar Formulario"></A>
+  <A HREF="javascript:document.location.href='localidad_alta.php'" class="button">Limpiar Formulario</A>
 
-  <INPUT TYPE="hidden" NAME="form" value="a_localidad">
+  <INPUT TYPE="hidden" NAME="form" value="localidad_alta">
   </form>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%"><img border="0" src="images/hr_bot.gif" width="528" height="44"></td>
-  </tr>
+   
+
+
+</div></td>
+</tr>
 </table>
-<br>
+</div>
+<div class="pie">
 
-</body>
-
-</html>
+<p>Desarrollado por  </p>
+<p class="copy">Copyright &copy; 2008  &reg; Todos los derechos reservados</p>
+</div></div>
+</div>
+</body></html>

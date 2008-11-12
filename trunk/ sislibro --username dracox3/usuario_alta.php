@@ -57,7 +57,7 @@ USUARIO<input name=" alta_user" type="text"  id="alta_user" value="<?php echo $_
   <tr> <td>FUNCION
   <select name="alta_funcion" id="alta_funcion">
 			<?php
-				$q_fin="select item,descrip from diccionario where codigo = 7"; //combo estados finalizacion
+				$q_fin="select item,descrip from diccionario where codigo = 3"; //combo estados finalizacion
 				$r_fin=pg_query($q_fin);
 				while ($a_fin=pg_fetch_array($r_fin)){
 			?>

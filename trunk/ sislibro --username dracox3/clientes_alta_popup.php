@@ -78,13 +78,13 @@ $user=$_SESSION['miuser'];
    <th scope="row" class="rotulo">Provincia</th>
    <td  align="left"><select name="prov"   onChange="document.form1.submit()">
     <option value="-1" >-- Provincia --</option>
- <?php 	$qprov="select item,descrip from t_provincias  order by descrip desc";
+ <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
 		$Prov=isset($_POST['prov'])?$_POST['prov']:$cliente->get_provincia();
 		while ($aprov=pg_fetch_array($rprov)){	
 			
 			?>
-<option value="<?php echo $aprov['item'];?>"<?php echo($Prov==$aprov['item'])?'selected':'';?>><?php echo $aprov['descrip'];?>   </option><?php }?>
+<option value="<?php echo $aprov['idprovincia'];?>"<?php echo($Prov==$aprov['idprovincia'])?'selected':'';?>><?php echo $aprov['descrip'];?>   </option><?php }?>
 </select></td>
     </tr>    
  
@@ -92,14 +92,14 @@ $user=$_SESSION['miuser'];
    <th scope="row" class="rotulo">Localidad</th>
    <td  align="left"><select name="Loc"    >
     <option value="-1" >-- Localidad --</option>
- <?php 	$qLoc="select item,descrip from t_localidades where codigo=".$Prov." order by descrip asc";
+ <?php 	$qLoc="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov." order by descrip asc";
 		$rLoc=pg_query($qLoc);
 		$loc=isset($_POST['Loc'])?$_POST['Loc']:$cliente->get_localidad(); 
 		while ($aLoc=pg_fetch_array($rLoc)){	
 			
 			?>
-<option value="<?php echo $aLoc['item'];?>"<?php echo($loc==$aLoc['item'])?'selected':'';?>><?php echo $aLoc['descrip'];?>   </option><?php }?>
-</select><A HREF="a_localidad.php" CLASS="button">&nbsp;Cargar Localidades</A></td>
+<option value="<?php echo $aLoc['idlocalidad'];?>"<?php echo($loc==$aLoc['idlocalidad'])?'selected':'';?>><?php echo $aLoc['descrip'];?>   </option><?php }?>
+</select><A HREF="localidad_alta.php"  target="_blank" CLASS="button">&nbsp;Cargar Localidades</A></td>
     </tr>
 <tr>
     <th scope="row" class="rotulo">Barrio</th>
@@ -167,13 +167,13 @@ $user=$_SESSION['miuser'];
    <th scope="row" class="rotulo">Provincia</th>
    <td  align="left"><select name="prov"  onChange="document.form1.submit()">
     <option value="-1" >-- Provincia --</option>
- <?php 	$qprov="select item,descrip from t_provincias  order by descrip desc";
+ <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
 		$Prov=isset($_POST['prov'])?$_POST['prov']:$cliente->get_provincia();
 		while ($aprov=pg_fetch_array($rprov)){	
 			
 			?>
-<option value="<?php echo $aprov['item'];?>"<?php echo($Prov==$aprov['item'])?'selected':'';?>><?php echo $aprov['descrip'];?>   </option><?php }?>
+<option value="<?php echo $aprov['idprovincia'];?>"<?php echo($Prov==$aprov['idprovincia'])?'selected':'';?>><?php echo $aprov['descrip'];?>   </option><?php }?>
 </select></td>
     </tr>    
  
@@ -181,13 +181,13 @@ $user=$_SESSION['miuser'];
    <th scope="row" class="rotulo">Localidad</th>
    <td  align="left"><select name="Loc"  >
     <option value="-1" >-- Localidad --</option>
- <?php 	$qLoc="select item,descrip from t_localidades where codigo=".$Prov." order by descrip asc";
+ <?php 	$qLoc="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov." order by descrip asc";
 		$rLoc=pg_query($qLoc);
 		$loc=isset($_POST['Loc'])?$_POST['Loc']:$cliente->get_localidad(); 
 		while ($aLoc=pg_fetch_array($rLoc)){	
 			
 			?>
-<option value="<?php echo $aLoc['item'];?>"<?php echo($loc==$aLoc['item'])?'selected':'';?>><?php echo $aLoc['descrip'];?>   </option><?php }?>
+<option value="<?php echo $aLoc['idlocalidad'];?>"<?php echo($loc==$aLoc['idlocalidad'])?'selected':'';?>><?php echo $aLoc['descrip'];?>   </option><?php }?>
 </select><A HREF="a_localidad.php" CLASS="button">&nbsp;Cargar Localidades</A></td>
     </tr>
 <tr>

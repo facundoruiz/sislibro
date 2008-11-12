@@ -72,6 +72,16 @@ class gestorEmpleado extends Empleado{
 			return 0;
 		}
 	}
+	public function existe_NumEmpleado($p_num){
+		$cmd="select existe_numempleado(".$p_num.")";
+		$query=pg_query($cmd);
+		$r=pg_fetch_array($query);
+		if($r>0){
+			return $r[0];
+		}else{
+		return 0;
+		}
+	}
 	
 }
 

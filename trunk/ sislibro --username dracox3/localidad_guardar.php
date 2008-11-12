@@ -17,10 +17,10 @@ if( $_POST['Tipo']!=-1 ){
      error($error); 
 	 echo "<CENTER><P> Debe volver para corregir la carga &nbsp;<BR><INPUT TYPE=Button onclick='history.back(-1)' value=Volver></CENTER>";
 	 }else{
-		  $cmd= "select Max(item)+1 from tlocalidades where codigo='$tipo'";
+		  $cmd= "select Max(item)+1 from t_localidades where idprovincia='$tipo'";
           $rows=pg_fila($cmd);
           $Max=empty($rows[0])?1:$rows[0];
-		  $cmdSQL="INSERT INTO tlocalidades (codigo,item,descrip) values ($tipo,$Max,'$Loc')"; 
+		  $cmdSQL="INSERT INTO t_localidades (idprovincia,idlocalidad,descrip) values ($tipo,$Max,'$Loc')"; 
 		  $mo=pg_query($cmdSQL);
 	 if($mo){
 

@@ -52,7 +52,7 @@ Opciones de men&uacute;es asignados a cada perfil
  
    		<select name="perfil" size="1" id="perfil" onChange="javascrip:submit()">
 		   <?php	
-			$sqlgrup="select item,descrip from diccionario where codigo=7 order by descrip";
+			$sqlgrup="select item,descrip from diccionario where codigo=3 order by descrip";
 			if ($rperfil=@pg_query($sqlgrup))
 				while($aperfil = pg_fetch_array($rperfil)){ ?>
 					  <option value="<?php echo $aperfil['item'];?>"<?php echo ($aperfil['item']==$perfsel)?" selected":""?>>
