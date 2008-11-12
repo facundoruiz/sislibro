@@ -56,7 +56,7 @@ $user=$_SESSION['miuser'];
 	  <?php
 	  $orden_f=($_POST['orden'])?$_POST['orden']:'usuario';
 	  $quser =" select u.id_usuario,u.usuario,u.apellido||', '||u.nombre as nombres,d.descrip as funcion, habilitado from t_usuarios u ";
-	  $quser.=" left join diccionario d on (d.item=u.funcion and d.codigo=7 ) order by $orden_f";
+	  $quser.=" left join diccionario d on (d.item=u.funcion and d.codigo=3 ) order by $orden_f";
 	  $ruser=pg_query($quser);
 	  $i=1;
 	  while($auser=pg_fetch_assoc($ruser)){

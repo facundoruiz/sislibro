@@ -63,7 +63,7 @@ if($_POST['Submit']){
 ?>
 <form name="form1" method="post" action="">
 	<?php
-		$quser="select u.id_usuario,u.usuario,u.nombre,u.apellido,d.descrip as func from t_usuarios u left join diccionario d on (d.codigo=8 and u.funcion=d.item)";
+		$quser="select u.id_usuario,u.usuario,u.nombre,u.apellido,d.descrip as func from t_usuarios u left join diccionario d on (d.codigo=3 and u.funcion=d.item)";
 		$quser.=" where upper(usuario) = '".strtoupper($_SESSION['miuser'])."'";
 		$ruser=pg_query($quser);
 		$auser=pg_fetch_array($ruser);

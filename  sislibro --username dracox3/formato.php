@@ -33,7 +33,7 @@ $user=$_SESSION['miuser'];
       </div>
 <td  class="centro">
 
-<div class="t_datos">SISTEMAS</div>
+<div class="t_datos"><div class="titulos">SISTEMAS</div></div>
 <div class="descripcion">
 
 
