@@ -1,7 +1,7 @@
 <?php 
 include("cabecera.php");
 
-$user=$_SESSION['miuser'];
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">

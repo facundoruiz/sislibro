@@ -104,4 +104,41 @@ function compara_fechas($fecha1,$fecha2)
           echo "$f1 es igual  que $f2 <br>";
 		*/
 }
+function  ingresa_editorial($editor,$u){
+
+  $cmd= "select Max(ideditorial)+1 from t_editoriales ";
+          $rows=pg_fila($cmd);
+          $Mx=empty($rows[0])?1:$rows[0];
+  $SQL="INSERT INTO t_editoriales (ideditorial,descrip,fecha_aud,hora_aud,usuario_aud) values ($Mx,'$editor',(select fecha()),(select hora()),'".$u."')"; 
+		  $t=pg_query($SQL);
+							if(!$t){
+echo'<SCRIPT >alert("No se pudo hacer la insercion en la base de datos")</SCRIPT>';
+							}
+return $Mx;
+}
+function  ingresa_genero($genero,$u){
+
+  $cmd= "select Max(idgenero)+1 from t_generos ";
+          $rows=pg_fila($cmd);
+          $Mx=empty($rows[0])?1:$rows[0];
+  $SQL="INSERT INTO t_generos (idgenero,descrip,fecha_aud,hora_aud,usuario_aud) values ($Mx,'$genero',(select fecha()),(select hora()),'".$u."')"; 
+		  $t=pg_query($SQL);
+							if(!$t){
+echo'<SCRIPT >alert("No se pudo hacer la insercion en la base de datos")</SCRIPT>';
+							}
+return $Mx;
+}
+	
+function  ingresa_titulo($titulo,$u){
+
+  $cmd= "select Max(idlibro)+1 from t_libros ";
+          $rows=pg_fila($cmd);
+          $Mx=empty($rows[0])?1:$rows[0];
+  $SQL="INSERT INTO t_libros (idlibro,descrip,fecha_aud,hora_aud,usuario_aud) values ($Mx,'$titulo',(select fecha()),(select hora()),'".$u."')"; 
+		  $t=pg_query($SQL);
+							if(!$t){
+echo'<SCRIPT >alert("No se pudo hacer la insercion en la base de datos")</SCRIPT>';
+							}
+return $Mx;
+}
 ?>

@@ -1,15 +1,40 @@
-<?php
+<?php 
 include("cabecera.php");
-include("funcionesGrales.php");
-?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>ASIGNAR MENU </title>
- </head>
 
-<body >	
+
+?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="es"><head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<title>Sislibro</title>
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-language" CONTENT="es">
+
+<?php include("funcionesGrales.php");?>
+
+
+
+</head><body dir="ltr" lang="es">
+<div align="center">
+<div >
+<div class="banner"><span class="logo3">
+</span><br>
+</div>
+<div class="bienvenidos">
+<?php echo $r->inf();  ?>
+</div><table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Contenido">
+<tr>
+<td  class="izquierda"  valign="top">
+<div class="t_menu">SubMENU</div>
+ <div id="c_menu"> 
+<?php echo $r->Submenu(1); ?>
+      </div>
+<td  class="centro">
+
+<div class="t_datos"><div class="titulos">ASIGNAR OPCION MENUS</div></div>
+<div class="descripcion">
   
      
      	
@@ -48,8 +73,7 @@ $sub=explode("@",$dispo2[$i]);
 	if ($resu>0)
 		$datbus=pg_fetch_array($resu);
 ?> 
-Opciones de men&uacute;es asignados a cada perfil 
- 
+Opciones de men&uacute;es asignados a cada perfil <BR> 
    		<select name="perfil" size="1" id="perfil" onChange="javascrip:submit()">
 		   <?php	
 			$sqlgrup="select item,descrip from diccionario where codigo=3 order by descrip";
@@ -60,9 +84,12 @@ Opciones de men&uacute;es asignados a cada perfil
 		    </option>
 		  <?php }   ?>
         </select>      
-      <?php // echo $perfsel;?>Perfil Seleccionado: 
-	      <?php echo $datbus['descrip']?>DisponiblesAsignados
-     
+      <?php // echo $perfsel;?>Perfil Seleccionado:
+	      <?php echo $aperfil['descrip']?><BR>
+	      <TABLE ALIGN="CENTER">
+	      <TR><TD>Disponibles</TD>
+     <TD>Asignados</TD></TR>
+     <TR><TD>
         <select name="dispo[]" size="15" multiple id="dispo[]" style="font:'Courier New'" class="letra">
           <?php	
 		$sqlusulib = "select m.nombre,m.id_menu,m.id_submenu from t_menu m left join t_funcion_menu fm on (fm.id_menu=m.id_menu and  fm.id_submenu=m.id_submenu) where (fm.id_funcion<>$perfsel and (fm.id_menu not in(select id_menu from t_funcion_menu fm2 	where id_funcion=$perfsel  )or fm.id_submenu not in(select id_submenu from t_funcion_menu fm2 	where id_funcion=$perfsel  ))) or fm.id_menu is null group by m.nombre,m.id_menu,m.id_submenu order by id_menu asc , id_submenu asc";
@@ -86,6 +113,7 @@ Opciones de men&uacute;es asignados a cada perfil
 		}?>
         </select>
         <input name="paya" type="submit" id="paya" value="Agregar -&gt;" class="button">
+   </TD> <TD>
     <select name="asig[]" size="15" multiple id="asig[]" class="letra">
         <?php	
 		
@@ -114,9 +142,18 @@ Opciones de men&uacute;es asignados a cada perfil
 				<?php } ?>
       </select>
         <input name="paca" type="submit" id="paca" value="&lt;- Eliminar" class="button">
-     
+     </TD></TR>
+     </TABLE>
 </form>
-	
 
-</body>
-</html>
+</div></td>
+</tr>
+</table>
+</div>
+<div class="pie">
+
+<p>Desarrollado por  </p>
+<p class="copy">Copyright &copy; 2008  &reg; Todos los derechos reservados</p>
+</div></div>
+</div>
+</body></html>

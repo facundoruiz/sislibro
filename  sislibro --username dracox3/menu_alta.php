@@ -1,17 +1,19 @@
 <?php 
 include("cabecera.php");
-include("funcionesGrales.php");
-
- ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>MENU ALTA</title>
 
 
-</head>
+?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="es"><head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<title>Sislibro</title>
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-language" CONTENT="es">
+
+<?php include("funcionesGrales.php");?>
+
 <script>
 function submenu(obj)
 {
@@ -110,32 +112,41 @@ error($error);
 	}}
 }
 ?>
-<body >
+
+</head><body dir="ltr" lang="es">
+<div align="center">
+<div >
+<div class="banner"><span class="logo3">
+</span><br>
+</div>
+<div class="bienvenidos">
+<?php echo $r->inf();  ?>
+</div><table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Contenido">
+<tr>
+<td  class="izquierda"  valign="top">
+<div class="t_menu">SubMENU</div>
+ <div id="c_menu"> 
+<?php echo $r->Submenu(1); ?>
+      </div>
+<td  class="centro">
+
+<div class="t_datos"><div class="titulos">- Alta Men&uacute;es - </div></div>
+<div class="descripcion">
+
 <form name="form1" id="form1" method="post"action="" enctype="multipart/form-data" >
-<div align="center" class="Estilo1"> <font face="Arial, Helvetica, sans-serif" size="4">- Alta Men&uacute;es - </font> </div>
-            
-      Link  Men&uacute; (nombre) : <input type="text" size="50" maxlength="100" name="nombre">
-          <input name="chksub" type="checkbox" id="chksub" onClick="submenu(this)">
+           
+    Link  Men&uacute; (nombre) : <input type="text" size="50" maxlength="100" name="nombre">
+     <input name="chksub" type="checkbox" id="chksub" onClick="submenu(this)">
           Submen&uacute;
-          Direcci&oacute;n Link Men&uacute;: 
-<input type="text" size="50" maxlength="50" name="pagina" >
-
-     
-Descripcion del Link Men&uacute;: 
-<input type="text" size="50"  name="desc" >
-Subir imagen: 
- <input type="file" name="file" >&nbsp;<FONT SIZE="1" COLOR="">*El archivo no debe superar los 1024 kb</FONT><BR>  
-
-
+         <br> Direcci&oacute;n Link Men&uacute;:<input type="text" size="50" maxlength="50" name="pagina" ><br>
+Descripcion del Link Men&uacute;:<input type="text" size="50"  name="desc" ><br>
+Subir imagen:  <input type="file" name="file" >&nbsp;<FONT SIZE="1" COLOR="">*El archivo no debe superar los 1024 kb</FONT><BR>  
             <input type="submit" name="agregar" value="Agregar Men&uacute;">
-         
-<div align="center" class="Estilo1"> <font face="Arial, Helvetica, sans-serif" size="4">- Alta Men&uacute;es de SubMen&uacute;es - </font> </div>
+ <br>
+    <div class="t_datos"><div class="titulos">- Alta Men&uacute;es de SubMen&uacute;es -</div></div>      
 
-Seleccionar Men&uacute;: 
 
-        
-
-        <select name="submenu" >
+Seleccionar Men&uacute;:<select name="submenu" >
         <?php
 			$qsmenu="Select id_menu,nombre from t_menu where link ilike 'enlacesubmenu.php?menu=%' order by nombre";
 			$rsmenu=pg_query($qsmenu); 
@@ -158,15 +169,15 @@ Seleccionar Men&uacute;:
 ?>
       
 Link (nombre) Sub-Men&uacute;: 
-<input name="subnombre" type="text" id="subnombre" value="<? echo $subnombre; ?>" size="50" maxlength="50">
+<input name="subnombre" type="text" id="subnombre" value="<? echo $subnombre; ?>" size="50" maxlength="50"><br>
 
      
 Direcci&oacute;n Link Sub-Men&uacute;: 
-<input type="text" size="50" maxlength="100" name="subpagina" value="<? echo $subpagina; ?>">
+<input type="text" size="50" maxlength="100" name="subpagina" value="<? echo $subpagina; ?>"><br>
 
      
 Descripcion del Link Sub-Men&uacute;: 
-<input type="text" size="50"  name="sdesc" >
+<input type="text" size="50"  name="sdesc" ><br>
 Subir imagen: 
 <input type="file" name="sfile" >&nbsp;<FONT SIZE="1" COLOR="">*El archivo no debe superar los 1024 kb</FONT><BR>  
  
@@ -177,5 +188,14 @@ Subir imagen:
             
 </form>
 
-</body>
-</html>
+</div></td>
+</tr>
+</table>
+</div>
+<div class="pie">
+
+<p>Desarrollado por  </p>
+<p class="copy">Copyright &copy; 2008  &reg; Todos los derechos reservados</p>
+</div></div>
+</div>
+</body></html>

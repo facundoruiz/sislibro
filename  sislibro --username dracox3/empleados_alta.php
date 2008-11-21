@@ -139,7 +139,7 @@ $user=$_SESSION['miuser'];
    </tr>
     <tr>
    <th scope="row" class="rotulo">Trabaja de:</th>
-   <td  align="left"><select name="oficio"    onChange="document.form1.submit()">
+   <td  align="left"><select name="oficio"   >
     <option value="-1" >-- seleccionar --</option>
  <?php 	$qof="select item,descrip from diccionario where codigo=1 order by descrip asc";
 		$rof=pg_query($qof);
@@ -148,20 +148,7 @@ $user=$_SESSION['miuser'];
 <option value="<?php echo $aof['item'];?>"<?php echo($of==$aof['item'])?'selected':'';?>><?php echo $aof['descrip'];?>   </option><?php }?>
 </select></td>
     </tr>
-<?php if($of==2){?>
- <tr>
-   <th scope="row" class="rotulo">Se asigna Zona:</th>
-   <td  align="left"><select name="zona"   >
-    <option value="-1" >-- seleccionar --</option>
- <?php 	$qzona="select item,descrip from diccionario where codigo=2 order by item asc";
-		$rzona=pg_query($qzona);
-		$Zona=isset($_POST['zona'])?$_POST['zona']:$empleado->get_id_zona(); 
-		while ($azona=pg_fetch_array($rzona)){	?>
-<option value="<?php echo $azona['item'];?>"<?php echo($Zona==$azona['item'])?'selected':'';?>><?php echo $azona['descrip'];?>   </option>
-		<?php }?>
-</select></td>
-    </tr>
-	<?php }?>
+
    <tr>
     <th scope="row" class="rotulo">Observacion</th>
  <td ><TEXTAREA name="obs" ROWS="5"    COLS="25"><?php echo isset($_POST['obs'])?strtoupper ($_POST['obs']):$empleado->get_obs();  ?></TEXTAREA></td>
