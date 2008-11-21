@@ -104,7 +104,7 @@ if(empty($barrio))
 }
 
 /*-PERSONALLLLLLLLLLLLLLLLLLL*/
-function valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$zona,$cel,$num)
+function valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$cel,$num)
 {
 	if(empty($dni))
 				{
@@ -156,22 +156,18 @@ function valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,
 				{
 			$error[]="No se cargo <B>Barrio</B>";
 			}
-if($oficio=='-1')
+			if($oficio=='-1')
 				{
 			$error[]="No se Selecciono <B>Oficio</B>";
 			}else{
 			
-			if($oficio=='2'){
-						if($zona=='-1'){
-						$error[]="No se Selecciono <B>zona</B>";
-						}
-			}
+			
 			
 			}
 	return $error;	
 }
 
-function valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$zona,$cel,$num)
+function valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$cel,$num)
 {
 
 	if(empty($apellido))
@@ -214,16 +210,12 @@ function valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$ba
 				{
 			$error[]="No se cargo <B>Barrio</B>";
 			}
-if($oficio=='-1')
+			if($oficio=='-1')
 				{
 			$error[]="No se Selecciono <B>Oficio</B>";
 			}else{
 			
-			if($oficio=='2'){
-						if($zona=='-1'){
-						$error[]="No se Selecciono <B>zona</B>";
-						}
-			}
+			
 			
 			}
 			if(empty($num))

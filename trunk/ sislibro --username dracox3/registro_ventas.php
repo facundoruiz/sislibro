@@ -27,10 +27,10 @@ $user=$_SESSION['miuser'];
 </div>
 <?php 
 if(!isset($_POST['id_venta'])){
-$qcant="select cod_libro,cant,costo from stock";
+//$qcant="select cod_libro,cant,costo from stock";
 		$rcant=pg_query($qcant);
 while ($acant=pg_fetch_array($rcant)){
-pg_fila("update stock1 SET cant=".$acant[1].",costo=".$acant[2]." where cod_libro=".$acant[0]."");
+//pg_fila("update stock1 SET cant=".$acant[1].",costo=".$acant[2]." where cod_libro=".$acant[0]."");
 }
 
 }
@@ -50,7 +50,7 @@ pg_fila("update stock1 SET cant=".$acant[1].",costo=".$acant[2]." where cod_libr
  <TR><TD>Fecha :</TD>	<TD><INPUT  TYPE="text" size="13" NAME="fecha" maxlength="10" onBlur="valFecha(this)" value=<?php echo (isset($_POST['fecha']))?$fecha=$_POST['fecha']:'dd/mm/aaaa';?>></TD></TR>
  <TR><TD>Nº de Chequera:</TD> <TD><INPUT  TYPE="text" NAME="n_chequera" size="4" onKeyPress="return soloNum(event)" value="<?PHP echo $_POST['n_chequera']?>"></TD></TR>
  	<?php  
-	      $cmd= "select Max(id_venta)+1 from compras";
+	      $cmd= "select Max(idchequera)+1 from t_chequera";
           $rows=pg_fila($cmd);
           $Max=empty($rows[0])?1:$rows[0];
 		  ?>
@@ -135,7 +135,7 @@ pg_fila("update stock1 SET cant=".$acant[1].",costo=".$acant[2]." where cod_libr
 	 <tr>
    <th scope="row" bgcolor=#66CCFF>Provincia</th>
    <td  align="left">
- <?php 	$qprov="select item,descrip from diccionario where codigo='4' order by descrip desc";
+ <?php 	$qprov="select item,descrip from t_provincias where codigo='4' order by descrip desc";
 		$rprov=pg_query($qprov);
 		
 		while ($aprov=pg_fetch_array($rprov)){	

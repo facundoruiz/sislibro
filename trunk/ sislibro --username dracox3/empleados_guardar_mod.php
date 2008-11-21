@@ -16,21 +16,20 @@ require('valida.php');
 						$Loc=$_POST['Loc'];
 						$barrio=strtoupper ($_POST['barrio']);
 						$oficio=$_POST['oficio'];
-						$zona=$_POST['zona'];
 						$obs=strtoupper ($_POST['obs']);
 
-$error=valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$barrio,$zona,$cel,$num);
+$error=valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$barrio,$oficio,$cel,$num);
 
  if(sizeof($error)>0)
 	 {
      error($error); 
 	 echo "<CENTER><P> Debe volver para corregir la carga &nbsp;<BR><INPUT TYPE=Button onclick='history.back(-1)' value=Volver></CENTER>";
 	 }else{
-$sql="UPDATE t_empleados SET nombre='$nombre',apellido='$apellido',domicilio='$domicilio',barrio='$barrio',id_localidad=$Loc,id_provincia=$prov,tel=$telefono,obs='$obs',cel=$cel,id_oficio=$oficio,num_empleados=$num";
-$sql.=$oficio==2?",id_zona=$zona ":",id_zona=0 ";
+$sql="UPDATE t_empleados SET nombre='$nombre',apellido='$apellido',domicilio='$domicilio',barrio='$barrio',id_localidad=$Loc,id_provincia=$prov,tel=$telefono,obs='$obs',cel=$cel,num_empleados=$num";
+
 $sql.=" ,fecha_aud=(select fecha()),hora_aud=(select hora()),usuario_aud='".$r->getUser()."'";
 $sql.=" where id_empleados=$id"; 
-
+$sql.=";UPDATE t_oficios SET id_oficio=$oficio WHERE id_empleados=$id";
 
 
 $r=pg_query($sql);

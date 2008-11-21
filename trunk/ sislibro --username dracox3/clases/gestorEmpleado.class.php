@@ -19,7 +19,7 @@ class gestorEmpleado extends Empleado{
 	}
 	public function  get_EmpleadoDni($p_dni){
 		$this->getConexion();
-		$cmd="select * from t_empleados  where dni=".$p_dni."";
+		$cmd="select *,(select id_oficio from t_oficios where id_empleados=e.id_empleados) as id_oficio from t_empleados e where dni=".$p_dni."";
 		$query=pg_query($cmd);
 		$r=pg_fetch_array($query);
 		
@@ -45,7 +45,7 @@ class gestorEmpleado extends Empleado{
 	}
 	public function  get_EmpleadoId($p_id){
 		$this->getConexion();
-		$cmd="select * from t_empleados  where id_empleados=".$p_id."";
+		$cmd="select *,(select id_oficio from t_oficios where id_empleados=e.id_empleados) as id_oficio from t_empleados e where id_empleados=".$p_id."";
 		$query=pg_query($cmd);
 		$r=pg_fetch_array($query);
 		if($r>0){

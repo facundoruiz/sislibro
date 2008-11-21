@@ -14,13 +14,13 @@ require('valida.php');
 						$Loc=$_POST['Loc'];
 						$barrio=$_POST['barrio'];
 						$oficio=$_POST['oficio'];
-						$zona=$_POST['zona'];
+					
 						$obs=$_POST['obs'];
 
 
 
 
-$error=valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$zona,$cel,$num);
+$error=valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$cel,$num);
 
  if(sizeof($error)>0)
 	 {
@@ -32,8 +32,8 @@ $error=valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$b
           $Max=empty($rows[0])?1:$rows[0];
 
 $zona=($oficio==2)?$zona:0;
-$sql="INSERT INTO t_empleados (id_empleados,nombre,apellido,dni,domicilio,barrio,id_localidad,id_provincia,tel,obs,id_zona,id_oficio,cel,estado,num_empleados,fecha_aud,hora_aud,usuario_aud ) VALUES ($Max,'$nombre','$apellido',$dni,'$domicilio','$barrio',$Loc,$prov,$telefono,'$obs',$zona,$oficio,$cel,0,$num,(select fecha()),(select hora()),'".$r->getUser()."')";
-
+$sql="INSERT INTO t_empleados (id_empleados,nombre,apellido,dni,domicilio,barrio,id_localidad,id_provincia,tel,obs,cel,estado,num_empleados,fecha_aud,hora_aud,usuario_aud ) VALUES ($Max,'$nombre','$apellido',$dni,'$domicilio','$barrio',$Loc,$prov,$telefono,'$obs',$cel,0,$num,(select fecha()),(select hora()),'".$r->getUser()."')";
+$sql.="; INSERT INTO t_oficios(id_ofico,id_empleados) values($oficio,$Max)";
 $r=pg_query($sql);
 if($r){
 

@@ -1,7 +1,7 @@
 <?php 
 include("cabecera.php");
 
-$user=$_SESSION['miuser'];
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -33,49 +33,108 @@ $user=$_SESSION['miuser'];
       </div>
 <td  class="centro">
 
-<div class="t_datos">SISTEMAS</div>
+<div class="t_datos"><div class="titulos"> Carga Libros </div></div>
 <div class="descripcion">
 
 
      
-        Carga Libros 
+       
 <form  method="post" action="" name="form">
  
   <table >          
    
 
+
 <tr>
-      <th scope="row"  >Generos</th>
-      <td width="319">  	   
-	  <select name="Tipo" >
-	  		 <option value="-1">---Seleccione un Genero</option>
-			<?php 
-			$qtipo="select item,descrip from t_generos where codigo=1 order by(descrip)";
-			$rtipo=pg_query($qtipo);
-			while ($atipo=pg_fetch_array($rtipo)){
+      <th scope="row" >Generos</th>
+	  <td >	
+  <?php $bgenero=$_POST['bgenero'];
+   if(isset($_POST['bgenero']) && !empty($bgenero)){
+	$tgenero=strtoupper ($_POST['tgenero']);     
+	   
+	if(!empty($_POST['tgenero']))
+					{
+						
+	          $cmd="select * from t_generos where descrip ilike '".$teditor."'";
+				$q=pg_query($cmd);
+				$rows_libro=pg_fetch_array($q);
+					}		
+	       if(isset($rows_libro)&&$rows_libro!=0)
+	       {				
+			echo"<SCRIPT >
+			<!--
+			        alert('Genero Existente');
+					document.form.tgenero.select();
+			    	document.form.tgenero.focus();									
+			//-->
+			</SCRIPT>";
 			?>
-            <option value="<?php echo $atipo['item'];?>" <?php echo ($_POST['Tipo']==$atipo['item'])?'selected':'';?>
-			><?php echo $atipo['descrip'];?>
+				<input type="text" name="tgenero" onBlur="document.form.submit()" value="<?php echo $tgenero ?>"> 
+	         <INPUT TYPE="hidden" NAME="bgenero" value="TRUE">			
+		     <?php } else
+				 {
+				 
+				 if(empty($tgenero)){?>
+		<input type="text" name="tgenero" onBlur="document.form.submit()" value="<?php echo $tgenero ?>"> 
+	         <INPUT TYPE="hidden" NAME="bgenero" value="TRUE">
+						<?php }else{?>
+	   <input type="text" name="tgenero" onBlur="document.form.submit()" value="<?php echo $tgenero ?>"> 
+	    <INPUT TYPE="hidden" NAME="bgenero" value="TRUE">
+		<?php $ggenero=$_POST['ggenero'];
+					 if(isset($_POST['ggenero']) && !empty($ggenero)){
+					 
+					 	$genero=ingresa_genero($tgenero,$r->getUser());?>
+			 <INPUT TYPE="hidden" NAME="genero" value="<?php echo $genero?>">
+			 <INPUT TYPE="hidden" NAME="bgenero" value="">
+			  <INPUT TYPE="hidden" NAME="ggenero" value="">
+			  <SCRIPT LANGUAGE="JavaScript">
+			  document.form.submit()
+			  </SCRIPT>
+			<? }else{?>
+					 <BR><INPUT TYPE="submit" name="ggenero"  value="Guardar" title="Click para guardar Genero" onclick="document.form.submit()">
+					 <?php }//elseggenero
+						}//elseempty	
+						}	//else r
+				}else{?>
+
+
+ <select name="genero" >
+	  		 <option value="-1">---Seleccione Genero </option>
+			<?php 
+			$qgenero="select idgenero,descrip from t_generos  order by(descrip)";
+			$rgenero=pg_query($qgenero);
+			while ($agenero=pg_fetch_array($rgenero)){
+			?>
+            <option value="<?php echo $agenero['idgenero'];?>" <?php echo ($_POST['genero']==$agenero['idgenero'])?'selected':'';?>
+			><?php echo $agenero['descrip'];?>
 			<?php }?>
           </select> 
+<INPUT TYPE="submit" name="bgenero"  value="Cargar" title="Click para cargar Genero" onclick="document.form.submit()">
+	<?php }?>
 </td>
-</tr>
+			
+    </tr>
+
+
+
+
+
 <tr>
       <th scope="row" >Editoriales</th>
-	  <td width="319">	
-   <?php $beditorial=$_POST['beditorial'];
+	  <td >	
+  <?php $beditorial=$_POST['beditorial'];
    if(isset($_POST['beditorial']) && !empty($beditorial)){
-	   $teditor=strtoupper ($_POST['teditor']);                  
-	if(!empty($teditor))
+	$teditor=strtoupper ($_POST['teditor']);     
+	   
+	if(!empty($_POST['teditor']))
 					{
-	            $cmd="select * from t_editoriales where codigo='6' and descrip='$teditor'";
+						
+	          $cmd="select * from t_editoriales where descrip ilike '".$teditor."'";
 				$q=pg_query($cmd);
-				$r=pg_fetch_array($q);
+				$rows_libro=pg_fetch_array($q);
 					}		
-	       if($r!=0)
-	       {			
-			?>
-		<?php			
+	       if(isset($rows_libro)&&$rows_libro!=0)
+	       {				
 			echo"<SCRIPT >
 			<!--
 			        alert('Editorial Existente');
@@ -97,7 +156,8 @@ $user=$_SESSION['miuser'];
 	    <INPUT TYPE="hidden" NAME="beditorial" value="TRUE">
 		<?php $geditorial=$_POST['geditorial'];
 					 if(isset($_POST['geditorial']) && !empty($geditorial)){
-					 $editorial=ingresa($teditor);?>
+					 
+					 	$editorial=ingresa_editorial($teditor,$r->getUser());?>
 			 <INPUT TYPE="hidden" NAME="editorial" value="<?php echo $editorial?>">
 			 <INPUT TYPE="hidden" NAME="beditorial" value="">
 			  <INPUT TYPE="hidden" NAME="geditorial" value="">
@@ -111,14 +171,15 @@ $user=$_SESSION['miuser'];
 						}	//else r
 				}else{?>
 
+
  <select name="editorial" >
 	  		 <option value="-1">---Seleccione editorial </option>
 			<?php 
-			$qeditorial="select item,descrip from diccionario where codigo=6 order by(descrip)";
+			$qeditorial="select ideditorial,descrip from t_editoriales  order by(descrip)";
 			$reditorial=pg_query($qeditorial);
 			while ($aeditorial=pg_fetch_array($reditorial)){
 			?>
-            <option value="<?php echo $aeditorial['item'];?>" <?php echo ($_POST['editorial']==$aeditorial['item'])?'selected':'';?>
+            <option value="<?php echo $aeditorial['ideditorial'];?>" <?php echo ($_POST['editorial']==$aeditorial['ideditorial'])?'selected':'';?>
 			><?php echo $aeditorial['descrip'];?>
 			<?php }?>
           </select> 
@@ -129,13 +190,85 @@ $user=$_SESSION['miuser'];
     </tr>
 
 
-    <tr>
+
+<tr>
+      <th scope="row" >Titulos</th>
+	  <td>	
+  <?php $btitulo=$_POST['btitulo'];
+   if(isset($_POST['btitulo']) && !empty($btitulo)){
+	$ttitulo=strtoupper ($_POST['ttitulo']);     
+	   
+	if(!empty($_POST['ttitulo']))
+					{
+						
+	          $cmd="select * from t_libros where descrip ilike '".$ttitulo."'";
+				$q=pg_query($cmd);
+				$rows_titulo=pg_fetch_array($q);
+					}		
+	       if(isset($rows_titulo)&&$rows_titulo!=0)
+	       {				
+			echo"<SCRIPT >
+			<!--
+			        alert('titulo Existente');
+					document.form.ttitulo.select();
+			    	document.form.ttitulo.focus();									
+			//-->
+			</SCRIPT>";
+			?>
+				<input type="text" name="ttitulo" onBlur="document.form.submit()" value="<?php echo $ttitulo ?>"> 
+	         <INPUT TYPE="hidden" NAME="btitulo" value="TRUE">			
+		     <?php } else
+				 {
+				 
+				 if(empty($ttitulo)){?>
+		<input type="text" name="ttitulo" onBlur="document.form.submit()" value="<?php echo $ttitulo ?>"> 
+	         <INPUT TYPE="hidden" NAME="btitulo" value="TRUE">
+						<?php }else{?>
+	   <input type="text" name="ttitulo" onBlur="document.form.submit()" value="<?php echo $ttitulo ?>"> 
+	    <INPUT TYPE="hidden" NAME="btitulo" value="TRUE">
+		<?php $gtitulo=$_POST['gtitulo'];
+					 if(isset($_POST['gtitulo']) && !empty($gtitulo)){
+					 
+					 	$titulo=ingresa_titulo($ttitulo,$r->getUser());?>
+			 <INPUT TYPE="hidden" NAME="titulo" value="<?php echo $titulo?>">
+			 <INPUT TYPE="hidden" NAME="btitulo" value="">
+			  <INPUT TYPE="hidden" NAME="gtitulo" value="">
+			  <SCRIPT LANGUAGE="JavaScript">
+			  document.form.submit()
+			  </SCRIPT>
+			<? }else{?>
+					 <BR><INPUT TYPE="submit" name="gtitulo"  value="Guardar" title="Click para guardar una nueva titulo" onclick="document.form.submit()">
+					 <?php }//elsegtitulo
+						}//elseempty	
+						}	//else r
+				}else{?>
+
+
+ <select name="titulo" onChange="document.form.submit()" >
+	  		 <option value="-1">---Seleccione titulo</option>
+			<?php 
+			$qtitulo="select idlibro,descrip from t_libros  order by(descrip)";
+			$rtitulo=pg_query($qtitulo);
+			while ($atitulo=pg_fetch_array($rtitulo)){
+			?>
+            <option value="<?php echo $atitulo['idlibro'];?>" <?php echo ($_POST['titulo']==$atitulo['idlibro'])?'selected':'';?>
+			><?php echo $atitulo['descrip'];?>
+			<?php }?>
+          </select> 
+<INPUT TYPE="submit" name="btitulo"  value="Cargar" title="Click para cargar una nueva " onclick="document.form.submit()">
+	<?php }?>
+</td>
+			
+    </tr>
+
+
+    <!-- <tr>
       <th scope="row" >Titulo del libro </th>
       <td width="319">	 
 <?php $ttitulo=strtoupper ($_POST['ttitulo']); ?>
 	             <input type="text" name="ttitulo" title="Ingrese un titulo" onBlur="document.form.submit()" value="<?php echo $ttitulo?>">	
 	         	
-  </td> </tr>
+  </td> </tr> -->
 	 <tr>
       <th scope="row" >Cantidad </th>
       <td width="319">	 
@@ -150,13 +283,21 @@ $user=$_SESSION['miuser'];
 	            $ <input type="text" name="costo" size="5" onKeyPress="return soloNumPto(event)" title="Ingrese Costo del libro unitario"  value="<?php echo $costo?>">	
 	         	
   </td> </tr>
-
+ <tr>   <th colspan="2" class="rotulo" >Titulos de libros</th></tr><tr>
+  <td colspan="2" class="caja" >	
+ <?php if(!empty($ttitulo)){
+$q= pg_query(" Select * from t_libros where descrip ilike'%$ttitulo%'  order by descrip");
+ while ($r=pg_fetch_array($q)){
+ echo "<FONT SIZE=2>".$r['descrip']."</FONT><br>";
+ } }?>
+   	
+  </td> </tr>
   </table>
-  <?php if(!empty($_POST['ttitulo'])){?>
+  <?php if(!empty($_POST['titulo'])){?>
 <INPUT TYPE="submit"  onclick="document.form.action='libros_guardar.php'"  value="Guardar Formulario"> <?php }?>
   <A HREF="javascript:document.location.href='libros_alta.php'"><IMG SRC="images/limpiar.gif" WIDTH="100" HEIGHT="40" BORDER="0" ALT="Limpiar Formulario"></A>
 
-  <INPUT TYPE="hidden" NAME="form" value="a_libro">
+  <INPUT TYPE="hidden" NAME="form" value="libro_alta">
   </form>
    
 
