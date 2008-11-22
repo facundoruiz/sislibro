@@ -14,6 +14,7 @@ class Empleado{
   private $celular;
   private $id_oficio;
   private $id_zona;
+  private $oficio;
   private $obs;
   private $estado;
    
@@ -60,6 +61,9 @@ class Empleado{
 	
 	public function set_id_oficio($p_id_oficio){
 		$this->id_oficio=$p_id_oficio;
+	}
+	public function set_oficio($p_oficio){
+		$this->oficio=$p_oficio;
 	}
 	public function set_id_zona($p_id_zona){
 		$this->id_zona=$p_id_zona;
@@ -109,6 +113,9 @@ class Empleado{
 	}
 	public function get_id_oficio(){
 		return $this->id_oficio;
+	}
+	public function get_oficio(){
+		return $this->oficio;
 	}
 	public function get_id_zona(){
 		return $this->id_zona;
