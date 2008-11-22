@@ -45,7 +45,7 @@ class gestorEmpleado extends Empleado{
 	}
 	public function  get_EmpleadoId($p_id){
 		$this->getConexion();
-		$cmd="select *,(select id_oficio from t_oficios where id_empleados=e.id_empleados) as id_oficio from t_empleados e where id_empleados=".$p_id."";
+		$cmd="select *,(select id_oficio from t_oficios where id_empleados=e.id_empleados) as id_oficio, (select descoficio(1,e.id_empleados))   as oficio from t_empleados e where id_empleados=".$p_id."";
 		$query=pg_query($cmd);
 		$r=pg_fetch_array($query);
 		if($r>0){
@@ -65,6 +65,7 @@ class gestorEmpleado extends Empleado{
 		$empleado->set_obs($r['obs']);
 		$empleado->set_id_zona($r['id_zona']);
 		$empleado->set_id_oficio($r['id_oficio']);
+		$empleado->set_oficio($r['oficio']);
 		$empleado->set_estado($r['estado']);
 		  
 		return $empleado;
@@ -81,6 +82,71 @@ class gestorEmpleado extends Empleado{
 		}else{
 		return 0;
 		}
+	}
+	public function ComboVendedor(){
+		
+		$combov=new HtmlCombo('','vendedor',20,true);
+					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
+inner join t_oficios o on (o.id_empleados=e.id_empleados)
+where o.id_oficio=1 ");
+					
+					$combov->addItem(0,'--Vendedor-');
+					while($ro=pg_fetch_array($qo)){
+						$combov->addItem($ro[0],$ro[1]);
+						};
+		return $combov;
+	}
+	public function ComboCobrador(){
+		
+		$comboc=new HtmlCombo('','cobrador',20,true);
+					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
+inner join t_oficios o on (o.id_empleados=e.id_empleados)
+where o.id_oficio=2 ");
+					
+					$comboc->addItem(0,'--Cobrador-');
+					while($ro=pg_fetch_array($qo)){
+						$comboc->addItem($ro[0],$ro[1]);
+						};
+		return $comboc;
+	}
+	public function ComboVC(){
+		
+		$combovc=new HtmlCombo('','vende_cobra',20,true);
+					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
+inner join t_oficios o on (o.id_empleados=e.id_empleados)
+where o.id_oficio=3 ");
+					
+					$combovc->addItem(0,'--Cobrador-');
+					while($ro=pg_fetch_array($qo)){
+						$combovc->addItem($ro[0],$ro[1]);
+						};
+		return $combovc;
+	}
+	public function ComboEmpleado($idOficio){
+		
+		$comboe=new HtmlCombo('','empleado',20,true);
+					
+					$query=pg_query("select descdic(1,$idOficio)  ");
+					$rows=pg_fetch_array($query);
+					$comboe->addItem(0,'--'.$rows[0].'-');
+					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
+inner join t_oficios o on (o.id_empleados=e.id_empleados)
+where o.id_oficio=$idOficio ");
+					while($ro=pg_fetch_array($qo)){
+						$comboe->addItem($ro[0],$ro[1]);
+						};
+		return $comboe;
+	}
+	public function ComboOficios(){
+		
+		$comboo=new HtmlCombo('','oficio',20,true);
+					$qo=pg_query("select item,descrip from diccionario where codigo=1 ");
+				    $comboo->setOnChange("javascript:document.form1.submit()");	
+					$comboo->addItem(0,'--Empleado-');
+					while($ro=pg_fetch_array($qo)){
+						$comboo->addItem($ro[0],$ro[1]);
+						};
+		return $comboo;
 	}
 	
 }

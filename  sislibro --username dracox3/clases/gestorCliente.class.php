@@ -22,7 +22,9 @@ class gestorCliente extends Cliente{
 		$cmd="select * from t_clientes  where dni=".$p_dni."";
 		$query=pg_query($cmd);
 		$r=pg_fetch_array($query);
+			if($r>0){
 		$cliente=new Cliente();
+	
 		$cliente->set_nombre($r['nombre']);
 		$cliente->set_dni($r['dni']);
 		$cliente->set_id_cliente($r['id_clientes']);
@@ -37,7 +39,10 @@ class gestorCliente extends Cliente{
 		$cliente->set_obs($r['obs']);
 		$cliente->set_moroso($r['moroso']);
 		$cliente->set_estado($r['estado']);
-		  return $cliente;
+			return $cliente;
+		}else{
+			return 0;
+		} 
 	}
 	public function  get_clienteId($p_id){
 		$this-> getConexion();
