@@ -37,7 +37,7 @@ class gestorEmpleado extends Empleado{
 		$empleado->set_provincia($r['id_provincia']);
 		$empleado->set_barrio($r['barrio']);
 		$empleado->set_obs($r['obs']);
-		$empleado->set_id_zona($r['id_zona']);
+		$empleado->set_porcentaje($r['porcentaje']);
 		$empleado->set_id_oficio($r['id_oficio']);
 		$empleado->set_estado($r['estado']);
 		
@@ -63,7 +63,7 @@ class gestorEmpleado extends Empleado{
 		$empleado->set_provincia($r['id_provincia']);
 		$empleado->set_barrio($r['barrio']);
 		$empleado->set_obs($r['obs']);
-		$empleado->set_id_zona($r['id_zona']);
+		$empleado->set_porcentaje($r['_porcentaje']);
 		$empleado->set_id_oficio($r['id_oficio']);
 		$empleado->set_oficio($r['oficio']);
 		$empleado->set_estado($r['estado']);

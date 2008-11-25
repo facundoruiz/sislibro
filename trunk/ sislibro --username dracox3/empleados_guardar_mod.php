@@ -9,7 +9,7 @@ require('valida.php');
 						$apellido=strtoupper ($_POST['apellido']);
 						$nombre=strtoupper ($_POST['nombre']);
 						$domicilio=strtoupper ($_POST['domicilio']);
-
+$porcentaje=$_POST['porcentaje'];
 						$telefono=$_POST['telefono'];
 						$cel=$_POST['cel'];
 						$prov=$_POST['prov'];
@@ -18,7 +18,7 @@ require('valida.php');
 						$oficio=$_POST['oficio'];
 						$obs=strtoupper ($_POST['obs']);
 
-$error=valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$barrio,$oficio,$cel,$num);
+$error=valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$barrio,$oficio,$cel,$num,$porcentaje);
 
  if(sizeof($error)>0)
 	 {
@@ -27,9 +27,9 @@ $error=valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barr
 	 }else{
 $sql="UPDATE t_empleados SET nombre='$nombre',apellido='$apellido',domicilio='$domicilio',barrio='$barrio',id_localidad=$Loc,id_provincia=$prov,tel=$telefono,obs='$obs',cel=$cel,num_empleados=$num";
 
-$sql.=" ,fecha_aud=(select fecha()),hora_aud=(select hora()),usuario_aud='".$r->getUser()."'";
+$sql.=" ,fecha_aud=(select fecha()),hora_aud=(select hora()),usuario_aud='".$r->getUser()."',porcentaje=$porcentaje ";
 $sql.=" where id_empleados=$id"; 
-$sql.=";UPDATE t_oficios SET id_oficio=$oficio WHERE id_empleados=$id";
+echo$sql.=";UPDATE t_oficios SET id_oficio=$oficio WHERE id_empleados=$id";
 
 
 $r=pg_query($sql);

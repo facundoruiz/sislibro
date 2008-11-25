@@ -114,6 +114,10 @@ $user=$_SESSION['miuser'];
     <th scope="row" >Barrio</th>
  <td ><input type="text"  name="barrio"  title="Ingrese el Barrio" value="<?php echo isset($_POST['barrio'])?strtoupper($_POST['barrio']):$empleado->get_barrio();  ?>"></td>
    </tr>
+     <tr>
+    <th scope="row" class="rotulo">Porcentaje</th>
+ <td ><input type="text"  name="porcentaje"   size="4" onKeyPress="return soloNumPto(event)" title="Ingrese el porcentaje de pago" value="<?php echo isset($_POST['porcentaje'])?strtoupper($_POST['porcentaje']):$empleado->get_porcentaje();  ?>"></td>
+   </tr>
     <tr>
    <th scope="row" >Trabaja de:</th>
    <td  align="left"><select name="oficio"   onChange="document.form1.submit()">
