@@ -223,7 +223,7 @@ function show_hide_menus(ele)    {
            if (document.getElementById('tbl_'+ele).style.display=='')
            {
                document.getElementById('tbl_'+ele).style.display='none';
-              // setCookie( ele, "none", 1);
+               //setCookie( ele, "none", 1);
              //  var imgsource = plus_minus_img + ele + '.gif';
              //  document.getElementById('img_'+ele).src=imgsource;
            }    else    {
@@ -233,7 +233,11 @@ function show_hide_menus(ele)    {
              //  document.getElementById('img_'+ele).src=imgsource;
            }
        }
-
+function show_hide_menus2(ele)    {
+          
+                   document.getElementById('tbl_'+ele).style.display='none';     
+          
+       }
 function imgtoggle(obj){
 
 	if(obj.className=="open"){

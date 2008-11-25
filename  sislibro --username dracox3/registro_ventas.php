@@ -16,7 +16,7 @@ include("cabecera.php");
 
 
 
-</head><body dir="ltr" lang="es">
+</head><body dir="ltr" lang="es" >
 <div align="center">
 <div >
 <div class="banner"><span class="logo3">
@@ -61,10 +61,10 @@ while ($acant=pg_fetch_array($rcant)){
  </TABLE>
 
 <tr><td valign="top">
-
- <TABLE border=0 class="c_user" >
+ <div onclick="javascript:show_hide_menus('empleado')" class="t_user">Datos de la ventas </div>
+ <TABLE border=0 class="c_user" id='tbl_empleado' align="center" >
   <!-- Empleado -->
-<tr > <th colspan="2" class="t_user">Datos de la ventas
+<tr > <th colspan="2" >
 <?PHP 
 			$gEmpleado=new gestorEmpleado($c);
  
@@ -75,7 +75,7 @@ while ($acant=pg_fetch_array($rcant)){
    ?></th>
 </tr>
 
-<?PHP	if(isset($_POST['oficio'])){ ?>
+<?PHP	if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 <tr>
 <td  colspan="2" class='c_datos'>Seleccione
 <?PHP
@@ -98,11 +98,11 @@ while ($acant=pg_fetch_array($rcant)){
     </tr>
 <tr>
 <td>
-<table  border="0" class="c_datos">
+<table  border="0" class="c_datos" id='tbl_empleado'>
 <?php if((isset($_POST['agregarE'])&& !empty($_POST['empleado']))||$_POST['mostrar_empleados']==1 ){?>
 
 <tr > 
-<td  colspan="4" class="t_datos">DETALLE</td></tr>
+<td  colspan="4" class="t_datos" id='tbl_empleado'>DETALLE</td></tr>
    <tr class="rotulo" >
           <td  >Empleado</td>
 		  <td  >Oficio</td>
@@ -163,9 +163,9 @@ echo"<td> <input type=submit name=eliminarE".$c." value='Eliminar' onClick='docu
  </table>
  <!-- Fin empleado -->
  
+ <div onclick="javascript:show_hide_menus('cliente')" class="t_user"><CENTER>Cliente <?php echo (isset($_POST['dni'])and !empty($_POST['dni']))?'Cargado':'Vacio' ?></CENTER></div>
+ <table class="c_user" id="tbl_cliente">
  
- <table class="c_user">
-  <tr ><th width="99" class="t_user" scope="row" colspan="3"><CENTER>Cliente</CENTER></th></tr>
      <?php     
 	            $dni= $_POST['dni'];
 				
@@ -182,10 +182,10 @@ echo"<td> <input type=submit name=eliminarE".$c." value='Eliminar' onClick='docu
 	  ?> 
    <tr>		  
       <th  scope="row" class="rotulo">DNI</th>	  
-      <td  >	  	  
+      <td >	  	  
 	  <?php if(empty($dni)&&$cliente==0)
 	      {?>	
-	      	<input type="text" name="dni" maxlength="8" onKeyPress="return soloNum(event)"  title="Ingrese el DNI" onBlur="document.form1.submit()" value="<?php echo $dni ?>" >	
+		<input type="text" name="dni" maxlength="8" onKeyPress="return soloNum(event)"  title="Ingrese el DNI" onBlur="document.form1.submit()" value="<?php echo $dni ?>" >	
 		 </td>
     </tr>	    
 
@@ -286,10 +286,10 @@ echo"<td> <input type=submit name=eliminarE".$c." value='Eliminar' onClick='docu
 </table>	
 </td>
  
-<td >
+<td valign=top>
 <div class="t_user">LIBROS     </div>
 (*)Para que funcione el campo codigo, la seleccion de titulo debe estar vacia.
-     <table width="530" border="1" class="formulario">
+<table width="530" border="1" class="c_user">
         
         <tr>
           <td width="50" bgcolor=#99CCFF>Codigo</td>
@@ -313,17 +313,20 @@ echo"<td> <input type=submit name=eliminarE".$c." value='Eliminar' onClick='docu
 			><?php echo $atipo['descrip'];?>
 			<?php }?>
           </select> 
-</td><td>
+</td>
+
+<td>
 <select name="editorial"  onchange="document.form1.submit()">
 	  		 <option value="-1">---Seleccione editorial </option>
 			<?php 
+			
 				$tgenero=isset($_POST['Tipo'])?$_POST['Tipo']:0;
-				$qeditorial="select * from f_dame_editorial_genero($tgenero)";
+				echo $qeditorial="select * from f_dame_editorial_genero($tgenero)";
 				$reditorial=pg_query($qeditorial);
+				
 				while ($aeditorial=pg_fetch_array($reditorial)){
 			?>
-            <option value="<?php echo $aeditorial['ideditorial'];?>" <?php echo ($_POST['editorial']==$aeditorial['ideditorial'])?'selected':'';?>
-			><?php echo $aeditorial['descrip'];?>
+      <option value="<?php echo $aeditorial['ideditorial'];?>" <?php echo ($_POST['editorial']==$aeditorial['ideditorial'])?'selected':'';?>><?php echo $aeditorial['descrip'];?>
 			<?php }?>
           </select> 
 </td>
@@ -332,47 +335,42 @@ echo"<td> <input type=submit name=eliminarE".$c." value='Eliminar' onClick='docu
 <select name="titulo"  onchange="document.form1.submit()">
 	  		 <option value="-1">---Seleccione Titulo </option>
 			<?php 
+		
 			 $teditorial=isset($_POST['editorial'])?$_POST['editorial']:0;
-	echo$qtitulo="select j.codigo ,t.descrip as id_titulo from t_editoriales e
+	$qtitulo="select j.codigo ,t.descrip as id_titulo from t_editoriales e
 inner join t_ejemplares j on(e.ideditorial=j.ideditorial)
 inner join t_libros t on(t.idlibro=j.idtitulo)
 where j.idgenero=$tgenero and j.ideditorial=$teditorial";
 			$rtitulo=pg_query($qtitulo);
+			
 			while ($atitulo=pg_fetch_array($rtitulo)){
 			?>
-            <option value="<?php echo $atitulo['codigo'];?>" <?php echo ($_POST['titulo']==$atitulo['codigo'])?'selected':'';?>
-			><?php echo $atitulo['id_titulo'];?>
+     <option value="<?php echo $atitulo['codigo'];?>" <?php echo ($_POST['titulo']==$atitulo['codigo'])?'selected':'';?>>
+     <?php echo $atitulo['id_titulo'];?>
 			<?php }?>
           </select> 
-</td><td><? $ri=$_POST['titulo']?pg_fila("select cant from stock1 where cod_libro=".$_POST['titulo'].""):0;
-			echo$ri!=0?$ri[0]:0
-			?><td>
+</td><td><? //$ri=$_POST['titulo']?pg_fila("select cant from stock1 where cod_libro=".$_POST['titulo'].""):0;
+			//echo$ri!=0?$ri[0]:0
+			
+?><td>
 </tr>
 <?php  $_POST['codigo']=($_POST['titulo']!=-1)?$_POST['titulo']:$_POST['codigo']?> 
-
-
-
-
-
-
-
         <tr>
 <td><input type="text" name="codigo" onKeyPress="return soloNum(event)"  title="Ingrese el Codigo de Libro" onBlur="document.form1.submit()" size="4" value=<?php echo$_POST['codigo']?>></td>
 <?php 
-if(!empty($_POST['codigo'])||$_POST['codigo']!=0){
-$codigo=$_POST['codigo'];
-$sql="Select codigo,descdic(1,id_genero),descdic(6,id_editor),id_titulo from tipos_libros where codigo=$codigo order by id_genero ";	 
- $rows=pg_fila($sql);
-if( $rows==0){
-echo"<SCRIPT> alert('No existe este ".$codigo." codigo ')</SCRIPT>";
-$_POST['codigo']='' ;
-}
-
+	if(!empty($_POST['codigo'])||$_POST['codigo']!=0){
+		$codigo=$_POST['codigo'];
+		$sql="Select  * from f_desc_ejemplares($codigo)  ";	 
+ 		$rows=pg_fila($sql);
+			if( $rows==0){
+				echo"<SCRIPT> alert('No existe este ".$codigo." codigo ')</SCRIPT>";
+				$_POST['codigo']='' ;
+			}
  
-echo"<td>".$rows[1]."</td>";
-echo"<td>". $rows[2]."</td>"; 
-echo"<td>".$rows[3]."</td>"; 
-echo"<td><SELECT NAME='cant'> ";
+			echo"<td>".$rows[1]."</td>";
+			echo"<td>". $rows[2]."</td>"; 
+			echo"<td>".$rows[3]."</td>"; 
+/*echo"<td><SELECT NAME='cant'> ";
 $ri=pg_fila("select cant from stock1 where cod_libro=".$rows[0]."");
 if($ri[0]!=0){
 for($i=1;$i<=$ri[0];$i++){ echo "<OPTION VALUE=".$i." >".$i."";  }
@@ -381,25 +379,25 @@ for($i=1;$i<=$ri[0];$i++){ echo "<OPTION VALUE=".$i." >".$i."";  }
 echo"<OPTION VALUE=0 >0";
 $_POST['codigo']='';
 echo"<SCRIPT >alert('no hay Stock')</SCRIPT>";
-
-}?>
-</SELECT></td>
-   <!-- Costo -->
-<td><input type="text" name="precio"  size="3" onKeyPress="return soloNumPto(event)"></td><?php }?>
+echo"</SELECT></td>";
+ }*/
+?>
+<td><input type="text" name="cant"  size="3" onKeyPress="return soloNum(event)"></td>
+   <!-- precio -->
+<td><input type="text" name="precio"  size="3" onKeyPress="return soloNumPto(event)"></td>
+			<?php }?>
  </tr>
 
  </table>
-
-
- <input type="submit" name="mas" value="agregar" onClick="document.from1.submit()">&nbsp;&nbsp;<a href="a_libro.php" target="_blank">Cargar Libros</a>
+ <input type="submit" name="mas" value="agregar" onClick="document.from1.submit()">&nbsp;&nbsp;<a href="libros_alta.php" target="_blank">Cargar Libros</a>
  <P>
  <P>
  <table  border="0">
 <?php if((isset($_POST['mas']) && !empty($_POST['codigo']))||$_POST['mostrar']==1){?>
-<table width="558" border="0" class="formulario">
+<table width="558" border="1" class="c_user" align="center">
 <tr > 
-<td  colspan="8" bgcolor=#99CC99 class='tr' align="center">DETALLE</td></tr>
-   <tr class="td">
+<td  colspan="8" bgcolor=#99CC99 class='c_user' align="center">DETALLE</td></tr>
+   <tr >
           <td width="50" bgcolor=#99CC99>Codigo</td>
 		  <td  bgcolor=#99CC99>Genero</td>
           <td  bgcolor=#99CC99>Editorial</td>
@@ -415,18 +413,21 @@ while ($_POST['codigo'.$c]){
 ?>
      <input type="hidden" name="codigo<?php echo$c; ?>" value="<?php echo $cod=$_POST['codigo'.$c];?>" >
      <input type="hidden" name="cant<?php echo $c; ?>" value="<?php echo $cant=$_POST['cant'.$c];?>" >
-	<input type="hidden" name="precio<?php echo $c; ?>" value="<?php echo $precio=$_POST['precio'.$c];?>" >	<input type="hidden" name="mostrar" value="1" >  
+	<input type="hidden" name="precio<?php echo $c; ?>" value="<?php echo $precio=$_POST['precio'.$c];?>" >	
+	<!-- <input type="hidden" name="mostrar" value="1" > -->  
       <?php	
 
 if(isset($_POST['eli'.$c])){
 $_POST['estado'.$c]=FALSE;
-$up_cant=$ri[0]+$cant;
+/*$up_cant=$ri[0]+$cant;
 pg_fila("update stock1 SET cant=".$up_cant." where cod_libro=".$cod."");
+*/
+
 }
 echo'<input type="hidden" name="estado'.$c.'" value="'.$_POST['estado'.$c].'">';
 
 
-$cmdSQL="Select codigo,descdic(1,id_genero),descdic(6,id_editor),id_titulo from tipos_libros where codigo=$cod order by id_genero ";
+$cmdSQL="Select  * from f_desc_ejemplares($cod)  ";
 
   $rows=pg_fila($cmdSQL); 
 
@@ -438,11 +439,11 @@ if($_POST['estado'.$c]){
  		  <td >".$rows[3]."</td>
           <td >".$cant."</td>
 			<td >".$precio."</td>";
- echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from.submit()>		 		 </td></tr>";
+ echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from.submit()> </td></tr>";
 
 		  }
 	
-		   
+		  
 
 $c++; 
  }	
@@ -451,14 +452,14 @@ if(isset($_POST['mas'])){
 	if(isset($_POST['codigo']) && !empty($_POST['codigo'])){
 		$cant=$_POST['cant'];
 		$cod=$_POST['codigo'];
-		$up_cant=$ri[0]-$cant;
+	/*	$up_cant=$ri[0]-$cant;
 if($up_cant<0||$cant==0){
 echo"<SCRIPT >alert('no hay Stock')</SCRIPT>";
 $cant=$_POST['cant']=0;
 }else{
 
 pg_fila("update stock1 SET cant=".$up_cant." where cod_libro=".$cod."");
-		
+		*/
 		?>
 
 <input type="hidden" name="codigo<?php echo $c; ?>" value="<?php echo $cod=$_POST['codigo'];?>" >
@@ -468,11 +469,11 @@ pg_fila("update stock1 SET cant=".$up_cant." where cod_libro=".$cod."");
 	  <?php
  
 
-$cmdSQL="Select codigo,descdic(1,id_genero),descdic(6,id_editor),id_titulo from tipos_libros where codigo=$cod order by id_genero ";
+$cmdSQL="Select  * from f_desc_ejemplares($cod)  ";
 
   $rows=pg_fila($cmdSQL); 
 	
-	echo " <tr class='td'>
+	echo " <tr >
           <td >".$codigo."&nbsp;</td>
 			<td >".$rows[1]."</td>
 		  <td  >".$rows[2]."</td>
@@ -482,18 +483,17 @@ $cmdSQL="Select codigo,descdic(1,id_genero),descdic(6,id_editor),id_titulo from 
 
 		 
 echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from1.submit()>		 </td></tr>";
-}	      
+//}	      
 }
 }?>
 
- </table><P>
-
+ </table><P>    
 
  
 
 <TABLE align="center" >
 <TR>
-	<TD colspan=7 bgcolor=#66CCFF> FORMAS DE PAGO</TD>
+	<TD colspan=3 bgcolor=#66CCFF> FORMAS DE PAGO</TD>
 	</TR>
 <TR>
 	<TD>Cobrado</TD><TD><SELECT NAME="cobrado" >
@@ -511,9 +511,9 @@ echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from
 </TR>
 </TABLE>
   
- <CENTER><INPUT TYPE="image" SRC="images/guardar.gif" onclick="document.form1.action='gventa.php'" >
- <A HREF="javascript:document.location.href='registro_ventas.php'"><IMG SRC="images/limpiar.gif" WIDTH="100" HEIGHT="40" BORDER="0" ALT="Limpiar Formulario"></A></CENTER>
-    <input type="hidden" name="form" value="venta">
+ <CENTER><INPUT TYPE="submit"  onclick="document.form1.action='registro_venta_guardar.php'" class="button" >
+ <A HREF="javascript:document.location.href='registro_ventas.php'" class="button">Limpiar Formulario</A></CENTER>
+    <input type="hidden" name="form" value="registro_ventas">
 
   </form>
  

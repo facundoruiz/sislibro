@@ -104,7 +104,7 @@ if(empty($barrio))
 }
 
 /*-PERSONALLLLLLLLLLLLLLLLLLL*/
-function valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$cel,$num)
+function valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$cel,$num,$porcentaje)
 {
 	if(empty($dni))
 				{
@@ -164,10 +164,14 @@ function valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,
 			
 			
 			}
+			if(empty($porcentaje))
+				{
+			$error[]="No se cargo <B>El Porcentaje que cobra el empleado</B>";
+			}
 	return $error;	
 }
 
-function valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$cel,$num)
+function valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$oficio,$cel,$num,$porcentaje)
 {
 
 	if(empty($apellido))
@@ -221,6 +225,10 @@ function valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$ba
 			if(empty($num))
 				{
 			$error[]="No se cargo <B>NUMERO DE EMPLEADO</B>";
+			}
+			if(empty($porcentaje))
+				{
+			$error[]="No se cargo <B>El Porcentaje que cobra el empleado</B>";
 			}
 	return $error;	
 }

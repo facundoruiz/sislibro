@@ -13,7 +13,7 @@ class Empleado{
   private $telefono; 
   private $celular;
   private $id_oficio;
-  private $id_zona;
+  private $porcentaje;
   private $oficio;
   private $obs;
   private $estado;
@@ -65,8 +65,8 @@ class Empleado{
 	public function set_oficio($p_oficio){
 		$this->oficio=$p_oficio;
 	}
-	public function set_id_zona($p_id_zona){
-		$this->id_zona=$p_id_zona;
+	public function set_porcentaje($p_porcentaje){
+		$this->porcentaje=$p_porcentaje;
 	}
 	public function set_estado($p_estado){
 		$this->estado=$p_estado;
@@ -117,8 +117,8 @@ class Empleado{
 	public function get_oficio(){
 		return $this->oficio;
 	}
-	public function get_id_zona(){
-		return $this->id_zona;
+	public function get_porcentaje(){
+		return $this->porcentaje;
 	}
 	public function get_estado(){
 		return $this->estado;
