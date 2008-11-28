@@ -34,7 +34,7 @@ class HtmlMenu extends HtmlGrupo{
 		$bt=new HtmlBoton($p_caption);
 		$bt->setClassEstilo($p_class_estilo);		
 		if($p_descripcion!=NULL){
-		$bt->setScript(' onmouseover="javascript:change(\''.$p_descripcion.'\')" onmouseout="javascript:change(\'\')"');
+		$bt->setScript(' onmouseover="change(\''.$p_descripcion.'\')" onmouseout="change(\'\')"');
 		}
 		$f->addControl($bt);
 		$this->addControl($f);

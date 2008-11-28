@@ -8,10 +8,13 @@ class Cliente{
   private $barrio;
   private $localidad;
   private $provincia;
+  private $idlocalidad;
+  private $idprovincia;
   private $celular;
   private $obs;
   private $telefono;
   private $moroso;
+  private $esmoroso;
   private $estado;
   private $fecha_aud;
   private $hora_aud;
@@ -43,6 +46,12 @@ class Cliente{
 	public function set_provincia($p_provincia){
 		$this->provincia=$p_provincia;
 	}
+public function set_idlocalidad($p_localidad){
+		$this->idlocalidad=$p_localidad;
+	}
+	public function set_idprovincia($p_provincia){
+		$this->idprovincia=$p_provincia;
+	}
 	public function set_celular($p_cel){
 		$this->celular=$p_cel;
 	}
@@ -54,6 +63,9 @@ class Cliente{
 	}
 	public function set_moroso($p_moroso){
 		$this->moroso=$p_moroso;
+	}
+public function set_esmoroso($p_moroso){
+		$this->esmoroso=$p_moroso;
 	}
 	public function set_estado($p_estado){
 		$this->estado=$p_estado;
@@ -86,6 +98,12 @@ class Cliente{
 	public function get_provincia(){
 		return $this->provincia;
 	}
+public function get_idlocalidad(){
+		return $this->idlocalidad;
+	}
+	public function get_idprovincia(){
+		return $this->idprovincia;
+	}
 	public function get_celular(){
 		return $this->celular;
 	}
@@ -98,7 +116,9 @@ class Cliente{
 	public function get_moroso(){
 		return $this->moroso;
 	}
-	
+public function get_esmoroso(){
+		return $this->esmoroso;
+	}
 	public function get_estado(){
 		return $this->estado;
 	}

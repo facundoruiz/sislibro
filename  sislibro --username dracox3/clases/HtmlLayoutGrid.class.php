@@ -14,7 +14,9 @@ class HtmlLayoutGrid extends HtmlLayout{
 	private $color_in='blue';
 	private $color_down;
 	private $borderColor;
-	
+	private $estiloclass;
+		private $estilocols;
+		private $estilorows;
 	function organizar($f){
 	/*
 		if (is_resource($f)){
@@ -36,7 +38,7 @@ class HtmlLayoutGrid extends HtmlLayout{
 			$e=$f->getEstilo();
 		else
 			$e=new HtmlEstilo();
-		$cadena.='<table style="margin:0px" width="'. $this->getWidth() .'" border="'.$this->getBorde() .'"';
+		$cadena.='<table style="margin:0px" width="'. $this->getWidth() .'" border="'.$this->getBorde() .'" '.$this->estiloclass.'';
 		if($this->getBorde()) 
 			$cadena.=' cellspacing="0" bordercolor="'.$this->getBordeColor() .'"';
 		$cadena.=' align="'. $this->getAlign() .'">' ."\n" ;
@@ -82,7 +84,7 @@ class HtmlLayoutGrid extends HtmlLayout{
 								}
 							}
 					}else{
-				$cadena.="<tr  bgcolor=".$e->getBackColor().">"."\n";
+				$cadena.="<tr  bgcolor=".$e->getBackColor()." ".$this->estilorows.">"."\n";
 				}
 			
 			
@@ -95,10 +97,10 @@ class HtmlLayoutGrid extends HtmlLayout{
 					else
 						$w='';
 					if($control){
-						$cadena.="<td". $w .">". $control->toString() ."</td>" ."\n";
+						$cadena.="<td". $w ." ".$this->estilocols.">". $control->toString() ."</td>" ."\n";
 					}
 					else
-						$cadena.="<td>&nbsp;</td>" ."\n";
+						$cadena.="<td ".$this->estilocols.">&nbsp;</td>" ."\n";
 				}
 				$j++;
 				$control=next($controles);
@@ -170,6 +172,15 @@ class HtmlLayoutGrid extends HtmlLayout{
 		$this->color_down=$c_down;
 		
 		
+	}
+	function setEstiloClass($p_class){
+		$this->estiloclass=" class=".$p_class;
+	}
+	function setEstiloRows($p_class){
+		$this->estilorows=" class=".$p_class;
+	}
+	function setEstiloCols($p_class){
+		$this->estilocols=" class=".$p_class;
 	}
 
 }
