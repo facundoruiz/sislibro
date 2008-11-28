@@ -182,10 +182,12 @@ top.window.outerWidth = screen.availWidth;
 //<!-- -----------------Funcion Ocultar div-------------------------- -->
 
 function mostrar(nombreCapa){
-document.getElementById(nombreCapa).style.visibility="visible";
+//document.getElementById(nombreCapa).style.visibility="visible";
+document.getElementById(nombreCapa).style.display='';
 }
 function ocultar(nombreCapa){
-document.getElementById(nombreCapa).style.visibility="hidden";
+//document.getElementById(nombreCapa).style.visibility="hidden";
+document.getElementById(nombreCapa).style.display='none';
 }
 
 //<!-- -----------------Funcion Ocultar filas o columnas-------------------------- -->

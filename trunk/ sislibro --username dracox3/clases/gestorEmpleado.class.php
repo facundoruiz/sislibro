@@ -88,7 +88,7 @@ class gestorEmpleado extends Empleado{
 		$combov=new HtmlCombo('','vendedor',20,true);
 					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
 inner join t_oficios o on (o.id_empleados=e.id_empleados)
-where o.id_oficio=1 ");
+where o.id_oficio=1 or o.id_oficio=3");
 					
 					$combov->addItem(0,'--Vendedor-');
 					while($ro=pg_fetch_array($qo)){
@@ -137,7 +137,7 @@ where o.id_oficio=$idOficio ");
 						};
 		return $comboe;
 	}
-	public function ComboOficios(){
+/*	public function ComboOficios(){
 		
 		$comboo=new HtmlCombo('','oficio',20,true);
 					$qo=pg_query("select item,descrip from diccionario where codigo=1 ");
@@ -147,6 +147,28 @@ where o.id_oficio=$idOficio ");
 						$comboo->addItem($ro[0],$ro[1]);
 						};
 		return $comboo;
+	}*/
+	public function ComboOficios($valor=false){
+		if(!$valor){
+		$comboo=new HtmlCombo('','oficio',20,true);
+					$qo=pg_query("select item,descrip from diccionario where codigo=1 ");
+				    $comboo->setOnChange("javascript:document.form1.submit()");	
+					$comboo->addItem(0,'--Empleado-');
+					while($ro=pg_fetch_array($qo)){
+						$comboo->addItem($ro[0],$ro[1]);
+						};
+		return $comboo;
+		}else{
+			$comboo=new HtmlCombo('','oficio',20,true);
+					$qo=pg_query("select item,descrip from diccionario where (codigo=1 and item=2) or (codigo=1 and item>4)");
+				    $comboo->setOnChange("javascript:document.form1.submit()");	
+					$comboo->addItem(0,'--Modo de Pago -');
+					while($ro=pg_fetch_array($qo)){
+						$comboo->addItem($ro[0],$ro[1]);
+						};
+		return $comboo;
+			
+		}
 	}
 	
 }
