@@ -148,7 +148,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
       <th  scope="row" class="rotulo">DNI</th>	  
       <td >	  
 <input type="text" name="dni"   value="<?php echo isset($_POST['dni'])?$_POST['dni']:''; ?>" >	
-<INPUT TYPE="hidden" name="id"  value="<?PHP echo isset($_POST['id'])?$_POST['id']:'' ?>">
+<INPUT TYPE="hidden" name="id_clientes"  value="<?PHP echo isset($_POST['id'])?$_POST['id_clientes']:'' ?>">
 <?PHP if($cliente!=0){?>
 <INPUT TYPE="hidden" name="existe"  value="1">
 <?} ?>
@@ -233,7 +233,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 			$ic=new interfazCliente();
 	     	echo $ic->mostrar_cliente($cliente);
 ?>
-		<INPUT TYPE="hidden" name="id"  value="<?PHP echo $cliente->get_id_cliente()?>">
+		<INPUT TYPE="hidden" name="id_clientes"  value="<?PHP echo $cliente->get_id_cliente()?>">
 		<INPUT TYPE="hidden" name="existe"  value="1">
 		<INPUT TYPE="hidden" name="dni"  value="<?PHP echo $cliente->get_dni()?>">
 	<?    		}
@@ -342,7 +342,7 @@ echo"<SCRIPT >alert('no hay Stock')</SCRIPT>";
 echo"</SELECT></td>";
  }*/
 ?>
-<td><input type="text" name="cant"  size="3" onKeyPress="return soloNum(event)"></td>
+<td><input type="text" name="cant"  size="3" onKeyPress="return soloNum(event)" value="1"></td>
    <!-- precio -->
 <td><input type="text" name="precio"  size="3" onKeyPress="return soloNumPto(event)"></td>
 			<?php }?>

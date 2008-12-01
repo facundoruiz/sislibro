@@ -6,8 +6,8 @@ a { font-family: Arial; font-size: 11px; font-style: normal; color: #000066; mar
 
 
 .banner	{
-background-image:url('');
-background-position:center;
+background-image:url('../img/banner.jpg');
+background-position:left;
 background-repeat:no-repeat; height:80px;  border: #00053C 1px solid; text-align:right;}
 .bienvenidos { margin-bottom:1px; border: #00053C 1px solid; font-family: Arial; font-size: 11px; color: #000066; text-align:left;  }
 
