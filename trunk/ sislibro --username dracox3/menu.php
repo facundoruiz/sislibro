@@ -19,8 +19,7 @@ $user=$_SESSION['miuser'];
 </head><body dir="ltr" lang="es">
 <div align="center">
 <div >
-<div class="banner"><span class="logo3">
-</span><br>
+<div class="banner"><br>
 </div>
 <div class="bienvenidos">
 <?php echo $r->inf();  ?>
