@@ -294,10 +294,10 @@ $q= pg_query(" Select * from t_libros where descrip ilike'%$ttitulo%'  order by 
   </td> </tr>
   </table>
   <?php if(!empty($_POST['titulo'])){?>
-<INPUT TYPE="submit"  onclick="document.form.action='libros_guardar.php'"  value="Guardar Formulario"> <?php }?>
-  <A HREF="javascript:document.location.href='libros_alta.php'"><IMG SRC="images/limpiar.gif" WIDTH="100" HEIGHT="40" BORDER="0" ALT="Limpiar Formulario"></A>
+<INPUT TYPE="submit"  onclick="document.form.action='libros_guardar.php'"  value="Guardar Formulario" class="button"> <?php }?>
+  <A HREF="javascript:document.location.href='libros_alta.php'" class="button">Limpiar Formulario</A>
 
-  <INPUT TYPE="hidden" NAME="form" value="libro_alta">
+  <INPUT TYPE="hidden" NAME="form" value="libros_alta">
   </form>
    
 
@@ -306,9 +306,9 @@ $q= pg_query(" Select * from t_libros where descrip ilike'%$ttitulo%'  order by 
 </table>
 </div>
 <div class="pie">
-
-<p>Desarrollado por  </p>
-<p class="copy">Copyright &copy; 2008  &reg; Todos los derechos reservados</p>
-</div></div>
+<div class="letracapital">Action2</div>
+<p class="copy">Desarrollo de sistemas</p>
+</div>
+</div>
 </div>
 </body></html>

@@ -47,8 +47,8 @@ include("cabecera.php");
 </div>
 <div class="pie">
 
-<p>Desarrollado por  </p>
-<p class="copy">Copyright &copy; 2008  &reg; Todos los derechos reservados</p>
+<div class="letracapital">Action2</div>
+<p class="copy">Desarrollo de sistemas</p>
 </div></div>
 </div>
 </body></html>
