@@ -65,7 +65,7 @@ if (isset($_SESSION[ID_menu]))
 </div>
 <div class="pie">
 
-<p>Action2  </p>
+<div class="letracapital">Action2</div>
 <p class="copy">Desarrollo de sistemas</p>
 </div></div>
 </div>

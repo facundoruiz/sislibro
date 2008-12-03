@@ -49,9 +49,8 @@ $user=$_SESSION['miuser'];
 </div>
 <div class="pie">
 
-<p>Desarrollado por Action2 </p>
-<p class="copy">Sislibro</p>
-</div></div>
+<div class="letracapital">Action2</div>
+<p class="copy">Desarrollo de sistemas</p></div></div>
 </div>
 </body></html>
   
