@@ -85,7 +85,7 @@ class gestorUsuario extends usuario{
 	function cargarMenu(){
 		$this->getConexion();	  
 		$qMenu =" select nombre,link,descripcion from t_funcion_menu f inner join t_menu m on (f.id_menu = m.id_menu and f.id_submenu=m.id_submenu ) 
-		 		  where f.id_funcion=".$this->getFuncion()." and m.id_submenu=0 order by nombre ";
+		 		  where f.id_funcion=".$this->getFuncion()." and m.id_submenu=0 ";
 		$rMenu=pg_query($qMenu);
 		while($aMenu=pg_fetch_assoc($rMenu)){
 			if(!empty($aMenu['img'])){

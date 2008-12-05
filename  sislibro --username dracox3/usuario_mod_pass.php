@@ -40,11 +40,14 @@ $user=$_SESSION['miuser'];
 <?php
 $usuario=$r;		
 if($_POST['Submit']){
+	
 	$pass_old=trim(strtr(strtoupper($_POST['pass_old']), 'áéíóúñ', 'AEIOUÑ'));
-	if ($pass_old == $_SESSION['clave_global']){
+	
+	
+	if ($pass_old == $r->getPass()){
 		if ($_POST['pass']==$_POST['repass']){
 			$password=trim(strtr(strtoupper($_POST['pass']), 'áéíóúñ', 'AEIOUÑ'));
-			$encpass = encrypt($password);
+			$encpass = $r->encrypt($password);
 			$upUser="update t_usuarios set pass ='".$encpass."' where id_usuario = ".$_POST['id_us_pass'];
 	//		echo $upUser;
 			if (pg_query($upUser)){
@@ -63,8 +66,8 @@ if($_POST['Submit']){
 ?>
 <form name="form1" method="post" action="">
 	<?php
-		$quser="select u.id_usuario,u.usuario,u.nombre,u.apellido,d.descrip as func from t_usuarios u left join diccionario d on (d.codigo=3 and u.funcion=d.item)";
-		$quser.=" where upper(usuario) = '".strtoupper($_SESSION['miuser'])."'";
+		$quser="select u.id_usuario,u.usuario,u.nombre,u.apellido,d.descrip as func from t_usuarios u 
+inner join diccionario d on (d.codigo=3 and u.funcion=d.item) where id_usuario =".$r->getid()."";
 		$ruser=pg_query($quser);
 		$auser=pg_fetch_array($ruser);
 	?>
@@ -96,7 +99,7 @@ if($_POST['Submit']){
       </tr>
       <tr>
         <td  align="center" valign="middle" ></td>
-        <td height="33"  align="left" valign="middle" > CONTRASE&Ntilde;A </td>
+        <td height="33"  align="left" valign="middle" > CONTRASE&Ntilde;A VIEJA</td>
         <td height="33" align="center" valign="middle"><input name="pass_old" type="password"  id="pass_old" value="">
         </td>
       </tr>
