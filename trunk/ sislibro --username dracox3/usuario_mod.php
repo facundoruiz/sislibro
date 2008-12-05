@@ -1,17 +1,42 @@
 <?php 
-include("cabecera.php"); 
-include("funcionesGrales.php"); 
+include("cabecera.php");
+
+
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>USUARIO MODIFICAR</title>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="es"><head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<title>Sislibro</title>
+<META HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META HTTP-EQUIV="Content-language" CONTENT="es">
 
-</head>
+<?php include("funcionesGrales.php");?>
 
-<body >
+
+
+</head><body dir="ltr" lang="es">
+<div align="center">
+<div >
+<div class="banner"><span class="logo3">
+</span><br>
+</div>
+<div class="bienvenidos">
+<?php echo $r->inf();  ?>
+</div><table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Contenido">
+<tr>
+<td  class="izquierda"  valign="top">
+<div class="t_menu">SubMENU</div>
+ <div id="c_menu"> 
+<?php echo $r->Submenu(2); ?>
+      </div>
+<td  class="centro">
+
+<div class="t_datos"><div class="titulos">Modificar Usuario</div></div>
+<div class="descripcion">
+<table>
+<tr><td>
 	<form name="form1" method="post" action="">
 <?php
 $usuario=$r;
@@ -52,26 +77,43 @@ if ($_POST['Submit']){
        USUARIO
 			<input name=" alta_user" type="text" class="Estilo3" id="alta_user" value="<?php echo $aeluser['usuario'];?>" onBlur="submit();" readonly>
             <input type="hidden" name="id_usuario" value="<?php echo $aeluser['id_usuario'];?>">
+         <br>
  CONTRASE&Ntilde;A
       <input name="up_pass" type="password" class="Estilo3" id="up_pass" value="<?php echo $aeluser['pass'];?>">
           <input name="pass_ref" type="hidden" id="pass_ref" value="<?php echo $aeluser['pass'];?>">
+          <br>
        NOMBRE
        <input name="up_nombre" type="text" class="Estilo3" id="up_nombre" value="<?php echo $aeluser['nombre'];?>">
+       <br>
       APELLIDO<input name="up_apellido" type="text" class="Estilo3" id="up_apellido" value="<?php echo $aeluser['apellido'];?>">
+      <br>
       FUNCION
        <select name="up_funcion" id="up_funcion">
             <?php
-				$q_fin="select item,descrip from diccionario where codigo = 7"; //combo estados finalizacion
+				$q_fin="select item,descrip from diccionario where codigo = 3"; //combo estados finalizacion
 				$r_fin=pg_query($q_fin);
 				while ($a_fin=pg_fetch_array($r_fin)){
 			?>
             <option value="<?php echo $a_fin['item'];?>" <?php echo ($aeluser['funcion']==$a_fin['item'])?"selected":"";?>><?php echo $a_fin['descrip'];?> </option>
             <?php }?>
-          </select>
+          </select><br>
        HABILITADO
-       <input name="up_habili" type="checkbox" id="up_habili" value="1" <?php echo ($aeluser['habilitado']==1)?'checked':'';?> ></td>
-      <input type="submit" name="Submit" value="GUARDAR"  >
+       <input name="up_habili" type="checkbox" id="up_habili" value="1" <?php echo ($aeluser['habilitado']==1)?'checked':'';?> ><br>
+        <input type="submit" name="Submit" value="GUARDAR"  >
        <input name="reestablecer" type="reset" id="reestablecer" value="RESTABLECER">
 	</form>
-</body>
-</html>
+
+</td></tr>
+</table>
+
+</div></td>
+</tr>
+</table>
+</div>
+<div class="pie">
+
+<div class="letracapital">Action2</div>
+<p class="copy">Desarrollo de sistemas</p>
+</div></div>
+</div>
+</body></html>
