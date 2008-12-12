@@ -20,7 +20,7 @@ $error=valida_clientes($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$b
  if(sizeof($error)>0)
 	 {
      error($error); 
-	 echo "<CENTER><P> Debe volver para corregir la carga &nbsp;<BR><INPUT TYPE=Button onclick='history.back(-1)' value=Volver></CENTER>";
+	 echo "<CENTER><P> Debe volver para corregir la carga &nbsp;<BR><INPUT TYPE=Button onclick='javascript:history.back(-1)' value=Volver></CENTER>";
 	 }else{
 	 	$c->getMiconexion();
 		 $cmd= "select Max(id_clientes)+1 from t_clientes";
