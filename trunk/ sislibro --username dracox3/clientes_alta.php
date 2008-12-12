@@ -44,11 +44,13 @@ $user=$_SESSION['miuser'];
 }else{
 	$b=0;
  $dni= $_POST['dni'];
-				
+		
 				if(!empty($dni))
 					{              
 	           	$gcliente=new gestorCliente($c);
-				$cliente=$gcliente->get_clienteDni($dni);
+				
+	           	$cliente=$gcliente->get_clienteDni($dni);
+			//	print_r($cliente);	
 					}?>
   <input type="hidden" name="form" value="clientes_alta">					
 					<? }?>
@@ -61,7 +63,7 @@ $user=$_SESSION['miuser'];
    <tr>		  
       <th  scope="row" class="rotulo">DNI</th>	  
       <td  >	  	  
-	  <?php if(isset($cliente)&&$cliente->get_id_cliente()>0)
+	  <?php if(isset($cliente)&&$cliente!=0)
 	      {			    
 			?>	
 			<!-- SI EXITE PASA POR AQUI -->
@@ -97,7 +99,7 @@ $user=$_SESSION['miuser'];
     <option value="-1" >-- Provincia --</option>
  <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
-		$Prov=isset($_POST['prov'])?$_POST['prov']:$cliente->get_provincia();
+		$Prov=isset($_POST['prov'])?$_POST['prov']:$cliente->get_idprovincia();
 		while ($aprov=pg_fetch_array($rprov)){	
 			
 			?>
@@ -111,7 +113,7 @@ $user=$_SESSION['miuser'];
     <option value="-1" >-- Localidad --</option>
  <?php 	$qLoc="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov." order by descrip asc";
 		$rLoc=pg_query($qLoc);
-		$loc=isset($_POST['Loc'])?$_POST['Loc']:$cliente->get_localidad(); 
+		$loc=isset($_POST['Loc'])?$_POST['Loc']:$cliente->get_idlocalidad(); 
 		while ($aLoc=pg_fetch_array($rLoc)){	
 			
 			?>
@@ -155,30 +157,30 @@ $user=$_SESSION['miuser'];
 					   <input type="text" name="dni"   maxlength="8" onKeyPress="javascript:return soloNum(event)"  title="Ingrese el DNI" onBlur="document.form1.submit()" value="<?php echo $dni?>">	
 						<?php } else {?>
 			<!-- Si mandaron amodificar desde get  --> 	 
-   	<input type="text" name="dni"   value="<?php echo isset($_POST['dni'])?$_POST['dni']:$cliente->get_dni(); ?>" readonly>	
-	<INPUT TYPE="hidden" name="id" value="<?PHP echo isset($_POST['id'])?$_POST['id']:$cliente->get_id_cliente(); ?>">
+   	<input type="text" name="dni"   value="<?php echo isset($_POST['dni'])?$_POST['dni']:''; ?>" >	
+	<INPUT TYPE="hidden" name="id" value="<?PHP echo isset($_POST['id'])?$_POST['id']:''; ?>">
 		   </td>
     </tr>
  
      <tr >
       <th scope="row" class="rotulo">Apellido</th>
-      <td ><input type="text"  maxlength="30" name="apellido" title="Ingrese el Apellido" value="<?php echo isset($_POST['apellido'])?strtoupper ($_POST['apellido']):$cliente->get_apellido(); ?>"></td>
+      <td ><input type="text"  maxlength="30" name="apellido" title="Ingrese el Apellido" value="<?php echo isset($_POST['apellido'])?strtoupper ($_POST['apellido']):''; ?>"></td>
     </tr>
        <tr>
        <th scope="row" class="rotulo">Nombre</th>
-         <td ><input type="text"  maxlength="30" name="nombre" title="Ingrese el Nombre" value="<?php echo isset($_POST['nombre'])?strtoupper ($_POST['nombre']):$cliente->get_nombre();  ?>"></td>
+         <td ><input type="text"  maxlength="30" name="nombre" title="Ingrese el Nombre" value="<?php echo isset($_POST['nombre'])?strtoupper ($_POST['nombre']):'';  ?>"></td>
       </tr>
     <tr>
        <th scope="row" class="rotulo">Domicilio</th>
-         <td><input type="text"  maxlength="100" name="domicilio" title="Ingrese el Domicilio" value="<?php echo isset($_POST['domicilio'])?strtoupper ($_POST['domicilio']):$cliente->get_domicilio();  ?>"></td>
+         <td><input type="text"  maxlength="100" name="domicilio" title="Ingrese el Domicilio" value="<?php echo isset($_POST['domicilio'])?strtoupper ($_POST['domicilio']):'';  ?>"></td>
       </tr>
  <tr>
        <th scope="row" class="rotulo">Telefono</th>
-         <td ><input type="text"  onKeyPress="return soloNum(event)" name="telefono" title="Ingrese el Telefeno" value="<?php echo isset($_POST['telefono'])?$_POST['telefono']:$cliente->get_telefono();  ?>" maxlength="7"></td>
+         <td ><input type="text"  onKeyPress="return soloNum(event)" name="telefono" title="Ingrese el Telefeno" value="<?php echo isset($_POST['telefono'])?$_POST['telefono']:'';  ?>" maxlength="7"></td>
       </tr>	
   <tr>
       <th scope="row" class="rotulo">Celular(*)</th>
-        <td ><input type="text"  onKeyPress="return soloNum(event)" name="cel" title="Ingrese el Telefeno" value="<?php echo isset($_POST['cel'])?$_POST['cel']:$cliente->get_celular();  ?>" maxlength="10"> </td>
+        <td ><input type="text"  onKeyPress="return soloNum(event)" name="cel" title="Ingrese el Telefeno" value="<?php echo isset($_POST['cel'])?$_POST['cel']:'';  ?>" maxlength="10"> </td>
    </tr>	
 	 <tr>
    <th scope="row" class="rotulo">Provincia</th>
@@ -186,7 +188,7 @@ $user=$_SESSION['miuser'];
     <option value="-1" >-- Provincia --</option>
  <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
-		$Prov=isset($_POST['prov'])?$_POST['prov']:$cliente->get_provincia();
+		$Prov=isset($_POST['prov'])?$_POST['prov']:'';
 		while ($aprov=pg_fetch_array($rprov)){	
 			
 			?>
@@ -200,7 +202,7 @@ $user=$_SESSION['miuser'];
     <option value="-1" >-- Localidad --</option>
  <?php 	$qLoc="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov." order by descrip asc";
 		$rLoc=pg_query($qLoc);
-		$loc=isset($_POST['Loc'])?$_POST['Loc']:$cliente->get_localidad(); 
+		$loc=isset($_POST['Loc'])?$_POST['Loc']:''; 
 		while ($aLoc=pg_fetch_array($rLoc)){	
 			
 			?>
@@ -209,26 +211,22 @@ $user=$_SESSION['miuser'];
     </tr>
 <tr>
     <th scope="row" class="rotulo">Barrio</th>
- <td ><input type="text"  name="barrio" title="Ingrese el Barrio" value="<?php echo isset($_POST['barrio'])?strtoupper($_POST['barrio']):$cliente->get_barrio();  ?>"></td>
+ <td ><input type="text"  name="barrio" title="Ingrese el Barrio" value="<?php echo isset($_POST['barrio'])?strtoupper($_POST['barrio']):'';  ?>"></td>
    </tr>
    <tr>
     <th scope="row" class="rotulo">Moroso</th>
  <td ><select name="moroso"   onChange="document.form1.submit()">
  <option value="1"  <?php if(isset($_POST['moroso'])){
 							echo $_POST['moroso']==1?'selected':'';
-						  }else{ 
-							 echo($cliente->get_moroso()==1)?'selected':'';
-							 } ?>>No es moroso</option>
+						  						 } ?>>No es moroso</option>
  <option value="2"  <?php if(isset($_POST['moroso'])){
 							echo $_POST['moroso']==2?'selected':'';
-						  }else{ 
-							 echo($cliente->get_moroso()==2)?'selected':'';
-							 } ?>>SI es Moroso  </option>
+						 	 } ?>>SI es Moroso  </option>
 </select></td>
    </tr>
    <tr>
     <th scope="row" class="rotulo" >Observacion</th>
- <td "><TEXTAREA name="obs"   ROWS="5" COLS="25"><?php echo isset($_POST['obs'])?strtoupper ($_POST['obs']):$cliente->get_obs();  ?></TEXTAREA></td>
+ <td ><TEXTAREA name="obs"   ROWS="5" COLS="25"><?php echo isset($_POST['obs'])?strtoupper ($_POST['obs']):'';  ?></TEXTAREA></td>
    </tr>
 
 	<tr>
@@ -239,7 +237,7 @@ $user=$_SESSION['miuser'];
 	<?php }}?>
   </TABLE>
 
-  <?php if(!empty($dni)&&isset($cliente)&&$cliente->get_id_cliente()<1){?>
+  <?php if(!empty($dni)&&isset($cliente)&&$cliente==0){?>
     <INPUT TYPE="submit"   onclick="document.form1.action='clientes_guardar.php'" value="Guardar" class="button">
 <?php }	else { 
 			if(isset($cliente)&&$cliente->get_id_cliente()>0){?>

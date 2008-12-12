@@ -68,7 +68,7 @@ $sub=explode("@",$dispo2[$i]);
 			}
 		}
 	}
-	$sqlbus="select descrip from diccionario where item=$perfsel and cod=7";
+	$sqlbus="select descrip from diccionario where item=$perfsel and cod=3";
 	$resu=@pg_query($sqlbus);
 	if ($resu>0)
 		$datbus=pg_fetch_array($resu);
