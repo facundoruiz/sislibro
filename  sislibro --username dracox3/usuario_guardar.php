@@ -5,15 +5,16 @@ $a_password=$_POST['alta_pass'];
 $a_nombre=$_POST['alta_nombre'];
 $a_apellido=$_POST['alta_apellido'];
 $a_funcion=$_POST['alta_funcion'];
+
 if($a_username=="" || $a_password=="" || $a_nombre=="" || $a_apellido=="" || $a_funcion=="") 
 		{echo "<script language='JavaScript'>
 		alert ('COMPLETE TODOS LOS CASILLEROS');
-			window.location.href='alta_usuario.php';		
+			window.location.href='usuario_alta.php';		
 		</script>";
 		}
 else
 	{		
-add_user($a_username,$a_password,$a_nombre,$a_apellido,$a_funcion);
+$r->add_user($a_username,$a_password,$a_nombre,$a_apellido,$a_funcion);
 echo "<script language='JavaScript'>
 		alert ('EL usuario fue dado de alta ');
 			window.location.href='usuario_alta.php';	

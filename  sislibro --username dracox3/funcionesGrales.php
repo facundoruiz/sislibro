@@ -6,7 +6,8 @@
 function add_user($username,$password,$nombre,$apellido,$funcion) 
 {
 	$userLog=$_SESSION['miuser'];
-	$qtemp="select funcion from t_usuarios where usuario='$userLog'";
+	
+	 $qtemp="select funcion from t_usuarios where id_usuario=".$userLog->getId()."";
 	$rtemp=pg_query($qtemp);
 	$atemp=pg_fetch_row($rtemp);
 	if ($atemp[0]==1)
@@ -27,6 +28,7 @@ function add_user($username,$password,$nombre,$apellido,$funcion)
 	{
 		echo "<script javascript>alert('No tiene un perfil autorizado para agregar un usuario')</script>";
 		echo "<script javascript>parent.window.location.href='menu.php?SID' </script>";
+
 	}
 }
 

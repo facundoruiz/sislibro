@@ -37,13 +37,13 @@ $user=$_SESSION['miuser'];
 <div class="descripcion">
 
 
-<form name="form1" method="post" action="">
+<form name="form1" method="post" action="usuario_guardar.php">
 <table >
 <tr> <td>
   INGRESE LOS DATOS DEL USUARIO A DAR DE ALTA
   </td></tr>
 <tr> <td>  
-USUARIO<input name=" alta_user" type="text"  id="alta_user" value="<?php echo $_POST['alta_user'];?>" onBlur="submit();">
+USUARIO<input name="alta_user" type="text"  id="alta_user" value="<?php echo $_POST['alta_user'];?>" onBlur="document.form1.action='usuario_alta.php';submit();">
 </td></tr> 
   <tr> <td>
   CONTRASE&Ntilde;A<input name="alta_pass" type="password"  id="alta_pass" value="<?php echo $_POST['alta_pass'];?>">
@@ -66,7 +66,7 @@ USUARIO<input name=" alta_user" type="text"  id="alta_user" value="<?php echo $_
 			<?php }?>
 			</select>
 </td></tr>
-<tr><td>		 <input type="submit" name="Submit" value="AGREGAR" onClick='document.form1.action="usuario_guardar.php"' >
+<tr><td>		<INPUT TYPE="submit"   >
         
         <input name="reestablecer" type="reset" id="reestablecer" value="RESTABLECER">
      </td></tr>
@@ -85,12 +85,13 @@ if (pg_num_rows($rvtemp) > 0)
 } 
 else
 {
-?>
+/*
 <script javascript>
 	document.form1.Submit.disabled=false;
 	document.form1.alta_pass.select();
 </script>
-<?php }?>
+*/}
+?>
 </form>
 
 	
