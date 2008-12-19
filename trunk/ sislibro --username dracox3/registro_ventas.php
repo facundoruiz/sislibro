@@ -72,7 +72,7 @@ if(isset($_POST['OcultarEmpleados'])||$_POST['ME']==1){
  <?PHP }else{ ?>
  <input type="submit" value="Ocultar" name="OcultarEmpleados" class="c_datos">
  <?PHP } ?></div>
- <TABLE border=0 class="c_user" id='tbl_empleado' align="center" >
+ <TABLE border=0 class="c_datos" id='tbl_empleado' align="center" >
   <!-- Empleado -->
 <tr > <th colspan="2" >
 Vendedor
@@ -281,7 +281,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 			<?php 
 			
 				$tgenero=isset($_POST['Tipo'])?$_POST['Tipo']:0;
-				echo $qeditorial="select * from f_dame_editorial_genero($tgenero)";
+				$qeditorial="select distinct * from f_dame_editorial_genero($tgenero)";
 				$reditorial=pg_query($qeditorial);
 				
 				while ($aeditorial=pg_fetch_array($reditorial)){

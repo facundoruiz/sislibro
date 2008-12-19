@@ -38,7 +38,7 @@ class gestorUsuario extends usuario{
 			if(strcmp($p,$temp)==0)
 			{
 				$auth="";
-				$this->setid();
+				$this->setId();
 				$this->setNombre();	
 				$this->setApellido();
 				$this->setFuncion();
@@ -77,8 +77,7 @@ class gestorUsuario extends usuario{
    $exit->setfull(true);
    $exit->setClassEstilo('CLASS=button');
    $exit->setScript("onclick=javascript:location.href='index.php'");
- 	$inf=$this->getApellido().",".$this->getNombre();
-	$inf.="<tr ><td colspan='3'>".$volver->toString()." ".$exit->toString()."</td></tr>";
+    $inf="<tr><td></td><td >".$volver->toString()." ".$exit->toString()."</td><td>".$this->getApellido().",".$this->getNombre()."</td></tr>";
 		return $inf;
 	}
 	

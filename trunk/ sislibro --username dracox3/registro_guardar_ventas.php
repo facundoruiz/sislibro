@@ -83,7 +83,7 @@ $conexion->getMiconexion();
 									
 				if($b!=1){
 				
-				$sqlChequera=" INSERT INTO  t_chequeras (idchequera,id_cliente,idvendedor,cant_cuotas,importe_cuota,monto_total,num_chequera,fecha,cobrado,vto_cuota,dia_cobrar,fecha_aud,hora_aud,usuario_aud) VALUES ($id_venta,$id_clientes,$id_vendedor,$cant_cuotas,$imp_cuota,$importe,$num_chequera,'$fecha',$cobrado,'$vto_fecha',$dia_cuota,(select fecha()),(select hora()),'".$r->getUser()."'); ";
+				$sqlChequera=" INSERT INTO  t_chequeras (idchequera,id_cliente,idvendedor,cant_cuotas,importe_cuota,monto_total,num_chequera,fecha,cobrado,vto_cuota,dia_cobrar,fecha_aud,hora_aud,usuario_aud,idcobrador) VALUES ($id_venta,$id_clientes,$id_vendedor,$cant_cuotas,$imp_cuota,$importe,$num_chequera,'$fecha',$cobrado,'$vto_fecha',$dia_cuota,(select fecha()),(select hora()),'".$r->getUser()."',$id_cobrador); ";
 				//$sqldetalle.=" END";
 				
 				echo$sqlChequera.=$sqldetalle;
