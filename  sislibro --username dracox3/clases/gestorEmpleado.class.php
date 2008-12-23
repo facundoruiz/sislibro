@@ -122,10 +122,10 @@ where o.id_oficio=3 ");
 						};
 		return $combovc;
 	}
-	public function ComboEmpleado($idOficio){
+	public function ComboEmpleado($idOficio=NULL){
 		
 		$comboe=new HtmlCombo('','empleado',20,true);
-					
+				if($idOficio!=NULL){	
 					$query=pg_query("select descdic(1,$idOficio)  ");
 					$rows=pg_fetch_array($query);
 					$comboe->addItem(0,'--'.$rows[0].'-');
@@ -135,6 +135,16 @@ where o.id_oficio=$idOficio ");
 					while($ro=pg_fetch_array($qo)){
 						$comboe->addItem($ro[0],$ro[1]);
 						};
+				}else{
+					$comboe->addItem(0,'--Empleados-');
+					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
+inner join t_oficios o on (o.id_empleados=e.id_empleados)  ");
+					while($ro=pg_fetch_array($qo)){
+						$comboe->addItem($ro[0],$ro[1]);
+						};
+					
+				}
+				
 		return $comboe;
 	}
 /*	public function ComboOficios(){
