@@ -116,8 +116,16 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
  <div class="t_user"><CENTER>Cliente <?php echo ((isset($_POST['dni'])and !empty($_POST['dni']))||isset($_SESSION['cliente']))?'Cargado':'Vacio' ?></CENTER></div>
  <table class="c_datos" id="tbl_cliente">
  
-     <?php     
-	            $dni= $_POST['dni'];
+     <?php  
+     		$dni= $_POST['dni'];
+			
+     		if(isset($_POST['limpiar']))
+					{      
+			$dni='';			
+						
+					}
+     
+	            
 				
 			            
 	          if(!empty($dni))
@@ -209,7 +217,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
    <tr>
  <th scope="row" class="rotulo">Moroso</th>
  <td > 
-<select name="moroso"   onChange="document.form1.submit()">
+<select name="moroso"  >
  <option value="1"  <?php if(isset($_POST['moroso'])){
 							echo $_POST['moroso']==1?'selected':'';
 						  					 } ?>>No es moroso</option>
@@ -240,7 +248,8 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 	      }?>
 
 </td></tr>
- 
+<tr><td><input type="submit" name="limpiar" value="Limpiar Cliente" class="button" ></td>
+</tr> 
  
 	 <!-- FIN cliente -->
 </table>	
@@ -453,20 +462,25 @@ echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from
 
 <TABLE align="center" >
 <TR>
-	<TD colspan=3 bgcolor=#66CCFF> FORMAS DE PAGO</TD>
+	<TD colspan=3 bgcolor=#66CCFF>PLAN EN CUOTAS</TD>
 	</TR>
 <TR>
-	<TD>Cobrado</TD><TD><SELECT NAME="cobrado" >
-	<option value="-1" <?php echo ($_POST['cobrado']==-1)?'selected':' ';?>>- -</option>
-	<option value="1" <?php echo ($_POST['cobrado']==1)?'selected':' ';?>>No</option>
-	<option value="2" <?php echo ($_POST['cobrado']==2)?'selected':' ';?>>Si</option>
-	</SELECT></TD></TR>
+	<TD>Primera cuota se cobro</TD><TD><SELECT NAME="cobrado" OnChange="document.form1.submit()">
+	<option value="-1" <?php echo ($_POST['cobrado']==-1)?'selected':' ';?>>- seleccione -</option>
+	<option value="1" <?php echo ($_POST['cobrado']==1)?'selected':' ';?>>No </option>
+	<option value="2" <?php echo ($_POST['cobrado']==2)?'selected':' ';?>>Si </option>
+		<option value="3" <?php echo ($_POST['cobrado']==3)?'selected':' ';?>>Adelanto</option>
+	</SELECT>
+	<?php  if($_POST['cobrado']==3){?>
+		$<input type="text"  name="adelanto" size="4" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['adelanto']?>" >';
+	<?PHP }?>
+	</TD></TR>
 	
 	<TR><TD>Cant de cuotas</TD><TD><INPUT  TYPE="text" NAME="cant_cuotas" size="2" maxlength="2" value="<?php echo $_POST['cant_cuotas']?>"  onKeyPress="return soloNum(event)"></TD></TR>
 	<TR><TD>Precio X cuota</TD><TD>$<INPUT  TYPE="text" NAME="precio_cuota" size="4" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['precio_cuota']?>" onBlur="document.form1.submit()"></TD></TR>
-	<TR><TD>Vencimiento de 1º cuota</TD>
+	<TR><TD>Vto de 1º cuota</TD>
 	<TD><INPUT  TYPE="text" size="13" NAME="vto_fecha" maxlength="10" onBlur="valFecha(this)" value=<?php   echo (isset($_POST['vto_fecha']))?$_POST['vto_fecha']:'dd/mm/aaaa';?>></TD></TR>
-	 <TR><TD>Cobrar cada </TD><TD><INPUT  TYPE="text" NAME="dia_cada" value="<?php echo $_POST['dia_cada']?>" size="3"></TD></TR> 
+	 <TR><TD>Cobrar cada </TD><TD><INPUT  TYPE="text" NAME="dia_cada" value="<?php echo $_POST['dia_cada']?>" size="3"> dias</TD></TR> 
 
 <TR><TD>Total </TD><TD>$<INPUT   TYPE="text" NAME="total" size="5" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['total']?$_POST['total']:($_POST['precio_cuota']*$_POST['cant_cuotas'])?>"></TD>
 </TR>

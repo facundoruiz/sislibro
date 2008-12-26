@@ -234,7 +234,7 @@ function valida_m_empleado($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$ba
 }
 
 
-function valida_venta($fecha,$vto_fecha,$imp_cuota,$cant_cuotas,$num_chequera,$cobrado,$dia_cuota,$importe)
+function valida_venta($fecha,$vto_fecha,$imp_cuota,$cant_cuotas,$num_chequera,$cobrado,$dia_cuota,$importe,$adelanto)
 {
 	
 	
@@ -271,6 +271,12 @@ if(empty($num_chequera))
 			if($cobrado=='-1')
 				{
 			$error[]="No se Selecciono <B>Si se Cobro la cuota</B>";
+			}else{
+					if($cobrado==3)
+						{if(empty($adelanto))
+					$error[]="Debe ingresar un monto en <B> Adelanto</B>";
+					}
+				
 			}
 
 

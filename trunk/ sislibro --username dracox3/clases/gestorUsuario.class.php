@@ -80,6 +80,26 @@ class gestorUsuario extends usuario{
     $inf="<tr><td></td><td >".$volver->toString()." ".$exit->toString()."</td><td>".$this->getApellido().",".$this->getNombre()."</td></tr>";
 		return $inf;
 	}
+	function inf2($page){
+			 $Menu= new HtmlBoton("MENU","Menu",true,"button");
+   $Menu->setfull(true);
+   $Menu->setClassEstilo('CLASS=button');
+   $Menu->setScript("onclick=javascript:location.href='menu.php'");
+		
+   $volver= new HtmlBoton("Volver","Volver",true,"button");
+   $volver->setfull(true);
+   $volver->setClassEstilo('CLASS=button');
+   $volver->setScript("onclick=javascript:location.href='".$page."'");
+
+	  	
+   $exit= new HtmlBoton("SALIR","Salir",true,"button");
+   $exit->setfull(true);
+   $exit->setClassEstilo('CLASS=button');
+   $exit->setScript("onclick=javascript:location.href='index.php'");
+    $inf="<tr><td></td><td >".$volver->toString()." &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ".$Menu->toString() ."         ".$exit->toString()."</td><td>".$this->getApellido().",".$this->getNombre()."</td></tr>";
+		return $inf;
+	}
+	
 	
 	function cargarMenu(){
 		$this->getConexion();	  

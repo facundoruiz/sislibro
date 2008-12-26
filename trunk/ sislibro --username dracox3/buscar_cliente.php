@@ -13,8 +13,20 @@ include("cabecera.php");
 <META HTTP-EQUIV="Content-language" CONTENT="es">
 
 <?php include("funcionesGrales.php");?>
+<link rel="stylesheet" href="css/jq.css" type="text/css" media="print, projection, screen" />
+<script type="text/javascript" src="js/tablesorter/jquery-latest.js"></script>
+	<script type="text/javascript" src="js/tablesorter/jquery.tablesorter.js"></script>
+	<script type="text/javascript" src="js/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+		
+	 
 
-
+<!--<script type="text/javascript">
+ $(document).ready(function() {  
+      
+$("table").tablesorter({widthFixed: true, widgets: ['zebra']})     
+$("table").tablesorterPager({container: $("#pager")}); 
+    });     </script> -->
+ 
 <script type="text/javascript" src="js/tablesorter/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/tablesorter/jquery.tablesorter.js"></script>
 	<script type="text/javascript" src="js/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
@@ -24,9 +36,8 @@ include("cabecera.php");
 <script type="text/javascript"> 
      $(document).ready(function() {     // call the tablesorter plugin
      $("#overlay").show(); 
-     $("table").tablesorter({         // change the multi sort key from the default shift to alt button 
-     
-     sortMultiSortKey: 'altKey'     }); 
+     $("table").tablesorter({   sortMultiSortKey: 'altKey' ,widthFixed: true, widgets: ['zebra']    }); 
+     $("table").tablesorterPager({container: $("#pager")}); 
      $("#overlay").hide(); 
      }); 
   
@@ -39,18 +50,10 @@ include("cabecera.php");
 </span><br>
 </div>
 <div class="bienvenidos">
-<?php echo $r->inf();  ?>
-</div><table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Contenido">
-<tr>
-<td  class="izquierda"  valign="top">
-<div class="t_menu">SubMENU</div>
- <div id="c_menu"> 
-<?php echo $r->Submenu(3); ?>
-      </div>
-<td  class="centro">
+<?php echo $r->inf2("submenu.php?menu=3");  ?>
+</div>
 
-<div class="t_datos"><div class="titulos">BUSQUEDAS DE CLIENTES</div></div>
-<div class="descripcion">
+
 
 <form name="form1" method="post">
 
@@ -64,32 +67,14 @@ include("cabecera.php");
 <input type="submit">
 </form>
 
+</div>
 <?PHP 
 if(isset($_POST['dato']) &&!empty($_POST['dato'])||$_POST['tipo']==1){
-
-?>
-
-<div id="overlay">
-		Por Favor espere...
-		</div>
-<TABLE  cellspacing="1" class="tablesorter">
-<thead> 
-<TR >
-	<th >Nº DOCUMENTO </th>
-	<th >CLIENTE </th>
-	<th >Nº CHEQUERA</th>
-	<th >ESTADO</th>
-	<th >PLAN</th>
-	<th >CUOTAS</th>
-	<!--  <TD>EN STOCK</TD>	
-	<TD >Modificar</TD> --> 
-</TR>
-</thead> 
-<tbody>
-<?php  
+ 
 		if($_POST['tipo']==1){
 			$cmdSQL="select * from t_clientes c
 			left join t_chequeras t  on (c.id_clientes=t.id_cliente)";
+
 		}
 		if($_POST['tipo']==2){
 			$cmdSQL="select * from t_clientes c  
@@ -112,7 +97,28 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])||$_POST['tipo']==1){
 					}else{
 					$cmdSQL.="where c.apellido ilike '%".$dato[0]."%' OR c.nombre ilike '%".$dato[0]."%'" ;	
 					}
-				}					
+				}			
+?>
+
+
+<div id="overlay">
+		Por Favor espere...
+		</div>
+<TABLE  cellspacing="1" class="tablesorter">
+<thead> 
+<TR >
+	<th >Nº DOCUMENTO </th>
+	<th >CLIENTE </th>
+	<th >Nº CHEQUERA</th>
+	<th >ESTADO</th>
+	<th >PLAN</th>
+	<th >CUOTAS</th>
+	<!--  <TD>EN STOCK</TD>	
+	<TD >Modificar</TD> --> 
+</TR>
+</thead> 
+<tbody>
+<?		
 	echo $cmdSQL;
 	$query=pg_query($cmdSQL);
 	while($rows=pg_fetch_array($query)){
@@ -134,7 +140,22 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])||$_POST['tipo']==1){
 </TABLE>
 
 </div>
-
+		<div id="pager" class="pager">
+	<form name="datos">
+		<img src="js/tablesorter/addons/pager/icons/first.png" class="first"/>
+		<img src="js/tablesorter/addons/pager/icons/prev.png" class="prev"/>
+		<input type="text" class="pagedisplay"/>
+		<img src="js/tablesorter/addons/pager/icons/next.png" class="next"/>
+		<img src="js/tablesorter/addons/pager/icons/last.png" class="last"/>
+		<select class="pagesize">
+			<option selected="selected"  value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+			<option  value="40">40</option>
+			<option value="50">50</option>
+		</select>
+	</form>
+</div>
 
 <?
 	
@@ -142,10 +163,7 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])||$_POST['tipo']==1){
 
 ?>
 
-</div></td>
-</tr>
-</table>
-</div>
+
 <div class="pie">
 
 <div class="letracapital">Action2</div>

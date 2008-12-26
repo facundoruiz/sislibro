@@ -128,7 +128,7 @@ where o.id_oficio=3 ");
 				if($idOficio!=NULL){	
 					$query=pg_query("select descdic(1,$idOficio)  ");
 					$rows=pg_fetch_array($query);
-					$comboe->addItem(0,'--'.$rows[0].'-');
+					$comboe->addItem(0,'Seleccione '.$rows[0].'-');
 					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
 inner join t_oficios o on (o.id_empleados=e.id_empleados)
 where o.id_oficio=$idOficio ");
@@ -163,7 +163,7 @@ inner join t_oficios o on (o.id_empleados=e.id_empleados)  ");
 		$comboo=new HtmlCombo('','oficio',20,true);
 					$qo=pg_query("select item,descrip from diccionario where codigo=1 ");
 				    $comboo->setOnChange("javascript:document.form1.submit()");	
-					$comboo->addItem(0,'--Empleado-');
+					$comboo->addItem(0,'--PERFIL-');
 					while($ro=pg_fetch_array($qo)){
 						$comboo->addItem($ro[0],$ro[1]);
 						};

@@ -13,6 +13,7 @@ require('valida.php');
 						$dia_cuota=$_POST['dia_cada'];
 						$importe=$_POST['total'];
 						$oficio=$_POST['oficio'];
+						$adelanto=$_POST['adelanto'];
 				
 				if($_POST['existe']!=1){
 						$dni=$_POST['dni'];	
@@ -29,7 +30,7 @@ require('valida.php');
 $error1=valida_clientes($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$obs,$cel);
 				}
 
-$error2=valida_venta($fecha,$vto_fecha,$imp_cuota,$cant_cuotas,$num_chequera,$cobrado,$dia_cuota,$importe);
+$error2=valida_venta($fecha,$vto_fecha,$imp_cuota,$cant_cuotas,$num_chequera,$cobrado,$dia_cuota,$importe,$adelanto);
 //if(){}
 $id_vendedor=($_POST['vendedor']==0)?$error2[]="No se Selecciono <B>Vendedor</B>":$_POST['vendedor'];
 $id_cobrador=($_POST['empleado']==0)?$error2[]="No se Selecciono <B>Cobrador</B>":$_POST['empleado'];
@@ -99,14 +100,19 @@ $conexion->getMiconexion();
 							error($error3); 
 					 		echo "<CENTER><P> Debe volver para corregir la carga &nbsp;<BR><INPUT TYPE=Button onclick='history.back(-1)' value=Volver></CENTER>";
 					 	}else{
-							if($cobrado==2){
-							echo	$sqlPago="select f_registrar_pago($id_cuota_pri[0],$importe,'$fecha',$oficio,$id_cobrador);
-									select f_registrar_comision($id_vendedor,$id_cuota_pri[0],0,(select porcentaje from t_empleados where id_empleados=$id_vendedor))";
+								 	if($cobrado==2){
+											    $sqlPago.="select f_registrar_pago($id_cuota_pri[0],$importe,'$fecha',$oficio,$id_cobrador,'".$r->getUser()."');";
+										}
+								 	if($cobrado==3){
+											    $sqlPago.="select f_registrar_pago($id_cuota_pri[0],$adelanto,'$fecha',$oficio,$id_cobrador,'".$r->getUser()."');";
+										}	
+									$sqlPago.="select f_registrar_comision($id_vendedor,$id_cuota_pri[0],0,(select porcentaje from t_empleados where id_empleados=$id_vendedor))";
 								$rows_pago=pg_fila($sqlPago);	
 									if($rows_pago==0){	
 									$error4[]="Error al registrar Pago de vendedor intente manualmente";
 										}
-									}
+									
+									
 								if(sizeof($error4)>0)
 							 		{
 					     			error($erro4); 
