@@ -35,13 +35,18 @@ include("cabecera.php");
 
 <div class="t_datos"><div class="titulos">SISTEMAS</div></div>
 <div class="descripcion">
+</div>
 
 
 
 
 
 
-</div></td>
+
+
+
+
+</td>
 </tr>
 </table>
 </div>
