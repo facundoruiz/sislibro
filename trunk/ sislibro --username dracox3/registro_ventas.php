@@ -477,7 +477,7 @@ echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from
 	</TD></TR>
 	
 	<TR><TD>Cant de cuotas</TD><TD><INPUT  TYPE="text" NAME="cant_cuotas" size="2" maxlength="2" value="<?php echo $_POST['cant_cuotas']?>"  onKeyPress="return soloNum(event)"></TD></TR>
-	<TR><TD>Precio X cuota</TD><TD>$<INPUT  TYPE="text" NAME="precio_cuota" size="4" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['precio_cuota']?>" onBlur="document.form1.submit()"></TD></TR>
+	<TR><TD>Precio X cuota</TD><TD>$<INPUT  TYPE="text" NAME="precio_cuota" size="4" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['precio_cuota']?>" onBlur="document.form1.submit();"></TD></TR>
 	<TR><TD>Vto de 1º cuota</TD>
 	<TD><INPUT  TYPE="text" size="13" NAME="vto_fecha" maxlength="10" onBlur="valFecha(this)" value=<?php   echo (isset($_POST['vto_fecha']))?$_POST['vto_fecha']:'dd/mm/aaaa';?>></TD></TR>
 	 <TR><TD>Cobrar cada </TD><TD><INPUT  TYPE="text" NAME="dia_cada" value="<?php echo $_POST['dia_cada']?>" size="3"> dias</TD></TR> 

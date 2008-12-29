@@ -69,7 +69,7 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])){
 <TABLE  cellspacing="1" class="tablesorter">
 <thead> 
 <TR >
-	<th >Nº </th>
+	<th >CLIENTE </th>
 	<th >Nº CHEQUERA</th>
 	<th >ESTADO</th>
 	<th >PLAN</th>
@@ -81,7 +81,7 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])){
 <tbody>
 <?php  
 		if($_POST['tipo']==1){
-			$cmdSQL="select * from t_chequeras where num_chequera=".$_POST['dato']."";
+			$cmdSQL="select * from t_chequeras t inner join t_clientes c on (c.id_clientes=t.id_cliente) where num_chequera=".$_POST['dato']." ";
 				}
 		if($_POST['tipo']==2){
 			$cmdSQL="select * from t_chequeras t 
@@ -99,7 +99,7 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])){
 	
 	?>
 <TR  >
-	<td><?PHP echo$rows[0]?></td>
+	<td><?PHP echo $rows['apellido']."; ".$rows['nombre'];?></td>
 	<TD align="center"><?PHP echo$rows['num_chequera']?></TD>
 		<TD  ><?PHP echo$rows[8]?></TD>
 	<TD align="center"  ><?PHP echo $rows['cant_cuotas']."X $".$rows['importe_cuota'];?></TD>

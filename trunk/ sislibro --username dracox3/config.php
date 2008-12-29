@@ -6,8 +6,7 @@ echo"<!--
  Autor:
 		Ruiz Facundo
 	
-    Gracias a :
-			* Juan Bautista Benitez 
+     
 
 -->";
 $server="localhost";
