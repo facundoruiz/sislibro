@@ -110,7 +110,7 @@ class gestorUsuario extends usuario{
 			if(!empty($aMenu['img'])){
 				$aMenu['img']; 
 			} 
-$this->menu->addItem($aMenu['link'],$aMenu['nombre'],$aMenu['target'],'class="button" ',$aMenu['descripcion']);
+$this->menu->addItem($aMenu['link'],$aMenu['nombre'],'','class="button" ',$aMenu['descripcion']);
 			
 		
 		}
@@ -157,7 +157,7 @@ $this->menu->addItem($aMenu['link'],$aMenu['nombre'],$aMenu['target'],'class="bu
 			if(!empty($aSubmenu['img'])){
 				$aSubmenu['img']; 
 			} 
-$this->menu->addItem($aSubmenu['link'],$aSubmenu['nombre'],$aSubmenu['target'],'class= "button"',$aSubmenu['descripcion']);
+$this->menu->addItem($aSubmenu['link'],$aSubmenu['nombre'],'','class= "button"',$aSubmenu['descripcion']);
 		}
 	}
 	

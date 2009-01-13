@@ -103,9 +103,7 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])){
 	<TD align="center"><?PHP echo$rows['num_chequera']?></TD>
 		<TD  ><?PHP echo$rows[8]?></TD>
 	<TD align="center"  ><?PHP echo $rows['cant_cuotas']."X $".$rows['importe_cuota'];?></TD>
-	<TD><?PHP ?></TD>
- 	<!-- <TD align="center"><?PHP echo$$rows[1]?></TD>
-	<TD align="center"><A HREF="javascript:v_abrir2('m_libro.php?dato=<?PHP echo$rows[0]?>')">modificar</A></TD> --> 
+	<TD align="center"><A HREF="javascript:v_abrir2('registro_cuotas.php?idchequera=<?PHP echo$rows['idchequera']?>')">ingresar cuotas</A></TD>  
 </TR>
 <?php }	
 		?>

@@ -14,11 +14,7 @@ include("cabecera.php");
 
 <?php include("funcionesGrales.php");?>
 <link rel="stylesheet" href="css/jq.css" type="text/css" media="print, projection, screen" />
-<script type="text/javascript" src="js/tablesorter/jquery-latest.js"></script>
-	<script type="text/javascript" src="js/tablesorter/jquery.tablesorter.js"></script>
-	<script type="text/javascript" src="js/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
-		
-	 
+
 
 <!--<script type="text/javascript">
  $(document).ready(function() {  
@@ -53,10 +49,10 @@ $("table").tablesorterPager({container: $("#pager")});
 <?php echo $r->inf2("submenu.php?menu=3");  ?>
 </div>
 
-
+<div class="t_datos"><div class="titulos">Buscar clientes</div></div> 
 
 <form name="form1" method="post">
-
+Dato a Buscar
    <input type="text" name="dato" value="<?PHP echo $_POST['dato'] ?>" >
 
 <select name="tipo">
@@ -119,7 +115,7 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])||$_POST['tipo']==1){
 </thead> 
 <tbody>
 <?		
-	echo $cmdSQL;
+//	echo $cmdSQL;
 	$query=pg_query($cmdSQL);
 	while($rows=pg_fetch_array($query)){
 	

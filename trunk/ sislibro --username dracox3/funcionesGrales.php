@@ -1,4 +1,9 @@
 <script language="JavaScript" src="js/funcionesGral.js"></script>
+<script language="JavaScript" src="js/calendar_eu.js"></script>
+<script language="JavaScript" src="js/tigra_hints.js"></script>
+	<link rel="stylesheet" href="css/calendar.css">
+
+
 <link rel="stylesheet" type="text/css" href="css/normal.css">
 <?php
 

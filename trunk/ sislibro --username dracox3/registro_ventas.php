@@ -14,7 +14,52 @@ include("cabecera.php");
 
 <?php include("funcionesGrales.php");?>
 
+<script language="JavaScript">
 
+// configuration variable for the hint object, these setting will be shared among all hints created by this object
+var HINTS_CFG = {
+	'wise'       : true, // don't go off screen, don't overlap the object in the document
+	'margin'     : 10, // minimum allowed distance between the hint and the window edge (negative values accepted)
+	'gap'        : -7, // minimum allowed distance between the hint and the origin (negative values accepted)
+	'align'      : 'brtl', // align of the hint and the origin (by first letters origin's top|middle|bottom left|center|right to hint's top|middle|bottom left|center|right)
+	'css'        : 'wrapped', // a style class name for all hints, applied to DIV element (see style section in the header of the document)
+	'show_delay' : 200, // a delay between initiating event (mouseover for example) and hint appearing
+	'hide_delay' : 500, // a delay between closing event (mouseout for example) and hint disappearing
+	'follow'     : false, // hint follows the mouse as it moves
+	'z-index'    : 100, // a z-index for all hint layers
+	'IEfix'      : false, // fix IE problem with windowed controls visible through hints (activate if select boxes are visible through the hints)
+	'IEtrans'    : ['blendTrans(DURATION=.3)'], // [show transition, hide transition] - transition effects, only work in IE5+
+	'opacity'    : 90 // opacity of the hint in %%
+};
+// text/HTML of the hints
+var HINTS_ITEMS = [
+	wrap('Fecha de Realizada la venta','img/question.gif'),
+	wrap('Numero de Chequera', 'img/question.gif'),
+	wrap2('Datos Necesarios para registrar quien vendio y en caso de que corresponda quien cobrara la chequera'),
+	wrap('Debe seleccionar un vendedor apareceran los nombres', 'img/question.gif'),
+	wrap('Debe seleccionar un cobrador apareceran los Perfiles', 'img/warning.gif'),
+	wrap('tooltip with the <a href="http://www.softcomplex.com">link</a>', 'img/question.gif'),
+	wrap2('another wrapper'),
+	wrap2('this one can stretch<br />both horizontally and vertically')
+];
+
+// this custom function receives what's unique about individual hint and wraps it in the HTML template
+function wrap (s_text, s_icon) {
+	return '<table><tr><td rowspan="2"><img src="' + s_icon + '"></td><td colspan="2"><img src="img/pixel.gif" width="1" height="15" border="0"></td></tr><tr><td background="img/2.gif" height="28" nowrap>' + s_text + '</td><td><img src="img/4.gif"></td></tr></table>';
+}
+// multiple templates/functions can be used in the same page
+function wrap2 (s_text) {
+	return [
+		'<table>',
+		'<tr><td><img src="img/corner_tl.gif" width="10" height="10" /></td><td style="background-image:url(img/side_t.gif)"></td><td><img src="img/corner_tr.gif" width="10" height="10" /></td></tr>',
+		'<tr><td style="background-image:url(img/side_l.gif)"></td><td class="hintText">', s_text ,'</td><td style="background-image:url(img/side_r.gif)"></td></tr>',
+		'<tr><td><img src="img/corner_bl.gif" width="10" height="10" /></td><td style="background-image:url(img/side_b.gif)"></td><td><img src="img/corner_br.gif" width="10" height="10" /></td></tr>',
+		'</table>'
+	].join('');
+}
+
+var myHint = new THints (HINTS_ITEMS, HINTS_CFG);
+</script>
 
 </head><body dir="ltr" lang="es" onload="<?php if(isset($_POST['OcultarEmpleados'])||$_POST['ME']==1){echo isset($_POST['MostrarEmpleados'])?"\t":"\tocultar('tbl_empleado');ocultar('tbl_cliente');"; } ?>">
 <div align="center">
@@ -43,12 +88,20 @@ while ($acant=pg_fetch_array($rcant)){
     <td width="100%" valign="top" colspan="2">
      
 	
-	  <form  method="post" action="registro_ventas.php" name="form1" ></td></tr>
+	  <form  method="post" action="registro_ventas.php" name="form" ></td></tr>
 <tr><td  valign="top">
 <TABLE    border=0>
 
- <TR><TD>Fecha :</TD>	<TD><INPUT  TYPE="text" size="13" NAME="fecha" maxlength="10" onBlur="valFecha(this)" value=<?php echo (isset($_POST['fecha']))?$fecha=$_POST['fecha']:'dd/mm/aaaa';?>></TD></TR>
- <TR><TD>Nº de Chequera:</TD> <TD><INPUT  TYPE="text" NAME="n_chequera" size="4" onKeyPress="return soloNum(event)" value="<?PHP echo $_POST['n_chequera']?>">
+ <TR><TD onmouseover="myHint.show(0, this)" onmouseout="myHint.hide()">Fecha :</TD>	<TD><INPUT  TYPE="text" size="10" NAME="fecha" maxlength="10" onBlur="valFecha(this)" value=<?php echo (isset($_POST['fecha']))?$fecha=$_POST['fecha']:'';?>><script language="JavaScript">
+	new tcal ({
+		// form name
+		'formname': 'form',
+		// input name
+		'controlname': 'fecha'
+	});
+
+	</script></TD></TR>
+ <TR ><TD onmouseover="myHint.show(1, this)" onmouseout="myHint.hide()" >Nº de Chequera:</TD> <TD><INPUT  TYPE="text" NAME="n_chequera" size="4" onKeyPress="return soloNum(event)" value="<?PHP echo $_POST['n_chequera']?>">
 
  </TD></TR>
  	<?php  
@@ -62,19 +115,16 @@ while ($acant=pg_fetch_array($rcant)){
  
  </TABLE>
 
-<tr><td valign="top">
- <div  class="t_user">Datos de la ventas <?PHP
+ <div  class="t_user" valign="top" onmouseover="myHint.show(2, this)" onmouseout="myHint.hide()">Datos de la ventas <?PHP
 if(isset($_POST['OcultarEmpleados'])||$_POST['ME']==1){
-?>
- 
- <input type="hidden" value="<?PHP echo isset($_POST['MostrarEmpleados'])?0:1; ?>" name="ME">
+?> <input type="hidden" value="<?PHP echo isset($_POST['MostrarEmpleados'])?0:1; ?>" name="ME">
  <input type="submit" value="Mostrar" name="MostrarEmpleados" class="c_user">
  <?PHP }else{ ?>
  <input type="submit" value="Ocultar" name="OcultarEmpleados" class="c_datos">
  <?PHP } ?></div>
- <TABLE border=0 class="c_datos" id='tbl_empleado' align="center" >
+  <TABLE border=0 class="c_datos" id='tbl_empleado' align="center" >
   <!-- Empleado -->
-<tr > <th colspan="2" >
+<tr > <th  colspan="2" onmouseover="myHint.show(3, this)" onmouseout="myHint.hide()">
 Vendedor
 <?PHP      
 			$gEmpleado=new gestorEmpleado($c);
@@ -85,7 +135,7 @@ Vendedor
    ?></th>
 </tr>
 <tr>
-<td  colspan="2" class='c_datos'>Cobrador
+<td  colspan="2" class='c_datos' onmouseover="myHint.show(4, this)" onmouseout="myHint.hide()">Cobrador
 <?PHP	 $grupo=new HtmlGrupo();
 			$comboO=$gEmpleado->ComboOficios(true);
 			$comboO->setOnChange('submit()');
@@ -144,7 +194,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 	    <tr>		  
       <th  scope="row" class="rotulo">DNI</th>	  
       <td >	  	
-		<input type="text" name="dni" maxlength="8" onKeyPress="return soloNum(event)"  title="Ingrese el DNI" onBlur="document.form1.submit()" value="<?php echo $dni ?>" >	
+		<input type="text" name="dni" maxlength="8" onKeyPress="return soloNum(event)"  title="Ingrese el DNI" onBlur="document.form.submit()" value="<?php echo $dni ?>" >	
 		 </td>
     </tr>	    
 
@@ -185,7 +235,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
    </tr>	
 	 <tr>
    <th scope="row" class="rotulo">Provincia</th>
-   <td  align="left"><select name="prov"   onChange="document.form1.submit()">
+   <td  align="left"><select name="prov"   onChange="document.form.submit()">
     <option value="-1" >-- Provincia --</option>
  <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
@@ -271,7 +321,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 	   <tr>
 <td><?php echo ($_POST['titulo']!=-1)?$_POST['titulo']:''?></td>
    <td width="319">  	   
-	  <select name="Tipo"   onchange="document.form1.submit()">
+	  <select name="Tipo"   onchange="document.form.submit()">
 	  		 <option value="-1">---Seleccione un Genero</option>
 			<?php 
 			$qtipo="select idgenero as item,descrip from t_generos  order by(descrip)";
@@ -285,7 +335,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 </td>
 
 <td>
-<select name="editorial"  onchange="document.form1.submit()">
+<select name="editorial"  onchange="document.form.submit()">
 	  		 <option value="-1">---Seleccione editorial </option>
 			<?php 
 			
@@ -301,7 +351,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 </td>
 
 <td>
-<select name="titulo"  onchange="document.form1.submit()">
+<select name="titulo"  onchange="document.form.submit()">
 	  		 <option value="-1">---Seleccione Titulo </option>
 			<?php 
 		
@@ -325,7 +375,7 @@ where j.idgenero=$tgenero and j.ideditorial=$teditorial";
 </tr>
 <?php  $_POST['codigo']=($_POST['titulo']!=-1)?$_POST['titulo']:$_POST['codigo']?> 
         <tr>
-<td><input type="text" name="codigo" onKeyPress="return soloNum(event)"  title="Ingrese el Codigo de Libro" onBlur="document.form1.submit()" size="4" value=<?php echo$_POST['codigo']?>></td>
+<td><input type="text" name="codigo" onKeyPress="return soloNum(event)"  title="Ingrese el Codigo de Libro" onBlur="document.form.submit()" size="4" value=<?php echo$_POST['codigo']?>></td>
 <?php 
 	if(!empty($_POST['codigo'])||$_POST['codigo']!=0){
 		$codigo=$_POST['codigo'];
@@ -465,7 +515,7 @@ echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from
 	<TD colspan=3 bgcolor=#66CCFF>PLAN EN CUOTAS</TD>
 	</TR>
 <TR>
-	<TD>Primera cuota se cobro</TD><TD><SELECT NAME="cobrado" OnChange="document.form1.submit()">
+	<TD>Primera cuota se cobro</TD><TD><SELECT NAME="cobrado" OnChange="document.form.submit()">
 	<option value="-1" <?php echo ($_POST['cobrado']==-1)?'selected':' ';?>>- seleccione -</option>
 	<option value="1" <?php echo ($_POST['cobrado']==1)?'selected':' ';?>>No </option>
 	<option value="2" <?php echo ($_POST['cobrado']==2)?'selected':' ';?>>Si </option>
@@ -477,18 +527,29 @@ echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from
 	</TD></TR>
 	
 	<TR><TD>Cant de cuotas</TD><TD><INPUT  TYPE="text" NAME="cant_cuotas" size="2" maxlength="2" value="<?php echo $_POST['cant_cuotas']?>"  onKeyPress="return soloNum(event)"></TD></TR>
-	<TR><TD>Precio X cuota</TD><TD>$<INPUT  TYPE="text" NAME="precio_cuota" size="4" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['precio_cuota']?>" onBlur="document.form1.submit();"></TD></TR>
+	<TR><TD>Precio X cuota</TD><TD>$<INPUT  TYPE="text" NAME="precio_cuota" size="4" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['precio_cuota']?>" onBlur="document.form.submit();"></TD></TR>
 	<TR><TD>Vto de 1º cuota</TD>
-	<TD><INPUT  TYPE="text" size="13" NAME="vto_fecha" maxlength="10" onBlur="valFecha(this)" value=<?php   echo (isset($_POST['vto_fecha']))?$_POST['vto_fecha']:'dd/mm/aaaa';?>></TD></TR>
+	<TD><INPUT  TYPE="text" size="10" NAME="vto_fecha" maxlength="10" onBlur="valFecha(this)" value=<?php   echo (isset($_POST['vto_fecha']))?$_POST['vto_fecha']:'';?>>
+	<script language="JavaScript">
+	new tcal ({
+		// form name
+		'formname': 'form',
+		// input name
+		'controlname': 'vto_fecha'
+	});
+
+	</script>
+	</TD>
+	</TR>
 	 <TR><TD>Cobrar cada </TD><TD><INPUT  TYPE="text" NAME="dia_cada" value="<?php echo $_POST['dia_cada']?>" size="3"> dias</TD></TR> 
 
 <TR><TD>Total </TD><TD>$<INPUT   TYPE="text" NAME="total" size="5" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['total']?$_POST['total']:($_POST['precio_cuota']*$_POST['cant_cuotas'])?>"></TD>
 </TR>
 </TABLE>
   
- <CENTER><INPUT TYPE="submit"  onclick="document.form1.action='registro_guardar_ventas.php'" class="button" >
+ <CENTER><INPUT TYPE="submit"  onclick="document.form.action='registro_guardar_ventas.php'" class="button" >
  <A HREF="javascript:document.location.href='registro_ventas.php'" class="button">Limpiar Formulario</A></CENTER>
-    <input type="hidden" name="form" value="registro_ventas">
+    <input type="hidden" name="formu" value="registro_ventas">
 
   </form>
  

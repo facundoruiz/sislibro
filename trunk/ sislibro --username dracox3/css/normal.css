@@ -138,3 +138,17 @@ background-color: #8dbdd8;
 	background: #000;
 	color: #FFF;
 }
+.hintText {
+		font-family: tahoma, verdana, arial;
+		font-size: 12px;
+		background-color: #FFFFCC;
+		color: #000000;
+		padding: 5px;
+	}
+	.wrapped table,
+	.wrapped td {
+		border: 0;
+		border-collapse: collapse;
+		padding: 0;
+		background-position: 0px;
+	}
