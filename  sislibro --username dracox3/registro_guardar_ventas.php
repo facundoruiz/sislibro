@@ -2,7 +2,7 @@
 include("cabecera.php");
 include("funcionesGrales.php");
 require('valida.php');	
-						$form=$_POST['form'];	
+						$form=$_POST['formu'];	
 						$id_venta=$_POST['id_chequera'];
 						$fecha=$_POST['fecha'];
 						$vto_fecha=$_POST['vto_fecha'];
@@ -87,7 +87,7 @@ $conexion->getMiconexion();
 				$sqlChequera=" INSERT INTO  t_chequeras (idchequera,id_cliente,idvendedor,cant_cuotas,importe_cuota,monto_total,num_chequera,fecha,cobrado,vto_cuota,dia_cobrar,fecha_aud,hora_aud,usuario_aud,idcobrador) VALUES ($id_venta,$id_clientes,$id_vendedor,$cant_cuotas,$imp_cuota,$importe,$num_chequera,'$fecha',$cobrado,'$vto_fecha',$dia_cuota,(select fecha()),(select hora()),'".$r->getUser()."',$id_cobrador); ";
 				//$sqldetalle.=" END";
 				
-				echo$sqlChequera.=$sqldetalle;
+				$sqlChequera.=$sqldetalle;
 					$rventa=pg_query($sqlChequera);
 				
 				if($rventa){

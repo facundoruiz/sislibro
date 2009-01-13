@@ -19,7 +19,7 @@ include("cabecera.php");
 </head><body dir="ltr" lang="es">
 <div align="center">
 
-<div class="t_datos"><div class="titulos">SISTEMAS</div></div>
+<div class="t_datos"><div class="titulos">Registro de Cuotas</div></div>
 <div class="descripcion">
 
 
@@ -43,7 +43,7 @@ include("cabecera.php");
 	{
 	$monto=$_POST['monto'];
 	$fecha=$_POST['fecha'];
-	echo $sqlCmd="select f_registra_cuota($datos, $monto,'$fecha',2,$cobrador ) ";
+	echo $sqlCmd="select f_registra_cuota($datos,$monto,'$fecha',2,$cobrador ) ";
 	$rows=pg_fila($sqlCmd);
 	
 	} 
