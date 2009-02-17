@@ -23,14 +23,12 @@ include("cabecera.php");
 </span><br>
 </div>
 <div class="bienvenidos">
-<?php echo $r->inf();  ?>
+<?php echo $r->inf2("submenu.php?menu=0");  ?>
 </div><table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Contenido">
 <tr>
 <td  class="izquierda"  valign="top">
-<div class="t_menu">SubMENU</div>
- <div id="c_menu"> 
-<?php echo $r->Submenu(6); ?>
-      </div>
+
+
 <td  class="centro">
 
 <div class="t_datos"><div class="titulos">Localidad Alta</div></div>

@@ -1,6 +1,6 @@
-body	{ background-repeat: no-repeat; font-family: Arial; font-size: 11px; color: #000066; margin-top: 2px;  position:fixed; background-image: img/fondo.gif; background-color: #FFFFFF }
+body	{ background-repeat: no-repeat; font-family: Arial; font-size: 11px; color: #000066; margin-top: 2px;  position:fixed; background-image: 'img/fondo.gif'; background-color: #FFFFFF }
 
-table { font-family: Arial; font-size: 11px; color: #000099; cellspacing=0; cellpadding=0 }
+table { font-family: Arial; font-size: 11px; color: #000099; cellspacing:0; cellpadding:0 }
 form { margin: 0px; }
 a { font-family: Arial; font-size: 11px; font-style: normal; color: #000066; margin-top: 2px; margin-bottom: 2px; text-decoration: overline underline; }
 
