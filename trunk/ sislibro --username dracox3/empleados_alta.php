@@ -66,7 +66,7 @@ $user=$_SESSION['miuser'];
 	  <?  
 	  
 	  if(empty($dni)&&$empleado==0) {?>     
-					   <input type="text" name="dni"   maxlength="8" onKeyPress="return soloNum(event)"  title="Ingrese el DNI" onBlur="document.form1.submit()" value="<?php echo $dni?>">	
+					   <input type="text" name="dni"   maxlength="8" onKeyPress="return soloNum(event)"  title="Ingrese el DNI" onBlur="this.form.Submit()" value="<?php echo $dni?>"> <input type="submit" value="consultar">	
 		 </td>
     </tr>				
 	  <?php }else{?>
@@ -76,7 +76,7 @@ $user=$_SESSION['miuser'];
     </tr>
  <th  class="rotulo"  scope="row">Num de empleado</th>	  
       <td>			
-	<input type="text" name="num" onKeyPress="return soloNum(event)" maxlength="3" onBlur="document.form1.submit()" value="<?php echo isset($_POST['num'])?$_POST['num']:$empleado->get_num_empleado();  ?>" >
+	<input type="text" name="num" onKeyPress="return soloNum(event)" maxlength="3" onBlur="this.form.submit()" value="<?php echo isset($_POST['num'])?$_POST['num']:$empleado->get_num_empleado();  ?>" >
 	<?PHP if(isset($_POST['num'])&&!empty($_POST['num'])){
 					$num=$gEmpleado->existe_NumEmpleado($_POST['num']);
 					if($num>0&&$num!=$empleado->get_num_empleado()){
@@ -108,7 +108,7 @@ $user=$_SESSION['miuser'];
    </tr>	
 	 <tr>
    <th scope="row" class="rotulo">Provincia</th>
-   <td  align="left"><select name="prov"    onChange="document.form1.submit()">
+   <td  align="left"><select name="prov"    onChange="this.form.submit()">
     <option value="-1" >-- Provincia --</option>
  <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
@@ -166,12 +166,12 @@ $user=$_SESSION['miuser'];
  			         
 
   <?php if(!empty($dni)&&isset($empleado)&&$empleado->get_id_empleado()<1){?>
-    <INPUT TYPE="submit" onclick="document.form1.action='empleados_guardar.php'" value="Guardar" class="button">
+    <INPUT TYPE="submit" onclick="this.form.action='empleados_guardar.php'" value="Guardar" class="button">
 <?php }	else { 
 	if(isset($empleado)&&$empleado->get_id_empleado()>0){?>
 
   </TABLE>
-<INPUT TYPE="submit"  onclick="document.form1.action='empleados_guardar_mod.php'" class="button" value="Guardar Modificacion"> 
+<INPUT TYPE="submit"  onclick="this.form.action='empleados_guardar_mod.php'" class="button" value="Guardar Modificacion"> 
 	
 <?php } }?>
 

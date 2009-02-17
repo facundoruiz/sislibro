@@ -71,9 +71,10 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){
 <?PHP
 if(isset($_POST['empleado'])&&!empty($_POST['empleado'])){ 	
 	$id_empleado=$_POST['empleado'];
-	echo $cmd="select c.fecha,c.monto from t_empleados e 
-	inner join t_comisiones tc on (e.id_empleados=tc.id_empleado )
-	inner join t_cuotad c on (e.id_empleados=c.id_empleado )
+	echo $cmd="select f_dame_num_chequera(c.idchequera) as chequera,c.idcuota,tc.porcentaje,tp.fecha_pago from t_empleados e 
+inner join t_comisiones tc on (e.id_empleados=tc.idempleado )
+inner join t_cuotas c on (c.idcuota=tc.idcuota )
+inner join t_pago tp on(tp.idcuota=c.idcuota)
 	 where e.id_empleados=".$id_empleado."  ";
 	
 	$query=pg_query($cmd);

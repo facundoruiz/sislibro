@@ -14,7 +14,11 @@ $user=$_SESSION['miuser'];
 
 <?php include("funcionesGrales.php");?>
 
-
+<script>
+function enviar(){
+document.form1.submit();
+}
+</script>
 
 </head><body dir="ltr" lang="es">
 <div align="center">
@@ -95,7 +99,7 @@ $user=$_SESSION['miuser'];
    </tr>	
 	 <tr>
    <th scope="row" class="rotulo">Provincia</th>
-   <td  align="left"><select name="prov"   onChange="document.form1.submit()">
+   <td  align="left"><select name="prov"   onChange="javascript:document.form1.submit()">
     <option value="-1" >-- Provincia --</option>
  <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
@@ -111,7 +115,7 @@ $user=$_SESSION['miuser'];
    <th scope="row" class="rotulo">Localidad</th>
    <td  align="left"><select name="Loc"    >
     <option value="-1" >-- Localidad --</option>
- <?php 	$qLoc="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov." order by descrip asc";
+ <?php 	echo $qLoc="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov." order by descrip asc";
 		$rLoc=pg_query($qLoc);
 		$loc=isset($_POST['Loc'])?$_POST['Loc']:$cliente->get_idlocalidad(); 
 		while ($aLoc=pg_fetch_array($rLoc)){	
@@ -127,7 +131,7 @@ $user=$_SESSION['miuser'];
    <tr>
  <th scope="row" class="rotulo">Moroso</th>
  <td > 
-<select name="moroso"   onChange="document.form1.submit()">
+<select name="moroso"   onChange="javascript:document.form1.submit()">
  <option value="1"  <?php if(isset($_POST['moroso'])){
 							echo $_POST['moroso']==1?'selected':'';
 						  }else{ 
@@ -154,8 +158,9 @@ $user=$_SESSION['miuser'];
 
  <?php  }else{
 			           if(empty($dni)) {?>     
-					   <input type="text" name="dni"   maxlength="8" onKeyPress="javascript:return soloNum(event)"  title="Ingrese el DNI" onBlur="document.form1.submit()" value="<?php echo $dni?>">	
-						<?php } else {?>
+					   <input type="text" name="dni"   maxlength="8" onKeyPress="javascript:return soloNum(event)"  title="Ingrese el DNI" onblur="javascript:this.form.submit()" value="<?php echo $dni?>">	
+					
+			           <?php } else {?>
 			<!-- Si mandaron amodificar desde get  --> 	 
    	<input type="text" name="dni"   value="<?php echo isset($_POST['dni'])?$_POST['dni']:''; ?>" >	
 	<INPUT TYPE="hidden" name="id" value="<?PHP echo isset($_POST['id'])?$_POST['id']:''; ?>">
@@ -184,7 +189,7 @@ $user=$_SESSION['miuser'];
    </tr>	
 	 <tr>
    <th scope="row" class="rotulo">Provincia</th>
-   <td  align="left"><select name="prov"  onChange="document.form1.submit()">
+   <td  align="left"><select name="prov"  onChange="this.form.submit()">
     <option value="-1" >-- Provincia --</option>
  <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
@@ -238,12 +243,12 @@ $user=$_SESSION['miuser'];
   </TABLE>
 
   <?php if(!empty($dni)&&isset($cliente)&&$cliente==0){?>
-    <INPUT TYPE="submit"   onclick="document.form1.action='clientes_guardar.php'" value="Guardar" class="button">
+    <INPUT TYPE="submit"  onclick="this.form.action='clientes_guardar.php'" value="Guardar" class="button">
 <?php }	else { 
 			if(isset($cliente)&&$cliente->get_id_cliente()>0){?>
 
   </TABLE>
-<INPUT TYPE="submit"   onclick="document.form1.action='clientes_guardar_mod.php'" value="Guardar Modificacion " class="button">
+<INPUT TYPE="submit"   onclick="this.form.action='clientes_guardar_mod.php'" value="Guardar Modificacion " class="button">
 
 	
 <?php } }?>
