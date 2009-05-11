@@ -19,7 +19,7 @@ class gestorCliente extends Cliente{
 	}
 	public function  get_clienteDni($p_dni){
 		$this-> getConexion();
-		$cmd="select *,descdic(4,moroso) as esmoroso,(select descrip from t_localidades where idprovincia=id_provincia and idlocalidad=id_localidad ) as localidad,(select descrip from t_provincias where idprovincia=id_provincia) as provincia from t_clientes  where dni=".$p_dni."";
+		$cmd="select *,descdic(4,moroso) as esmoroso,(select descrip from t_localidades where idprovincia=id_provincia and idlocalidad=id_localidad ) as localidad,(select descrip from t_provincias where idprovincia=id_provincia) as provincia,altura from t_clientes  where dni=".$p_dni."";
 		$query=pg_query($cmd);
 		$r=pg_fetch_array($query);
 			if($r>0){
@@ -42,6 +42,7 @@ class gestorCliente extends Cliente{
 		$cliente->set_moroso($r['moroso']);
 		$cliente->set_esmoroso($r['esmoroso']);
 		$cliente->set_estado($r['estado']);
+		$cliente->set_altdomicilio($r['altura']);
 			return $cliente;
 		}else{
 			return 0;
@@ -49,7 +50,7 @@ class gestorCliente extends Cliente{
 	}
 	public function  get_clienteId($p_id){
 		$this-> getConexion();
-		$cmd="select *, descdic(4,moroso) as esmoroso,(select descrip from t_localidades where idprovincia=id_provincia and idlocalidad=id_localidad ) as localidad,(select descrip from t_provincias where idprovincia=id_provincia) as provincia from t_clientes   where id_clientes=".$p_id."";
+		$cmd="select *, descdic(4,moroso) as esmoroso,(select descrip from t_localidades where idprovincia=id_provincia and idlocalidad=id_localidad ) as localidad,(select descrip from t_provincias where idprovincia=id_provincia) as provincia,altura from t_clientes   where id_clientes=".$p_id."";
 		$query=pg_query($cmd);
 		$r=pg_fetch_array($query);
 		$cliente=new Cliente();
@@ -70,6 +71,7 @@ class gestorCliente extends Cliente{
 		$cliente->set_moroso($r['moroso']);
 		$cliente->set_esmoroso($r['esmoroso']);
 		$cliente->set_estado($r['estado']);
+		$cliente->set_altdomicilio($r['altura']);
 		  return $cliente;
 	}
 	

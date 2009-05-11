@@ -359,7 +359,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 	$qtitulo="select j.codigo ,t.descrip as id_titulo from t_editoriales e
 inner join t_ejemplares j on(e.ideditorial=j.ideditorial)
 inner join t_libros t on(t.idlibro=j.idtitulo)
-where j.idgenero=$tgenero and j.ideditorial=$teditorial";
+where j.idgenero=$tgenero and j.ideditorial=$teditorial order by(t.descrip)";
 			$rtitulo=pg_query($qtitulo);
 			
 			while ($atitulo=pg_fetch_array($rtitulo)){

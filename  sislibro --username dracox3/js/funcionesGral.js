@@ -256,3 +256,7 @@ function change(html){
   description.innerHTML=html
 }
 
+function ir(url) {
+window.location.href(url);
+}
+
