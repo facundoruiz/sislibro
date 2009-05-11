@@ -56,6 +56,7 @@ Dato a Buscar
    <input type="text" name="dato" value="<?PHP echo $_POST['dato'] ?>" >
 
 <select name="tipo">
+<option value=4 <?PHP echo $_POST['tipo']==4?' selected':'';?>>N° de Socio</option>
 <option value=2 <?PHP echo $_POST['tipo']==2?' selected':'';?>>Documento</option>
 <option value=3 <?PHP echo $_POST['tipo']==3?' selected':'';?>>Apellido</option>
 <option value=1 <?PHP echo $_POST['tipo']==1?' selected':'';?>>TODOS</option>
@@ -69,13 +70,23 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])||$_POST['tipo']==1){
  
 		if($_POST['tipo']==1){
 			$cmdSQL="select * from t_clientes c
-			left join t_chequeras t  on (c.id_clientes=t.id_cliente)";
+inner join t_chequeras t  on (c.id_clientes=t.id_cliente and estado=0)
+inner join (
+select tc.idchequera ,(sum(c.monto) - sum(tp.monto))as SALDOrt from t_cuotas c
+inner join t_chequeras tc   using(idchequera)
+inner join t_pago tp using(idcuota)
+group by tc.idchequera) aux using(idchequera)";
 
 		}
 		if($_POST['tipo']==2){
 			$cmdSQL="select * from t_clientes c  
 			left join t_chequeras t  on (c.id_clientes=t.id_cliente)
 			where c.dni=".$_POST['dato']."";
+							}
+		if($_POST['tipo']==4){
+			$cmdSQL="select * from t_clientes c  
+			left join t_chequeras t  on (c.id_clientes=t.id_cliente)
+			where c.id_clientes=".$_POST['dato']."";
 							}
 		if($_POST['tipo']==3){
 			$dato=explode(' ',$_POST['dato']);
@@ -103,12 +114,13 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])||$_POST['tipo']==1){
 <TABLE  cellspacing="1" class="tablesorter">
 <thead> 
 <TR >
+	<th >Nº SOCIO </th>
 	<th >Nº DOCUMENTO </th>
 	<th >CLIENTE </th>
-	<th >Nº CHEQUERA</th>
-	<th >ESTADO</th>
-	<th >PLAN</th>
-	<th >CUOTAS</th>
+	<th >DIRECCION</th>
+	<th >N° DE TELEFONO</th>
+	<th >CUOTA</th>
+	<th >SALDO</th>
 	<!--  <TD>EN STOCK</TD>	
 	<TD >Modificar</TD> --> 
 </TR>
@@ -121,13 +133,15 @@ if(isset($_POST['dato']) &&!empty($_POST['dato'])||$_POST['tipo']==1){
 	
 	?>
 <TR  >
+<td><?PHP echo$rows['id_clientes']?></td>
 	<td><?PHP echo$rows['dni']?></td>
 	<TD><?PHP ECHO $rows['apellido'].';'.$rows['nombre']?></TD>
 	<TD align="center"><?PHP echo$rows['num_chequera']?></TD>
 	<TD><?PHP echo$rows['estado']?></TD>
-	<TD align="center"  ><?PHP echo $rows['cant_cuotas']."X $".$rows['importe_cuota'];?></TD>
-	<TD><?PHP ?></TD>
- 	<!-- <TD align="center"><?PHP echo$$rows[1]?></TD>
+	<TD align="center"  ><?PHP  $rows['importe_cuota'];?></TD>
+	<TD align="center"  ><?PHP  $rows['importe_cuota'];?></TD>
+	<!--<TD><?PHP ?></TD>
+ 	 <TD align="center"><?PHP echo$$rows[1]?></TD>
 	<TD align="center"><A HREF="javascript:v_abrir2('m_libro.php?dato=<?PHP echo$rows[0]?>')">modificar</A></TD> --> 
 </TR>
 <?php }	

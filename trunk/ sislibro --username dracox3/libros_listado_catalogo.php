@@ -38,9 +38,10 @@ include("cabecera.php");
 </div>
 <div class="descripcion">
 
-<?php
+<?PHP
+if(!isset($_GET['id'])){
 
-$sql="select codigo,f_desc_genero(idgenero),f_desc_editorial(ideditorial),f_desc_titulo(idtitulo) from t_ejemplares order by  codigo";
+$sql="select * from catalogo order by  fecha_aud asc";
 $b=1;
  $banfondo=true;
 	$q=pg_query($sql);
@@ -54,21 +55,17 @@ if($b!=0){
 <thead> 
 <TR >
 	
-	<th >CODIGO</th>
-	<th >GENERO</th>
-	<th >EDITORIAL</th>
-	<th >TITULO</th>
-	<!--  <TD>EN STOCK</TD>	
-	<TD >Modificar</TD> --> 
+	<th >N° CATALOGO</th>
+	<th >NOMBRE</th>
+	<th >FECHA</th>
+	 
 </TR>
 </thead> 
 <tfoot> 
 <TR >
-	
-	<th >CODIGO</th>
-	<th >GENERO</th>
-	<th >EDITORIAL</th>
-	<th >TITULO</th>
+	<th >N° CATALOGO</th>
+	<th >NOMBRE</th>
+	<th >FECHA</th>
 	<!--  <TD>EN STOCK</TD>	
 	<TD >Modificar</TD> --> 
 </TR>
@@ -82,14 +79,12 @@ while($r=pg_fetch_array($q)){
 	//$ri=pg_fila("select * from stock where cod_libro=".$r[0]."");
 	
 	?>
-<TR  >
+<TR onclick="javascript:ir('<?PHP echo "libros_listado_catalogo.php?id=".$r[1]?>')" >
 	
-	<TD align="center"><?PHP echo$r[0]?></TD>
-		<TD  ><?PHP echo$r[1]?></TD>
+	<TD align="center"><?PHP echo$r[1]?></TD>
+		<TD  ><?PHP echo$r[0]?></TD>
 	<TD align="center"  ><?PHP echo$r[2]?></TD>
-	<TD><?PHP echo$r[3]?></TD>
- 	<!-- <TD align="center"><?PHP echo$ri[1]?></TD>
-	<TD align="center"><A HREF="javascript:v_abrir2('m_libro.php?dato=<?PHP echo$r[0]?>')">modificar</A></TD> --> 
+	
 </TR>
 <?php }	
 		?>
@@ -112,7 +107,49 @@ while($r=pg_fetch_array($q)){
 </div>
 
 
-<?php } ?>
+<?php } 
+
+}else{
+	
+echo$sql="select * from catalogo 
+inner join detalle_catalogo using(idcatalogo)
+WHERE idcatalogo=".$_GET['id']."";
+$b=1;
+ $banfondo=true;
+	$q=pg_query($sql);
+?>
+<div id="overlay">
+		Por Favor espere...
+		</div>
+<table cellspacing="1"  >
+<thead> 
+<TR >	
+	<th >CODIGO</th>
+	<th >NOMBRE</th>
+	<th >PRECIO</th>
+	 
+</TR>
+</thead> 
+<tbody>
+<?php  
+
+while($r=pg_fetch_array($q)){
+	
+	?>
+<TR  >
+	
+	<TD align="center"><?PHP echo$r[0]?></TD>
+		<TD  ><?PHP echo$r[1]?></TD>
+	<TD align="center"  ><?PHP echo$r[2]?></TD>
+	
+</TR>
+<?php }	
+		?>
+</tbody>
+</TABLE>
+	
+		<?
+}?>
 	
 	
 	</div>

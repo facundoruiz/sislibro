@@ -19,6 +19,7 @@ class Cliente{
   private $fecha_aud;
   private $hora_aud;
   private $usuario_aud;
+  private $altdomicilio;
 	/**
 	 * Set_ metodos para ingresar valor en las variables
 	 */
@@ -69,6 +70,9 @@ public function set_esmoroso($p_moroso){
 	}
 	public function set_estado($p_estado){
 		$this->estado=$p_estado;
+	}
+public function set_altdomicilio($p_altdomicilio){
+		$this->altdomicilio=$p_altdomicilio;
 	}
 	/**
 	 * Get_ metodos para recuperar valor en las variables
@@ -121,6 +125,9 @@ public function get_esmoroso(){
 	}
 	public function get_estado(){
 		return $this->estado;
+	}
+public function get_altdomicilio(){
+	return	$this->altdomicilio;
 	}
 }
 ?>

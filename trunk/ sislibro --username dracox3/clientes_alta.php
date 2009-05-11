@@ -89,6 +89,10 @@ document.form1.submit();
        <th scope="row" class="rotulo" >Domicilio</th>
          <td ><input type="text"   maxlength="100" name="domicilio" title="Ingrese el Domicilio" value="<?php echo isset($_POST['domicilio'])?strtoupper ($_POST['domicilio']):$cliente->get_domicilio();  ?>"></td>
       </tr>
+       <tr>
+       <th scope="row" class="rotulo" >Altura del Domicilio</th>
+         <td ><input type="text"   maxlength="100" name="altdomicilio" title="Ingrese el Domicilio" value="<?php echo isset($_POST['altdomicilio'])?strtoupper ($_POST['altdomicilio']):$cliente->get_altdomicilio();  ?>"></td>
+      </tr>
  <tr>
        <th scope="row" class="rotulo">Telefono</th>
          <td ><input type="text"    onKeyPress="return soloNum(event)" name="telefono" title="Ingrese el Telefeno" value="<?php echo isset($_POST['telefono'])?$_POST['telefono']:$cliente->get_telefono();  ?>" maxlength="7"></td>
@@ -99,7 +103,7 @@ document.form1.submit();
    </tr>	
 	 <tr>
    <th scope="row" class="rotulo">Provincia</th>
-   <td  align="left"><select name="prov"   onChange="javascript:document.form1.submit()">
+   <td  align="left"><select name="prov"   onChange="javascript:this.form.submit()">
     <option value="-1" >-- Provincia --</option>
  <?php 	$qprov="select idprovincia,descrip from t_provincias  order by descrip desc";
 		$rprov=pg_query($qprov);
@@ -178,6 +182,10 @@ document.form1.submit();
     <tr>
        <th scope="row" class="rotulo">Domicilio</th>
          <td><input type="text"  maxlength="100" name="domicilio" title="Ingrese el Domicilio" value="<?php echo isset($_POST['domicilio'])?strtoupper ($_POST['domicilio']):'';  ?>"></td>
+      </tr>
+       <tr>
+       <th scope="row" class="rotulo">Altura Domicilio</th>
+         <td><input type="text"  maxlength="100" name="altdomicilio" title="Ingrese el Domicilio" value="<?php echo isset($_POST['altdomicilio'])?strtoupper ($_POST['altdomicilio']):'';  ?>"></td>
       </tr>
  <tr>
        <th scope="row" class="rotulo">Telefono</th>

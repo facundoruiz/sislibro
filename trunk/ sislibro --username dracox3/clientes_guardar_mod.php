@@ -15,6 +15,7 @@ require('valida.php');
 						$moroso=$_POST['moroso'];
 						$barrio=strtoupper ($_POST['barrio']);
 						$obs=strtoupper ($_POST['obs']);
+						$altdomicilio=strtoupper ($_POST['altdomicilio']);
 
 $error=valida_m_clientes($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$obs,$cel);
 
@@ -24,7 +25,7 @@ $error=valida_m_clientes($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barr
 	 echo "<CENTER><P> Debe volver para corregir la carga &nbsp;<BR><INPUT TYPE=Button onclick='history.back(-1)' value=Volver></CENTER>";
 	 }else{
 
-$sql="UPDATE t_clientes SET nombre='$nombre',apellido='$apellido',domicilio='$domicilio',barrio='$barrio',id_localidad=$Loc,id_provincia=$prov,tel=$telefono,obs='$obs' , cel=$cel, moroso=$moroso,fecha_aud=(select fecha()),hora_aud=(select hora()),usuario_aud='".$r->getUser()."' where id_clientes=$id"; 
+$sql="UPDATE t_clientes SET nombre='$nombre',apellido='$apellido',domicilio='$domicilio',barrio='$barrio',id_localidad=$Loc,id_provincia=$prov,tel=$telefono,obs='$obs' , cel=$cel, moroso=$moroso,fecha_aud=(select fecha()),hora_aud=(select hora()),usuario_aud='".$r->getUser()."',altura='".$altdomicilio."' where id_clientes=$id"; 
 
 
 
