@@ -132,33 +132,31 @@ function valHora(oTxt){
 		}
 	}
 }
-
-
-//<!-------------------FUNCION IMPRIMIR----------------------->
+<!-------------------FUNCION IMPRIMIR----------------------->
 //si se aprieta en boton imprimir imprime y no aparece el boton
-function imprime(){
-
+function imprime()
+{
 //desaparece el boton
- if (window.print){
-document.getElementById("btnImprimir").style.display='none';
+ if (window.print)
+ {
+//document.getElementById("btnImprimir").style.display='none';
 //se imprime la pagina
-factory.printing.header = "";
-  factory.printing.footer = "";
+//factory.printing.header = "";
+ // factory.printing.footer = "";
   //imprime los dos metodos
  //factory.printing.Print(true);//si true va a setup false va de una a imprimir
 window.print();
-factory.printing.header = "";
-factory.printing.footer = "Si.Trans.";
+//factory.printing.header = "";
+//factory.printing.footer = "Si.Trans.";
 
 //reaparece el boton
-document.getElementById("btnImprimir").style.display='inline';
+//document.getElementById("btnImprimir").style.display='inline';
  }  else{
     alert("Lo siento, pero a tu navegador no se le puede ordenar imprimir" +
-      " desde la web. Actualizate o hazlo desde los menús");
- }
-
- 
+      " desde la web. Actualizate o hazlo desde los men&uacute;s");
+        }
 }
+
 
 //<!-- -----------------Funcion PARA MAXIMIZAR VENTANA-------------------------- -->
 
@@ -220,6 +218,10 @@ function v_abrir (URL){
  function v_abrir2 (URL){ 
    window.open(URL,"ventana1"," top=0,left=0,width=520, height=500, scrollbars=1") 
 } 
+ function v_popup (URL){ 
+   window.open(URL) 
+} 
+
 //<!-- ----------FUNCION Oculatas CELDAS O COLUMNAS simple------------ -->
 function show_hide_menus(ele)    {
            if (document.getElementById('tbl_'+ele).style.display=='')

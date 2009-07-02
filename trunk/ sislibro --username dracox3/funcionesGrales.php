@@ -5,6 +5,15 @@
 
 
 <link rel="stylesheet" type="text/css" href="css/normal.css">
+
+
+<style type="text/css" media="print">
+
+.noVer {
+	visibility:hidden;
+}
+
+</style>
 <?php
 
 

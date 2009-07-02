@@ -16,6 +16,12 @@ require('valida.php');
 						$barrio=strtoupper ($_POST['barrio']);
 						$obs=strtoupper ($_POST['obs']);
 						$altdomicilio=strtoupper ($_POST['altdomicilio']);
+						
+						$trabajodomicilio=strtoupper ($_POST['trabajodomicilio']);
+						$trabajotelefono=$_POST['trabajotelefono'];
+						$trabajobarrio=strtoupper ($_POST['trabajobarrio']);
+						$trabajoprov=$_POST['trabprov'];
+						$trabajoLoc=$_POST['trabLoc'];
 
 $error=valida_m_clientes($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$obs,$cel);
 
@@ -25,7 +31,7 @@ $error=valida_m_clientes($apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barr
 	 echo "<CENTER><P> Debe volver para corregir la carga &nbsp;<BR><INPUT TYPE=Button onclick='history.back(-1)' value=Volver></CENTER>";
 	 }else{
 
-$sql="UPDATE t_clientes SET nombre='$nombre',apellido='$apellido',domicilio='$domicilio',barrio='$barrio',id_localidad=$Loc,id_provincia=$prov,tel=$telefono,obs='$obs' , cel=$cel, moroso=$moroso,fecha_aud=(select fecha()),hora_aud=(select hora()),usuario_aud='".$r->getUser()."',altura='".$altdomicilio."' where id_clientes=$id"; 
+$sql="UPDATE t_clientes SET nombre='$nombre',apellido='$apellido',domicilio='$domicilio',barrio='$barrio',id_localidad=$Loc,id_provincia=$prov,tel='$telefono',obs='$obs' , cel=$cel, moroso=$moroso,fecha_aud=(select fecha()),hora_aud=(select hora()),usuario_aud='".$r->getUser()."',altura='$altdomicilio', trabajo_domicilio='$trabajodomicilio', trabajo_barrio='$trabajobarrio' , trabajo_id_localidad=$trabajoLoc, trabajo_id_provincia=$trabajoprov, trabajo_tel='$trabajotelefono' where id_clientes=$id"; 
 
 
 

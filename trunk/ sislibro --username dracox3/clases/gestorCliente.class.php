@@ -43,6 +43,13 @@ class gestorCliente extends Cliente{
 		$cliente->set_esmoroso($r['esmoroso']);
 		$cliente->set_estado($r['estado']);
 		$cliente->set_altdomicilio($r['altura']);
+		 $cliente->set_trabajodomicilio($r['trabjodomicilio']);
+		$cliente->set_trabajotelefono($r['trabjotel']);
+		$cliente->set_trabajoidlocalidad($r['trabjoid_localidad']);
+		$cliente->set_trabajolocalidad($r['trabjolocalidad']);
+		$cliente->set_trabajoprovincia($r['trabjoprovincia']);
+		$cliente->set_trabajoidprovincia($r['trabjoid_provincia']);
+		$cliente->set_trabajobarrio($r['trabjobarrio']);
 			return $cliente;
 		}else{
 			return 0;
@@ -72,6 +79,13 @@ class gestorCliente extends Cliente{
 		$cliente->set_esmoroso($r['esmoroso']);
 		$cliente->set_estado($r['estado']);
 		$cliente->set_altdomicilio($r['altura']);
+		$cliente->set_trabajodomicilio($r['trabjodomicilio']);
+		$cliente->set_trabajotelefono($r['trabjotel']);
+		$cliente->set_trabajoidlocalidad($r['trabjoid_localidad']);
+		$cliente->set_trabajolocalidad($r['trabjolocalidad']);
+		$cliente->set_trabajoprovincia($r['trabjoprovincia']);
+		$cliente->set_trabajoidprovincia($r['trabjoid_provincia']);
+		$cliente->set_barrio($r['trabjobarrio']);
 		  return $cliente;
 	}
 	

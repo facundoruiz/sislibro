@@ -37,10 +37,11 @@ var HINTS_ITEMS = [
 	wrap('Numero de Chequera', 'img/question.gif'),
 	wrap2('Datos Necesarios para registrar quien vendio y en caso de que corresponda quien cobrara la chequera'),
 	wrap('Debe seleccionar un vendedor apareceran los nombres', 'img/question.gif'),
-	wrap('Debe seleccionar un cobrador apareceran los Perfiles', 'img/warning.gif'),
+	wrap('Debe elejir un modo de cobranza', 'img/warning.gif'),
 	wrap('tooltip with the <a href="http://www.softcomplex.com">link</a>', 'img/question.gif'),
 	wrap2('another wrapper'),
-	wrap2('this one can stretch<br />both horizontally and vertically')
+	wrap2('this one can stretch<br />both horizontally and vertically'),
+	wrap('Debe seleccionar un Jefe de Grupo', 'img/question.gif')
 ];
 
 // this custom function receives what's unique about individual hint and wraps it in the HTML template
@@ -104,13 +105,9 @@ while ($acant=pg_fetch_array($rcant)){
  <TR ><TD onmouseover="myHint.show(1, this)" onmouseout="myHint.hide()" >Nº de Chequera:</TD> <TD><INPUT  TYPE="text" NAME="n_chequera" size="4" onKeyPress="return soloNum(event)" value="<?PHP echo $_POST['n_chequera']?>">
 
  </TD></TR>
- 	<?php  
-	      $cmd= "select Max(idchequera)+1 from t_chequeras";
-          $rows=pg_fila($cmd);
-          $Max=empty($rows[0])?1:$rows[0];
-		  ?>
+ 	
 	<TR>
-	<TD><INPUT TYPE="hidden" name="id_chequera" value=<?php echo$Max?>></TD></TR>
+	<TD></TD></TR>
  
  
  </TABLE>
@@ -124,10 +121,21 @@ if(isset($_POST['OcultarEmpleados'])||$_POST['ME']==1){
  <?PHP } ?></div>
   <TABLE border=0 class="c_datos" id='tbl_empleado' align="center" >
   <!-- Empleado -->
+  
+<tr > <th  colspan="2" onmouseover="myHint.show(8, this)" onmouseout="myHint.hide()">
+Jefe de Grupo
+<?PHP      
+			$gEmpleado=new gestorEmpleado($c);
+ 			$comboJG=$gEmpleado->ComboJefeGrupo();
+			$comboJG->__wakeup();
+			echo $comboJG->toString();
+	        
+   ?></th>
+</tr>
 <tr > <th  colspan="2" onmouseover="myHint.show(3, this)" onmouseout="myHint.hide()">
 Vendedor
 <?PHP      
-			$gEmpleado=new gestorEmpleado($c);
+		
  			$comboV=$gEmpleado->ComboVendedor();
 			$comboV->__wakeup();
 			echo $comboV->toString();
@@ -135,29 +143,25 @@ Vendedor
    ?></th>
 </tr>
 <tr>
-<td  colspan="2" class='c_datos' onmouseover="myHint.show(4, this)" onmouseout="myHint.hide()">Cobrador
+<td  colspan="2" class='c_datos' onmouseover="myHint.show(4, this)" onmouseout="myHint.hide()">FORMA DE COBRANZA
 <?PHP	 $grupo=new HtmlGrupo();
-			$comboO=$gEmpleado->ComboOficios(true);
+			$fp=new FormadePago();
+			$comboO=$fp->ComboFormadeCobro(true);
 			$comboO->setOnChange('submit()');
 			$comboO->__wakeup();
 			$grupo->addControl($comboO);
 			
-if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
-
-
-<?PHP  				
-	
-	  		
-			$comboE=$gEmpleado->ComboEmpleado($_POST['oficio']);
+if(isset($_POST['formadecobro'])&&!empty($_POST['formadecobro'])){ 
+	  		switch($_POST['formadecobro']){
+	  			case 1:$comboE=$gEmpleado->ComboCobrador(); // cobrador
    			$comboE->__wakeup();
 			$grupo->addControl($comboE);
-			
+			break;
+	  		}
 }
   	
   echo $grupo->toString();
-	
-			
-?></td>
+	?></td>
     </tr>
 </TABLE>
 
@@ -174,22 +178,15 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 			$dni='';			
 						
 					}
-     
-	            
-				
-			            
-	          if(!empty($dni))
+               if(!empty($dni))
 					{      
 				$gConexion=new gestorConexion();		        
 	           	$gcliente=new gestorCliente($gConexion);
 				$cliente=$gcliente->get_clienteDni($dni);
 				
 				}
-				
-							
-	  ?> 
-  	  
-	  <?php if(empty($dni)&&$cliente==0)
+
+	if(empty($dni)&&$cliente==0)
 	      {?> 
 	    <tr>		  
       <th  scope="row" class="rotulo">DNI</th>	  
@@ -225,14 +222,15 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
        <th scope="row" class="rotulo" >Domicilio</th>
          <td ><input type="text"   maxlength="100" name="domicilio" title="Ingrese el Domicilio" value="<?php echo isset($_POST['domicilio'])?strtoupper ($_POST['domicilio']):''  ?>"></td>
       </tr>
- <tr>
-       <th scope="row" class="rotulo">Telefono</th>
-         <td ><input type="text"    onKeyPress="return soloNum(event)" name="telefono" title="Ingrese el Telefeno" value="<?php echo isset($_POST['telefono'])?$_POST['telefono']:''  ?>" maxlength="7"></td>
-      </tr>	
-	    <tr>
-      <th scope="row" class="rotulo">Celular(*)</th>
-        <td ><input type="text"  onKeyPress="return soloNum(event)" name="cel" title="Ingrese el Telefeno" value="<?php echo isset($_POST['cel'])?$_POST['cel']:''  ?>" maxlength="10"> </td>
-   </tr>	
+       <tr>
+       <th scope="row" class="rotulo" >Altura del Domicilio</th>
+         <td ><input type="text"   maxlength="100" name="altdomicilio" title="Ingrese el Domicilio" value="<?php echo isset($_POST['altdomicilio'])?strtoupper ($_POST['altdomicilio']):'';  ?>"></td>
+      </tr>
+ 	
+<tr>
+    <th scope="row" class="rotulo">Barrio</th>
+ <td width="281"><input type="text"   name="barrio"   title="Ingrese el Barrio" value="<?php echo isset($_POST['barrio'])?strtoupper($_POST['barrio']):'' ?>"></td>
+   </tr>
 	 <tr>
    <th scope="row" class="rotulo">Provincia</th>
    <td  align="left"><select name="prov"   onChange="document.form.submit()">
@@ -260,9 +258,13 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 <option value="<?php echo $aLoc['idlocalidad'];?>"<?php echo($loc==$aLoc['idlocalidad'])?'selected':'';?>><?php echo $aLoc['descrip'];?>   </option><?php }?>
 </select><br><A HREF="a_localidad.php" CLASS="button">&nbsp;Cargar Localidades</A></td>
     </tr>
-<tr>
-    <th scope="row" class="rotulo">Barrio</th>
- <td width="281"><input type="text"   name="barrio"   title="Ingrese el Barrio" value="<?php echo isset($_POST['barrio'])?strtoupper($_POST['barrio']):'' ?>"></td>
+    <tr>
+       <th scope="row" class="rotulo">Telefono</th>
+         <td ><input type="text"    onKeyPress="return soloNum(event)" name="telefono" title="Ingrese el Telefeno" value="<?php echo isset($_POST['telefono'])?$_POST['telefono']:''  ?>" maxlength="7"></td>
+      </tr>	
+	    <tr>
+      <th scope="row" class="rotulo">Celular(*)</th>
+        <td ><input type="text"  onKeyPress="return soloNum(event)" name="cel" title="Ingrese el Telefeno" value="<?php echo isset($_POST['cel'])?$_POST['cel']:''  ?>" maxlength="10"> </td>
    </tr>
    <tr>
  <th scope="row" class="rotulo">Moroso</th>
@@ -278,6 +280,53 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
 
 </td>
    </tr>
+
+<tr>
+   <td><hr></td>
+   <td>Datos Laborales</td>
+   </tr>
+   <tr>
+       <th scope="row" class="rotulo" >Domicilio del Trabajo</th>
+         <td ><input type="text"   maxlength="100" name="trabajodomicilio" title="Ingrese el Domicilio del trabajo" value="<?php echo isset($_POST['trabajodomicilio'])?strtoupper ($_POST['trabajodomicilio']):'';  ?>"></td>
+      </tr>
+      <tr>
+       <th scope="row" class="rotulo">Telefono del trabajo</th>
+         <td ><input type="text"    onKeyPress="return soloNum(event)" name="trabajotelefono" title="Ingrese el Telefeno" value="<?php echo isset($_POST['trabajotelefono'])?$_POST['trabajotelefono']:'';  ?>" maxlength="7"></td>
+      </tr>	
+       <tr>
+   <th scope="row" class="rotulo">Provincia del trabajo</th>
+   <td  align="left"><select name="trabprov"   onChange="javascript:this.form.submit()">
+    <option value="-1" >-- Prov trab --</option>
+ <?php 	$qprov1="select idprovincia,descrip from t_provincias  order by descrip desc";
+		$rprov1=pg_query($qprov1);
+		$Prov1=isset($_POST['trabprov'])?$_POST['trabprov']:0;
+		while ($aprov1=pg_fetch_array($rprov1)){	
+			
+			?>
+<option value="<?php echo $aprov1['idprovincia'];?>"<?php echo($Prov1==$aprov1['idprovincia'])?'selected':'';?>><?php echo $aprov1['descrip'];?>   </option><?php }?>
+</select></td>
+    </tr>    
+ 
+   <tr>
+   <th scope="row" class="rotulo">Localidad del trabajo</th>
+   <td  align="left"><select name="trabLoc"    >
+    <option value="-1" >-- Localidad --</option>
+ <?php 	 $qLoc1="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov1." order by descrip asc";
+		$rLoc1=pg_query($qLoc1);
+		$loc1=isset($_POST['trabLoc'])?$_POST['trabLoc']:0; 
+		while ($aLoc1=pg_fetch_array($rLoc1)){	
+			
+			?>
+<option value="<?php echo $aLoc1['idlocalidad'];?>"<?php echo($loc1==$aLoc1['idlocalidad'])?'selected':'';?>><?php echo $aLoc1['descrip'];?>   </option><?php }?>
+</select></td>
+    </tr>
+<tr>
+    <th scope="row" class="rotulo">Barrio del trabajo</th>
+ <td width="281"><input type="text"   name="trabajobarrio"   title="Ingrese el Barrio" value="<?php echo isset($_POST['trabajobarrio'])?strtoupper($_POST['trabajobarrio']):'';  ?>"></td>
+   </tr>
+   
+   
+   
    <tr>
     <th scope="row" class="rotulo">Observacion</th>
  <td ><TEXTAREA name="obs" ROWS="5"    COLS="25" class="datos"><?php echo isset($_POST['obs'])?strtoupper ($_POST['obs']):''  ?></TEXTAREA></td>
@@ -307,7 +356,7 @@ if(isset($_POST['oficio'])&&!empty($_POST['oficio'])){ ?>
  
 <td valign=top>
 <div class="t_user">LIBROS     </div>
-(*)Para que funcione el campo codigo, la seleccion de titulo debe estar vacia.<a href="libros_alta.php" target="_blank" class="button">Cargar Libros</a>
+(*)Para que funcione el campo codigo, la seleccion de titulo debe estar vacia.<a href="libros_alta.php" target="_blank" class="button">Cargar Libros</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:v_abrir2('libro_buscar_POPUP.php')"  class="button" >Buscar Libro</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:v_abrir2('libro_listado_POPUP.php')"  class="button">Listado de Libros</a>
 <table width="530" border="1" class="c_user">
         
         <tr>
@@ -512,21 +561,27 @@ echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from
 
 <TABLE align="center" >
 <TR>
-	<TD colspan=3 bgcolor=#66CCFF>PLAN EN CUOTAS</TD>
-	</TR>
-<TR>
+	<TD colspan=3 bgcolor=#66CCFF>Detalle de la venta</TD>
+	</TR>	
+	
+<TR class="t_user"">
 	<TD>Primera cuota se cobro</TD><TD><SELECT NAME="cobrado" OnChange="document.form.submit()">
 	<option value="-1" <?php echo ($_POST['cobrado']==-1)?'selected':' ';?>>- seleccione -</option>
 	<option value="1" <?php echo ($_POST['cobrado']==1)?'selected':' ';?>>No </option>
 	<option value="2" <?php echo ($_POST['cobrado']==2)?'selected':' ';?>>Si </option>
-		<option value="3" <?php echo ($_POST['cobrado']==3)?'selected':' ';?>>Adelanto</option>
+	<!-- <option value="3" <?php echo ($_POST['cobrado']==3)?'selected':' ';?>>Adelanto</option> -->
 	</SELECT>
-	<?php  if($_POST['cobrado']==3){?>
-		$<input type="text"  name="adelanto" size="4" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['adelanto']?>" >';
+	<?php  if($_POST['cobrado']==2){?>
+		$<input type="text"  name="adelanto" size="4" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['adelanto']?>" >
+	<br>
+	Recibo<input type="text"  name="recibo" size="4" onKeyPress="return soloNum(event)" value="<?php echo $_POST['recibo']?>" >
 	<?PHP }?>
-	</TD></TR>
-	
-	<TR><TD>Cant de cuotas</TD><TD><INPUT  TYPE="text" NAME="cant_cuotas" size="2" maxlength="2" value="<?php echo $_POST['cant_cuotas']?>"  onKeyPress="return soloNum(event)"></TD></TR>
+	</TD></TR><?PHP if($_POST['formadecobro']==1){ ?>
+	<TR><TD>Cant de cuotas</TD><TD><?PHP
+			$comboCC=$fp->ComboCantCuotas();
+			$comboCC->__wakeup();
+		echo	$comboCC->toString();			?>
+			<!-- <INPUT  TYPE="text" NAME="cant_cuotas" size="2" maxlength="2" value="<?php echo $_POST['cant_cuotas']?>"  onKeyPress="return soloNum(event)"> --></TD></TR>
 	<TR><TD>Precio X cuota</TD><TD>$<INPUT  TYPE="text" NAME="precio_cuota" size="4" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['precio_cuota']?>" onBlur="document.form.submit();"></TD></TR>
 	<TR><TD>Vto de 1º cuota</TD>
 	<TD><INPUT  TYPE="text" size="10" NAME="vto_fecha" maxlength="10" onBlur="valFecha(this)" value=<?php   echo (isset($_POST['vto_fecha']))?$_POST['vto_fecha']:'';?>>
@@ -542,20 +597,26 @@ echo"<td> <input type=submit name=eli".$c." value=Eliminar onClick=document.from
 	</TD>
 	</TR>
 	 <TR><TD>Cobrar cada </TD><TD><INPUT  TYPE="text" NAME="dia_cada" value="<?php echo $_POST['dia_cada']?>" size="3"> dias</TD></TR> 
-
+<?php } else{?>
+	<!-- Cant de cuotas --><INPUT  TYPE="hidden" NAME="cant_cuotas" size="2" maxlength="2" value="1" >
+	<!-- Precio X cuota --><INPUT  TYPE="hidden" NAME="precio_cuota" size="4"  value="0" >
+	<!-- Vto de 1º cuota fecha --><INPUT  TYPE="hidden" size="10" NAME="vto_fecha" maxlength="10"  value=<?php   echo $_POST['fecha'];?>>
+<!-- Cobrar cada --> <INPUT  TYPE="hidden" NAME="dia_cada" value="1" size="3">
+	<?php
+} echo $_POST['cant_cuotas'] ;?>
 <TR><TD>Total </TD><TD>$<INPUT   TYPE="text" NAME="total" size="5" onKeyPress="return soloNumPto(event)" value="<?php echo $_POST['total']?$_POST['total']:($_POST['precio_cuota']*$_POST['cant_cuotas'])?>"></TD>
 </TR>
 </TABLE>
   
- <CENTER><INPUT TYPE="submit"  onclick="document.form.action='registro_guardar_ventas.php'" class="button" >
- <A HREF="javascript:document.location.href='registro_ventas.php'" class="button">Limpiar Formulario</A></CENTER>
-    <input type="hidden" name="formu" value="registro_ventas">
-
-  </form>
  
 </td></tr>
 
 </table>
+<CENTER><INPUT TYPE="submit"  onclick="document.form.action='registro_guardar_ventas.php'" class="button" >
+ <A HREF="javascript:document.location.href='registro_ventas.php'" class="button">Limpiar Formulario</A></CENTER>
+    <input type="hidden" name="formu" value="registro_ventas">
+  </form>
+ 
 <br>
 </body>
 

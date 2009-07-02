@@ -54,7 +54,7 @@ document.form1.submit();
 	           	$gcliente=new gestorCliente($c);
 				
 	           	$cliente=$gcliente->get_clienteDni($dni);
-			//	print_r($cliente);	
+				print_r($cliente);	
 					}?>
   <input type="hidden" name="form" value="clientes_alta">					
 					<? }?>
@@ -119,7 +119,7 @@ document.form1.submit();
    <th scope="row" class="rotulo">Localidad</th>
    <td  align="left"><select name="Loc"    >
     <option value="-1" >-- Localidad --</option>
- <?php 	echo $qLoc="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov." order by descrip asc";
+ <?php 	$qLoc="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov." order by descrip asc";
 		$rLoc=pg_query($qLoc);
 		$loc=isset($_POST['Loc'])?$_POST['Loc']:$cliente->get_idlocalidad(); 
 		while ($aLoc=pg_fetch_array($rLoc)){	
@@ -149,6 +149,49 @@ document.form1.submit();
 </select>
 
 </td>
+   </tr>
+   <tr>
+   <td><hr></td>
+   <td>Datos Laborales</td>
+   </tr>
+   <tr>
+       <th scope="row" class="rotulo" >Domicilio del Trabajo</th>
+         <td ><input type="text"   maxlength="100" name="trabajodomicilio" title="Ingrese el Domicilio del trabajo" value="<?php echo isset($_POST['trabajodomicilio'])?strtoupper ($_POST['trabajodomicilio']):$cliente->get_trabajodomicilio();  ?>"></td>
+      </tr>
+      <tr>
+       <th scope="row" class="rotulo">Telefono del trabajo</th>
+         <td ><input type="text"    onKeyPress="return soloNum(event)" name="trabajotelefono" title="Ingrese el Telefeno" value="<?php echo isset($_POST['trabajotelefono'])?$_POST['trabajotelefono']:$cliente->get_trabajotelefono();  ?>" maxlength="7"></td>
+      </tr>	
+       <tr>
+   <th scope="row" class="rotulo">Provincia del trabajo</th>
+   <td  align="left"><select name="trabprov"   onChange="javascript:this.form.submit()">
+    <option value="-1" >-- Prov trab --</option>
+ <?php 	$qprov1="select idprovincia,descrip from t_provincias  order by descrip desc";
+		$rprov1=pg_query($qprov1);
+		$Prov1=isset($_POST['trabprov'])?$_POST['trabprov']:$cliente->get_trabajoidprovincia();
+		while ($aprov1=pg_fetch_array($rprov1)){	
+			
+			?>
+<option value="<?php echo $aprov1['idprovincia'];?>"<?php echo($Prov1==$aprov1['idprovincia'])?'selected':'';?>><?php echo $aprov1['descrip'];?>   </option><?php }?>
+</select></td>
+    </tr>    
+ 
+   <tr>
+   <th scope="row" class="rotulo">Localidad del trabajo</th>
+   <td  align="left"><select name="trabLoc"    >
+    <option value="-1" >-- Localidad --</option>
+ <?php 	 $qLoc1="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov1." order by descrip asc";
+		$rLoc1=pg_query($qLoc1);
+		$loc1=isset($_POST['trabLoc'])?$_POST['trabLoc']:$cliente->get_trabajoidlocalidad(); 
+		while ($aLoc1=pg_fetch_array($rLoc1)){	
+			
+			?>
+<option value="<?php echo $aLoc1['idlocalidad'];?>"<?php echo($loc1==$aLoc1['idlocalidad'])?'selected':'';?>><?php echo $aLoc1['descrip'];?>   </option><?php }?>
+</select></td>
+    </tr>
+<tr>
+    <th scope="row" class="rotulo">Barrio del trabajo</th>
+ <td width="281"><input type="text"   name="trabajobarrio"   title="Ingrese el Barrio" value="<?php echo isset($_POST['trabajobarrio'])?strtoupper($_POST['trabajobarrio']):$cliente->get_trabajobarrio();  ?>"></td>
    </tr>
    <tr>
     <th scope="row" class="rotulo">Observacion</th>
@@ -237,6 +280,47 @@ document.form1.submit();
 						 	 } ?>>SI es Moroso  </option>
 </select></td>
    </tr>
+    <tr>
+   <td><hr></td>
+   <td>Datos Laborales</td>
+   </tr>
+    <tr>
+       <th scope="row" class="rotulo">Domicilio del Trabajo</th>
+         <td><input type="text"  maxlength="100" name="trabajodomicilio" title="Ingrese el Domicilio" value="<?php echo isset($_POST['domicilio'])?strtoupper ($_POST['domicilio']):'';  ?>"></td>
+      </tr>
+      <tr>
+       <th scope="row" class="rotulo">Telefono del Trabajo</th>
+         <td ><input type="text"  onKeyPress="return soloNum(event)" name="trabajotelefono" title="Ingrese el Telefeno" value="<?php echo isset($_POST['telefono'])?$_POST['telefono']:'';  ?>" maxlength="7"></td>
+      </tr>	
+       <tr>
+   <th scope="row" class="rotulo">Provincia del Trabajo</th>
+   <td  align="left"><select name="trabprov"  onChange="this.form.submit()">
+    <option value="-1" >-- Prov Trab --</option>
+ <?php 	$qprov1="select idprovincia,descrip from t_provincias  order by descrip desc";
+		$rprov1=pg_query($qprov1);
+		$Prov1=isset($_POST['trabprov'])?$_POST['trabprov']:'';
+		while ($aprov1=pg_fetch_array($rprov1)){	
+			
+			?>
+<option value="<?php echo $aprov1['idprovincia'];?>"<?php echo($Prov1==$aprov1['idprovincia'])?'selected':'';?>><?php echo $aprov1['descrip'];?>   </option>
+<?php }?>
+</select></td>
+    </tr>    
+ 
+   <tr>
+   <th scope="row" class="rotulo">Localidad del Trabajo</th>
+   <td  align="left"><select name="trabLoc"  >
+    <option value="-1" >-- Localidad --</option>
+ <?php 	$qLoc1="select idlocalidad,descrip from t_localidades where idprovincia=".$Prov1." order by descrip asc";
+		$rLoc1=pg_query($qLoc1);
+		$loc1=isset($_POST['trabLoc'])?$_POST['trabLoc']:''; 
+		while ($aLoc1=pg_fetch_array($rLoc1)){	
+			
+			?>
+<option value="<?php echo $aLoc1['idlocalidad'];?>"<?php echo($loc1==$aLoc1['idlocalidad'])?'selected':'';?>><?php echo $aLoc1['descrip'];?>   </option><?php }?>
+</select>
+</td>
+    </tr>
    <tr>
     <th scope="row" class="rotulo" >Observacion</th>
  <td ><TEXTAREA name="obs"   ROWS="5" COLS="25"><?php echo isset($_POST['obs'])?strtoupper ($_POST['obs']):'';  ?></TEXTAREA></td>

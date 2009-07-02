@@ -1,8 +1,7 @@
-<?php include("cabecera.php");
-
+<?php 
+include("cabecera.php");
 
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html lang="es"><head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
@@ -12,6 +11,8 @@
 <META HTTP-EQUIV="Content-language" CONTENT="es">
 
 <?php include("funcionesGrales.php");?>
+
+
 <link rel="stylesheet" href="css/jq.css" type="text/css" media="print, projection, screen" />
 <script type="text/javascript" src="js/tablesorter/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/tablesorter/jquery.tablesorter.js"></script>
@@ -22,7 +23,7 @@
 <script type="text/javascript">$(function() {
 		$("table")
 			.tablesorter({widthFixed: true, widgets: ['zebra']})
-			.tablesorterPager({container: $("#pager")});
+		
 	});
     </script>
 
@@ -33,13 +34,44 @@
 </span><br>
 </div>
 <div class="bienvenidos">
-<?php echo $r->inf2("submenu.php?menu=5");  ?>
+<?php echo $r->inf2("submenu.php?menu=5"); $ttitulo=strtoupper ($_POST['ttitulo']); ?>
 </div>
 <div class="descripcion">
+     
 
-<?php
+      </div>
+<td  class="centro">
 
-$sql="select codigo,f_desc_genero(idgenero),f_desc_editorial(ideditorial),f_desc_titulo(idtitulo) from t_ejemplares order by  codigo";
+<div class="t_datos"><div class="titulos"> BUSCAR LIBROS </div></div>
+<div class="descripcion">
+
+<form  method="post" action="" name="form">
+ 
+  <table >          
+
+
+<tr>
+      <th scope="row" >Titulo</th>
+	  <td>	
+	  <input type="text" name="ttitulo" onBlur="document.form.submit()" value="<?php echo $ttitulo ?>"> 
+	   
+  <?php 
+   if(isset($_POST['ttitulo']) && !empty($ttitulo)){
+  
+			?>
+				
+		    
+   	
+  </td> </tr>
+  </table>
+  
+  </form>
+    <?php } 
+		     if(!empty($ttitulo)){
+$sql= " Select  codigo,f_desc_genero(idgenero),f_desc_editorial(ideditorial),f_desc_titulo(idtitulo) from t_libros l 
+inner join t_ejemplares e on e.idtitulo=l.idlibro
+where descrip ilike'%$ttitulo%'  order by descrip";
+
 $b=1;
  $banfondo=true;
 	$q=pg_query($sql);
@@ -93,39 +125,19 @@ while($r=pg_fetch_array($q)){
 <?php }	
 		?>
 </tbody>
-</TABLE>
-<div id="pager" class="pager">
-	<form name="datos">
-		<img src="js/tablesorter/addons/pager/icons/first.png" class="first"/>
-		<img src="js/tablesorter/addons/pager/icons/prev.png" class="prev"/>
-		<input type="text" class="pagedisplay"/>
-		<img src="js/tablesorter/addons/pager/icons/next.png" class="next"/>
-		<img src="js/tablesorter/addons/pager/icons/last.png" class="last"/>
-		<select class="pagesize">
-			<option selected="selected"  value="10">10</option>
-			<option value="20">20</option>
-			<option value="30">30</option>
-			<option  value="40">40</option>
-		</select>
-	</form>
-</div>
 
-
-<?php } ?>
-	
-	
-	</div>
-
-
-</td>
+<?php } 
+		     
+		     }
+?>
+</div></td>
 </tr>
 </table>
 </div>
 <div class="pie">
-
 <div class="letracapital">Action2</div>
 <p class="copy">Desarrollo de sistemas</p>
-</div></div>
+</div>
+</div>
 </div>
 </body></html>
-	

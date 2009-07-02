@@ -3,7 +3,7 @@ session_start();
 
 function __autoload($clase){
 	$PATH_CLASS='./clases/';
-	require_once($PATH_CLASS.$clase. '.class.php');
+	require_once($PATH_CLASS.$clase.'.class.php');
 } 
 
 

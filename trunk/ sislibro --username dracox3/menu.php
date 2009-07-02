@@ -29,8 +29,13 @@ $user=$_SESSION['miuser'];
 <td  class="izquierda">
 <div class="t_menu">MENU</div>
  <div id="c_menu"> 
-<?php echo $r->Menu(); ?>
+<?php echo $r->Menu(); 
+
+?>
       
+ 
+
+
 
 </div>
 
@@ -38,7 +43,7 @@ $user=$_SESSION['miuser'];
 
 <td width="580" class="centro">
 <div class="titulos">SISTEMA LIBROS</div>
-<div class="descripcion">
+<div class="descripcion"><a href="copia.php">Copia BD</a>
  <FONT SIZE="3" COLOR="#FF0000"><div id="description" class="c_datos"><FONT SIZE="" COLOR="#FFFFFF">.</FONT></div>
 	 </FONT>
 

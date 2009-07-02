@@ -34,7 +34,7 @@ $error=valida_empleado($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$b
 
 $zona=($oficio==2)?$zona:0;
 $sql="INSERT INTO t_empleados (id_empleados,nombre,apellido,dni,domicilio,barrio,id_localidad,id_provincia,tel,obs,cel,estado,num_empleados,fecha_aud,hora_aud,usuario_aud,porcentaje ) VALUES ($Max,'$nombre','$apellido',$dni,'$domicilio','$barrio',$Loc,$prov,$telefono,'$obs',$cel,0,$num,(select fecha()),(select hora()),'".$r->getUser()."',$porcentaje)";
-echo$sql.="; INSERT INTO t_oficios(id_oficio,id_empleados) values($oficio,$Max)";
+$sql.="; INSERT INTO t_oficios(id_oficio,id_empleados) values($oficio,$Max)";
 $r=pg_query($sql);
 if($r){
 

@@ -32,7 +32,7 @@ $form=$_POST['form'];
 			$costo=0;
 			}
 						
-echo$cmdSQL="select * from t_ejemplares where idgenero=$tipo and ideditorial=$editorial and idtitulo=$titulo";
+$cmdSQL="select * from t_ejemplares where idgenero=$tipo and ideditorial=$editorial and idtitulo=$titulo";
         $rows=pg_fila($cmdSQL);
         if(!empty($rows[0])){
         	$error[]="El ejemplar ya esta cargado";

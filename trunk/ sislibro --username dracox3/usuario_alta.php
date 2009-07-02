@@ -37,13 +37,13 @@ $user=$_SESSION['miuser'];
 <div class="descripcion">
 
 
-<form name="form1" method="post" action="usuario_guardar.php">
+<form name="form2" method="post" action="">
 <table >
 <tr> <td>
   INGRESE LOS DATOS DEL USUARIO A DAR DE ALTA
   </td></tr>
 <tr> <td>  
-USUARIO<input name="alta_user" type="text"  id="alta_user" value="<?php echo $_POST['alta_user'];?>" onBlur="document.form1.action='usuario_alta.php';submit();">
+USUARIO<input name="alta_user" type="text"  id="alta_user" value="<?php echo $_POST['alta_user'];?>" onBlur="submit();">
 </td></tr> 
   <tr> <td>
   CONTRASE&Ntilde;A<input name="alta_pass" type="password"  id="alta_pass" value="<?php echo $_POST['alta_pass'];?>">
@@ -66,7 +66,7 @@ USUARIO<input name="alta_user" type="text"  id="alta_user" value="<?php echo $_P
 			<?php }?>
 			</select>
 </td></tr>
-<tr><td>		<INPUT TYPE="submit"   >
+<tr><td>		<INPUT TYPE="submit" onclick="document.form2.action='usuario_guardar.php'" >
         
         <input name="reestablecer" type="reset" id="reestablecer" value="RESTABLECER">
      </td></tr>
@@ -78,8 +78,8 @@ if (pg_num_rows($rvtemp) > 0)
 {?>
 <script javascript>
 	alert('Usuario Existente');
-	document.form1.Submit.disabled=true;
-	document.form1.alta_user.select();
+	document.form2.Submit.disabled=true;
+	document.form2.alta_user.select();
 </script>
 <?php
 } 
