@@ -38,20 +38,26 @@ include("cabecera.php");
 </span><br>
 </div>
 <div class="bienvenidos">
-<?php echo $r->inf2('empleados_vales.php');  ?>
-</div>
+<?php echo $r->inf2('empleados_vales.php'); 
+$gEmpleado=new gestorEmpleado($c);
 
-<div class="t_datos"><div class="titulos">INGRESO DE VALES</div></div>
-
-<p> 
-<?PHP
 
 if(isset($_POST['empleado'])&&!empty($_POST['empleado'])){ 	
 	$id_empleado=$_POST['empleado'];
-	echo $cmd="select v.fecha,v.monto from t_empleados e inner join t_vales v on (e.id_empleados=v.id_empleado ) where e.id_empleados=".$id_empleado."  ";
+	 $cmd="select v.fecha,v.monto,v.* from t_empleados e inner join t_vales v on (e.id_empleados=v.id_empleado ) where e.id_empleados=".$id_empleado." ORDER BY V.FECHA  ";
 	$query=pg_query($cmd);
 	if(pg_num_rows($query)>0){
+		
+		$empleado=$gEmpleado->get_EmpleadoId($_POST['empleado']);
+		
 ?>
+
+</div>
+
+<div class="t_datos"><div class="titulos">VALES REGISTRADOS : <br> Num Empleado:<? echo $empleado->get_num_empleado()." ".$empleado->get_apellido()."; ".$empleado->get_nombre(); ?></div></div>
+
+<p> 
+
 
 
 <div id="overlay">
@@ -60,8 +66,8 @@ if(isset($_POST['empleado'])&&!empty($_POST['empleado'])){
 <TABLE  cellspacing="1" class="tablesorter"  >
 <thead> 
 <TR>
-	<th width="80">FECHA </th>
-	<th >VALE MONTO</th>
+	<th >FECHA </th><th >N° RECIBO</th><th >VALE MONTO</th>
+	<th width="30" >DETALLE</th>
 </TR>
 </thead> 
 <tbody>
@@ -74,7 +80,9 @@ if(isset($_POST['empleado'])&&!empty($_POST['empleado'])){
 <TR >
 	
 	<TD align="center"><?PHP echo $rows['fecha'];?></TD>
-	<TD><?PHP echo $rows['monto'] ?></TD>
+	<TD><?PHP echo $rows['numrecibo'] ?></TD>
+		<TD><?PHP echo $rows['monto'] ?></TD>
+			<TD><?PHP echo $rows['detalle'] ?></TD>
  	 
 </TR>
 <?php }	
@@ -82,7 +90,7 @@ if(isset($_POST['empleado'])&&!empty($_POST['empleado'])){
 </tbody>
 </TABLE>
 
-</div>
+</div><br>
 		<div id="pager" class="pager">
 	 <form name="datos">
 		<img src="js/tablesorter/addons/pager/icons/first.png" class="first"/>

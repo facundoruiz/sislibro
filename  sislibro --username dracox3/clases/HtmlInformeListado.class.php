@@ -1,6 +1,5 @@
 <?	
 class HtmlInformeListado extends HtmlInforme{
-	private static  $num_infomesListado=0;
 	protected $rs;
 	private $numFilas1=60;
 	private $numFilas=60;
@@ -10,31 +9,14 @@ class HtmlInformeListado extends HtmlInforme{
 	protected $pie;
 	private $numerar=true;
 	private $tituloall=false;
-	private $paginar=true;
 	public $listado;
 	
-	function __construct($p_rs=NULL, $p_nombre=""){
-		if($p_nombre!="")
-			$this->setNombre($p_nombre);
-		else
-			$this->setNombre("informeListado".HtmlInformeListado::$num_infomesListado);
-		
-		HtmlInformeListado::$num_infomesListado++;
-		
-		if(isset($p_rs)){
-			if(is_resource($p_rs)){
-				$this->setRS($p_rs);
-			}
-			else{
-				$this->rs=$p_rs;
-				$this->filacero=new HtmlGrupo();
-				$this->contLineas=count($this->rs);
-				$this->numHojas= ceil((($this->contLineas - $this->numFilas1)/$this->numFilas)+1);
-			}
-		}	
+	function __construct($p_rs=NULL){
+		if(isset($p_rs))
+			$this->setRS($p_rs);
 		
 		$this->titulo=new HtmlTag("");
-		//$this->encabezado=new HtmlTag("");		
+		$this->encabezado=new HtmlTag("");		
 		$this->listado=new HtmlListado($p_rs);
 	}
 	
@@ -60,14 +42,9 @@ class HtmlInformeListado extends HtmlInforme{
 						<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
 					</tr>
 					<tr>
-					    <td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>';
-			if($this->paginar){
-				$pie.='<td><div align="center"> Pagina '.$p_pagina.' de '. $this->getNumHojas().'</div> </td>';
-			}
-			else{
-				$pie.='<td><div align="center">   </div> </td>';
-			}
-			$pie.='	<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					    <td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					    <td><div align="center"> Pagina '.$p_pagina.' de '. $this->getNumHojas().'</div> </td>
+						<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
 					</tr>
 					</table>';
 					/*
@@ -150,21 +127,44 @@ class HtmlInformeListado extends HtmlInforme{
 		return $this->contLineas;
 	}
 	function toString(){
-		for($i=1;$i<=$this->numHojas;$i++){
+
+		$informe='
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" bordercolor="#000000" >
+					<tr>
+					    <td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					    <td>'. $this->encabezado->toString() .'</td>
+						<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					</tr>
+					<tr>
+					    <td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					    <td align="right">'. $this->titulo->toString() .'</td>
+    					<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+  					</tr><tr>
+					    <td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					    <td align="right">'.$this->getListado(1).'</td>
+						<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					</tr>
+					<tr>
+					    <td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					    <td align="right">'. $this->getPie(1) .'</td>
+						<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					</tr>
+					
+				</table>';
+		echo $informe;
+
+		/*echo $this->getEncabezado();
+		echo $this->getTitulo();
+		echo $this->getCuerpo(1);
+		echo $this->getPie(1);*/
+		for($i=2;$i<=$this->numHojas;$i++){
 						$informe='
-				<table width="100%" border="0" cellpadding="0" cellspacing="0" bordercolor="#000000">';
-					
-						if(isset($this->encabezado)){
-					    echo '<tr><td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" bordercolor="#000000">
+					<tr>
+					    <td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
 					    <td>'. $this->encabezado->toString() .'</td>
-						<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td></tr>	';				
-						}/*
-						else
-						{
-						echo '<tr><td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
-					    <td>'. $this->encabezado->toString() .'</td>
-						<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td></tr>	';			}*/
-					
+						<td width='. $this->toPixel($this->getMargenDe()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
+					</tr>';
 					if($this->tituloall){
 					$informe.='	<tr>
 					    <td width='. $this->toPixel($this->getMargenIz()). ' align="right" nowrap bordercolor="#FFFFFF">&nbsp;</td>
@@ -195,9 +195,6 @@ class HtmlInformeListado extends HtmlInforme{
 	}
 	function setTituloAll($p_bool){
 		$this->tituloall=$p_bool;
-	}
-	function setPaginar($p_bool){
-		$this->paginar=$p_bool;
 	}
 	
 }

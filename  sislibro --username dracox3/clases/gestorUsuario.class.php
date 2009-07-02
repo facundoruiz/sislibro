@@ -126,7 +126,7 @@ $this->menu->addItem($aMenu['link'],$aMenu['nombre'],'','class="button" ',$aMenu
 		$qtemp="select funcion from t_usuarios where usuario='$userLog'";
 		$rtemp=pg_query($qtemp);
 		$atemp=pg_fetch_row($rtemp);
-		if ($atemp[0]==1)
+		if ($atemp[0]==1||$atemp[0]==2)
 		{
 			//convertir todo a mayusculas	
 			$username=trim(strtr(strtoupper($username), 'áéíóúñ', 'AEIOUÑ'));

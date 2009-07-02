@@ -68,7 +68,7 @@ include("funcionesGrales.php");
   <center>
   <table border="1" width="32%" bordercolor="#000000" cellspacing="0" cellpadding="0">
     <tr>
-      <td width="18%" bgcolor="#FFFFFF" bordercolor="#FF0000"><IMG SRC="img/action2_tm.gif" WIDTH="150" HEIGHT="85" BORDER="0" ALT="info()" onclick="javascript:window.open('action.html', 'Action2', 'top=0,left=0,width=550, height=500, scrollbars=1')"></td>
+      <td width="18%" bgcolor="#FFFFFF" bordercolor="#FF0000"><IMG SRC="img/action2_tm.gif" WIDTH="150" HEIGHT="85" BORDER="0" ALT="info()" onclick="javascript:window.open('action.html', 'Action2', 'top=0,left=0,width=550, height=300, scrollbars=1')"></td>
       <td width="82%" bgcolor="#FFFFFF"><CENTER>
  <BR><IMG SRC="img/Libros.JPG" WIDTH="85" HEIGHT="85" BORDER="0"  ><FONT SIZE="2" COLOR="">Sistema Libro<br>Creado y Desarrollado por:<br>Action 2&trade;</FONT></CENTER></td>
     </tr>

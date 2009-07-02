@@ -19,7 +19,7 @@ class gestorEmpleado extends Empleado{
 	}
 	public function  get_EmpleadoDni($p_dni){
 		$this->getConexion();
-		$cmd="select *,(select id_oficio from t_oficios where id_empleados=e.id_empleados) as id_oficio from t_empleados e where dni=".$p_dni."";
+		$cmd="select *,(select id_oficio from t_oficios where id_empleados=e.id_empleados limit 1) as id_oficio from t_empleados e where dni=".$p_dni."";
 		$query=pg_query($cmd);
 		$r=pg_fetch_array($query);
 		
@@ -45,7 +45,9 @@ class gestorEmpleado extends Empleado{
 	}
 	public function  get_EmpleadoId($p_id){
 		$this->getConexion();
-		$cmd="select *,(select id_oficio from t_oficios where id_empleados=e.id_empleados) as id_oficio, (select descoficio(1,e.id_empleados))   as oficio from t_empleados e where id_empleados=".$p_id."";
+		 $cmd="select *,(select id_oficio from t_oficios where id_empleados=".$p_id." limit 1) as id_oficio, (select descoficio(1,o.id_oficio) limit 1) as oficio from t_empleados e 
+inner join t_oficios o on o.id_empleados=e.id_empleados 
+where e.id_empleados=".$p_id."  limit 1";
 		$query=pg_query($cmd);
 		$r=pg_fetch_array($query);
 		if($r>0){
@@ -101,7 +103,7 @@ where o.id_oficio=1 or o.id_oficio=3");
 		$comboc=new HtmlCombo('','cobrador',20,true);
 					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
 inner join t_oficios o on (o.id_empleados=e.id_empleados)
-where o.id_oficio=2 ");
+where o.id_oficio=2 or o.id_oficio=3 ");
 					
 					$comboc->addItem(0,'--Cobrador-');
 					while($ro=pg_fetch_array($qo)){
@@ -122,6 +124,7 @@ where o.id_oficio=3 ");
 						};
 		return $combovc;
 	}
+	
 	public function ComboEmpleado($idOficio=NULL){
 		
 		$comboe=new HtmlCombo('','empleado',20,true);
@@ -138,7 +141,7 @@ where o.id_oficio=$idOficio ");
 				}else{
 					$comboe->addItem(0,'--Empleados-');
 					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
-inner join t_oficios o on (o.id_empleados=e.id_empleados)  ");
+--inner join t_oficios o on (o.id_empleados=e.id_empleados)  ");
 					while($ro=pg_fetch_array($qo)){
 						$comboe->addItem($ro[0],$ro[1]);
 						};
@@ -159,7 +162,7 @@ inner join t_oficios o on (o.id_empleados=e.id_empleados)  ");
 		return $comboo;
 	}*/
 	public function ComboOficios($valor=false){
-		if(!$valor){
+		//if(!$valor){
 		$comboo=new HtmlCombo('','oficio',20,true);
 					$qo=pg_query("select item,descrip from diccionario where codigo=1 ");
 				    $comboo->setOnChange("javascript:document.form1.submit()");	
@@ -168,7 +171,7 @@ inner join t_oficios o on (o.id_empleados=e.id_empleados)  ");
 						$comboo->addItem($ro[0],$ro[1]);
 						};
 		return $comboo;
-		}else{
+	/*	}else{
 			$comboo=new HtmlCombo('','oficio',20,true);
 					$qo=pg_query("select item,descrip from diccionario where (codigo=1 and item=2) or (codigo=1 and item>4)");
 				    $comboo->setOnChange("javascript:document.form1.submit()");	
@@ -178,8 +181,22 @@ inner join t_oficios o on (o.id_empleados=e.id_empleados)  ");
 						};
 		return $comboo;
 			
-		}
+		}*/
 	}
+	public function ComboJefeGrupo(){
+		
+		$comboc=new HtmlCombo('','jefegrupo',20,true);
+					$qo=pg_query("select e.id_empleados,(apellido||','||nombre) from t_empleados e
+inner join t_oficios o on (o.id_empleados=e.id_empleados)
+where o.id_oficio=4 ");
+					
+					$comboc->addItem(0,'--Jefe de Grupo-');
+					while($ro=pg_fetch_array($qo)){
+						$comboc->addItem($ro[0],$ro[1]);
+						};
+		return $comboc;
+	}
+	
 	
 }
 

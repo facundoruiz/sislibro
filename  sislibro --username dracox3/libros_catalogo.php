@@ -23,7 +23,7 @@ include("cabecera.php");
 </span><br>
 </div>
 <div class="bienvenidos">
-<?php echo $r->inf2("submenu.php?menu=5");  ?>
+<?php echo $r->inf2("submenu.php?menu=8");  ?>
 
 
 <div class="t_datos"><div class="titulos">GENERADOR DE CATALOGO</div></div>
@@ -56,7 +56,7 @@ $libro=$gl->get_libroCodigo($_POST['codigo']);
 <form action="" method="post" name="form">
 Nombre del Catalogo
 <input name="Nombre" type="text"  maxlength="50" value=<?php echo $_POST['Nombre'] ?>><BR>
-(*)Para que funcione el campo codigo, la seleccion de titulo debe estar vacia.<a href="libros_alta.php" target="_blank" class="button">Cargar Libros</a><HR>
+(*)Para que funcione el campo codigo, la seleccion de titulo debe estar vacia.<a href="libros_alta.php" target="_blank" class="button">Cargar Libros</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:v_abrir2('libro_buscar_POPUP.php')"  class="button" >Buscar Libro</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:v_abrir2('libro_listado_POPUP.php')"  class="button">Listado de Libros</a><HR>
 <table width="530" border="1" class="c_user">
         
         <tr>

@@ -1,7 +1,7 @@
 <?
-abstract class  HtmlInforme extends HtmlControl {
-	private $margenIz=2;
-	private $margenDe=2.0;
+abstract class  HtmlInforme {
+	private $margenIz=1.5;
+	private $margenDe=1.5;
 	static private $ESCALA=0.0264;
 	public $titulo;
 	public $encabezado;

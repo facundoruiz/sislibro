@@ -15,6 +15,13 @@ require('valida.php');
 						$barrio=strtoupper ($_POST['barrio']);
 						$obs=strtoupper ($_POST['obs']);
 						$altdomicilio=strtoupper ($_POST['altdomicilio']);
+						
+						$trabajodomicilio=strtoupper ($_POST['trabajodomicilio']);
+						$trabajotelefono=$_POST['trabajotelefono'];
+						$trabajobarrio=strtoupper ($_POST['trabajobarrio']);
+						$trabajoprov=$_POST['trabprov'];
+						$trabajoLoc=$_POST['trabLoc'];
+						
 $error=valida_clientes($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$barrio,$obs,$cel);
 
  if(sizeof($error)>0)
@@ -27,7 +34,7 @@ $error=valida_clientes($dni,$apellido,$nombre,$domicilio,$telefono,$prov,$Loc,$b
           $rows=pg_fila($cmd);
           $Max=empty($rows[0])?1:$rows[0];
        
-$sql="INSERT INTO t_clientes (id_clientes,nombre,apellido,dni,domicilio,barrio,id_localidad,id_provincia,tel,obs,cel,moroso,estado,fecha_aud,hora_aud,usuario_aud,altura ) VALUES ($Max,'$nombre','$apellido',$dni,'$domicilio','$barrio',$Loc,$prov,$telefono,'$obs',$cel,$moroso,0,(select fecha()),(select hora()),'".$r->getUser()."','$altdomicilio')";
+$sql="INSERT INTO t_clientes (id_clientes,nombre,apellido,dni,domicilio,barrio,id_localidad,id_provincia,tel,obs,cel,moroso,estado,fecha_aud,hora_aud,usuario_aud,altura, trabajo_domicilio, trabajo_barrio , trabajo_id_localidad, trabajo_id_provincia, trabajo_tel) VALUES ($Max,'$nombre','$apellido',$dni,'$domicilio','$barrio',$Loc,$prov,'$telefono','$obs',$cel,$moroso,0,(select fecha()),(select hora()),'".$r->getUser()."','$altdomicilio','$trabajodomicilio','$trabajobarrio',$trabajoprov,$trabajoLoc,'$trabajotelefono'')";
 
 $r=pg_query($sql);
 if($r){

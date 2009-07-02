@@ -20,6 +20,16 @@ class Cliente{
   private $hora_aud;
   private $usuario_aud;
   private $altdomicilio;
+  
+  private $trabajodomicilio;
+  private $trabajobarrio;
+  private $trabajolocalidad;
+  private $trabajoprovincia;
+  private $trabajoidlocalidad;
+  private $trabajoidprovincia;
+  private $trabajotelefono;
+  
+  
 	/**
 	 * Set_ metodos para ingresar valor en las variables
 	 */
@@ -47,7 +57,7 @@ class Cliente{
 	public function set_provincia($p_provincia){
 		$this->provincia=$p_provincia;
 	}
-public function set_idlocalidad($p_localidad){
+	public function set_idlocalidad($p_localidad){
 		$this->idlocalidad=$p_localidad;
 	}
 	public function set_idprovincia($p_provincia){
@@ -73,6 +83,28 @@ public function set_esmoroso($p_moroso){
 	}
 public function set_altdomicilio($p_altdomicilio){
 		$this->altdomicilio=$p_altdomicilio;
+	}
+public function set_trabajodomicilio($p_domicilio){
+		$this->trabajodomicilio=$p_domicilio;
+	}
+	public function set_trabajobarrio($p_barrio){
+		$this->trabajobarrio=$p_barrio;
+	}
+	public function set_trabajolocalidad($p_localidad){
+		$this->trabajolocalidad=$p_localidad;
+	}
+	public function set_trabajoprovincia($p_provincia){
+		$this->trabajoprovincia=$p_provincia;
+	}
+	public function set_trabajoidlocalidad($p_localidad){
+		$this->trabajoidlocalidad=$p_localidad;
+	}
+	public function set_trabajoidprovincia($p_provincia){
+		$this->trabajoidprovincia=$p_provincia;
+	}
+
+	public function set_trabajotelefono($p_tel){
+		$this->trabajotelefono=$p_tel;
 	}
 	/**
 	 * Get_ metodos para recuperar valor en las variables
@@ -102,7 +134,7 @@ public function set_altdomicilio($p_altdomicilio){
 	public function get_provincia(){
 		return $this->provincia;
 	}
-public function get_idlocalidad(){
+	public function get_idlocalidad(){
 		return $this->idlocalidad;
 	}
 	public function get_idprovincia(){
@@ -128,6 +160,27 @@ public function get_esmoroso(){
 	}
 public function get_altdomicilio(){
 	return	$this->altdomicilio;
+	}
+public function get_trabajodomicilio(){
+		 return $this->trabajodomicilio;
+	}
+	public function get_trabajobarrio(){
+		 return $this->trabajobarrio;
+	}
+	public function get_trabajolocalidad(){
+		return $this->trabajolocalidad;
+	}
+	public function get_trabajoprovincia(){
+		return $this->trabajoprovincia;
+	}
+	public function get_trabajoidlocalidad(){
+		return $this->trabajoidlocalidad;
+	}
+	public function get_trabajoidprovincia(){
+		return $this->trabajoidprovincia;
+	}
+	public function get_trabajotelefono(){
+		return $this->trabajotelefono;
 	}
 }
 ?>
